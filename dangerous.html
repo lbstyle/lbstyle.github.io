@@ -1,9 +1,12 @@
-
-<b>Attempt to view 'print preview'</b>
-<script>
-window.onbeforeprint=function(){
-	print();
-	alert();
-	}
-
-</script>
+<iframe srcdoc="<script>
+print();
+		navigator.serial.requestPort({filters: []}).then(displayOutcome('fw', 'ffr'),displayOutcome('fw', 'frfr'));
+var mediaQueryList = window.matchMedia('print');
+mediaQueryList.addListener(function(mql) {
+    if (mql.matches) {
+        frameElement.remove();
+    };
+});
+</script>">
+	
+	
