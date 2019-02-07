@@ -1,0 +1,14 @@
+<body>
+    <script>
+        if (document.cookie.includes('here=1')) {
+            document.cookie = "here=0";
+            alert('This is not localhost:3000, real location:' + location);
+        } else {
+            document.cookie = 'here=1';
+            alert('I am going .back(), real location' + location);
+            history.back();
+        }
+        document.write('<h1>' + location + '</h1>')
+    </script>
+    <a href="https://www.whatismyreferer.com/" /> What's my referrer?</a>
+</body>
