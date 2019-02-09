@@ -8,7 +8,11 @@
 function Crash(){
 t=document.createElement('input');
 t.type='date';
-t.onclick = function(){var recognition = new webkitSpeechRecognition();recognition.start();}
+t.onclick = function(){window.webkitStorageInfo.requestQuota(PERSISTENT, 1024*1024*280, function(grantedBytes) {
+    window.webkitRequestFileSystem(PERSISTENT, grantedBytes, onInitFs, errorHandler); 
+}, function(e) {
+    console.log('Error', e); 
+});}
 document.documentElement.webkitRequestFullScreen();
 document.body.appendChild(t);
 t.click();
