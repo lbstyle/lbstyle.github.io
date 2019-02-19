@@ -13,7 +13,7 @@ function spoof() {
   setTimeout('w.history.back();', 2000);
 
   // Step 4: Go forward, but interrupt with a quick fragment navigation.
-  setTimeout('w.history.forward(); setTimeout("w.location = \'attacker.html\'", 0);', 2100);
+  setTimeout('w.history.forward(); setTimeout("w.location = \'crash.html\'", 0);', 2100);
 
 }
 </script>
