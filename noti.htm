@@ -1,5 +1,15 @@
-<!DOCTYPE html>
-<title></title>
-<body>
-<input type=button value='Step 1' onclick="window.open('navigate.htm','','width=401,height=401')">
-</body>
+
+<button onclick="chrome();">Navigating to "chrome://"</button>
+<script>
+function chrome() {
+  var x = window.open("https://www.google.com/");
+  setTimeout(function(){x.location = "chrome://chrome";}, 2000)
+}
+</script>
+<button onclick="file();">Navigating to "file://"</button>
+<script>
+function file() {
+  var x = window.open("https://www.google.com/");
+  setTimeout(function(){x.location = "file:///";}, 2000)
+}
+</script>
