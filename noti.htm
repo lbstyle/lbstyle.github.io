@@ -12,7 +12,7 @@
         v = setInterval(`x=window.open('','test', 'width=400 height=300')`);
         i = setInterval(`
             x.document.write("<h1>url spoofing...</h1>");
-            x.document.location = "https://www.twitter.com:1234"
+            x.document.location = "https://www.twitter.com"
             clearInterval(v);
             clearInterval(i);
             `, 3333);        
