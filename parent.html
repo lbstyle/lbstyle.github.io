@@ -6,6 +6,7 @@ function requestme() {
 		alert("please enable chrome://flags/#enable-experimental-web-platform-features");
 		return;
 	}
+	document.body.webkitRequestFullscreen();
 	setTimeout(function() {top.location="https://google.com"}, 0);
 	navigator.usb.requestDevice({filters: [{}]}).then(device => {console.log(device.productName);}).catch(error => { console.log(error); });
 }
