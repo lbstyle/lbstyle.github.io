@@ -7,9 +7,10 @@ function requestme() {
 		alert("please enable chrome://flags/#enable-experimental-web-platform-features");
 		return;
 	}
-var recognition = new webkitSpeechRecognition();recognition.start();
+		document.body.webkitRequestFullscreen();
+
 	setTimeout(function() {}, 0);
-	navigator.usb.requestDevice({filters: [{}]}).then(device => {console.log(device.productName);}).catch(error => { console.log(error); });
+var recognition = new webkitSpeechRecognition();recognition.start();
 }
 	</script>
 <a href='#' onclick="requestme()">go to google.com</a>
