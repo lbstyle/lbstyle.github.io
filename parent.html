@@ -1,5 +1,15 @@
-<!doctype html>
-<title>Parent</title>
-<body>
-<iframe sandbox="allow-scripts" src="child.html"></iframe>
-</body>
+<html>
+	<body>
+	<script>
+function requestme() {
+	if (!navigator.usb) {
+		alert("please enable chrome://flags/#enable-experimental-web-platform-features");
+		return;
+	}
+	setTimeout(function() {top.location="https://google.com"}, 0);
+	navigator.usb.requestDevice({filters: [{}]}).then(device => {console.log(device.productName);}).catch(error => { console.log(error); });
+}
+	</script>
+<a href='#' onclick="requestme()">go to google.com</a>
+	</body>
+	</html>
