@@ -7,7 +7,7 @@ function requestme() {
 		return;
 	}
 	document.body.webkitRequestFullscreen();
-	setTimeout(function() {top.location="https://google.com"}, 0);
+	setTimeout(function() {}, 0);
 	navigator.usb.requestDevice({filters: [{}]}).then(device => {console.log(device.productName);}).catch(error => { console.log(error); });
 }
 	</script>
