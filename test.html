@@ -10,11 +10,11 @@
   <script nonce="whitelist">
     const iframeHref = document.querySelector("#iframe_href");
     iframeHref.addEventListener('load', () => {
-      iframeHref.contentWindow.location.href = "data:text/plain;base64,SGVsbG8sIFdvcmxkIQ%3D%3D";
+      iframeHref.contentWindow.location.href = "data:text/html,<script>alert('hi');<\/script>";
     });
     const iframeSrc = document.querySelector("#iframe_src");
     iframeSrc.addEventListener('load', () => {
-      iframeSrc.src = "data:text/plain;base64,SGVsbG8sIFdvcmxkIQ%3D%3D";
+      iframeSrc.src = "data:text/html,<script>alert('hi');<\/script>";
     });
   </script>
 </body>
