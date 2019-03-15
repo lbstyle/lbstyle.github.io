@@ -1,6 +1,9 @@
-<script>
-i = document.body.appendChild(document.createElement("iframe"));
-f = i.contentWindow.eval('(function(){location="javascript:alert(location)"})');
+<body>
+  <iframe id="iframe" />
+ <script>
+var i = document.getElementById('iframe');
+var f = i.contentWindow.eval('(function(){location="javascript:alert(location)"})');
 i.src = "https://mixed.badssl.com";
 i.onload = f;
 </script>
+  </body>
