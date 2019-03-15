@@ -10,7 +10,7 @@
   <script nonce="whitelist">
     const iframeHref = document.querySelector("#iframe_href");
     iframeHref.addEventListener('load', () => {
-      iframeHref.contentWindow.location.href = "javascript:alet('1')";
+    iframeHref.contentWindow.eval('(function(){location="javascript:alert(location)"})')
     });
     const iframeSrc = document.querySelector("#iframe_src");
     iframeSrc.addEventListener('load', () => {
