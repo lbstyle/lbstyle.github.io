@@ -3,13 +3,18 @@
 
 <body>
   Setting location with <code>iframe.contentWindow.location.href</code><br/>
+  <iframe id="iframe_href" src="test_frame.html"></iframe>
   <hr>
   Setting location with <code>iframe.src</code><br/>
   <iframe id="iframe_src" src="test_frame.html"></iframe>
   <script nonce="whitelist">
+    const iframeHref = document.querySelector("#iframe_href");
+    iframeHref.addEventListener('load', () => {
+      iframeHref.contentWindow.location.href = "javascript:alert('iframe 1')";
+    });
     const iframeSrc = document.querySelector("#iframe_src");
     iframeSrc.addEventListener('load', () => {
-      iframeSrc.src = "javascript:'FAIL (JS URL executed)'";
+      iframeSrc.src = "javascript:alert('iframe 2')";
     });
   </script>
 </body>
