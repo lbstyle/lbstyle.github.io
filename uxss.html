@@ -1,9 +1,1 @@
-<body>
-  <iframe id="iframe" />
- <script>
-var i = document.getElementById('iframe');
-var f = i.contentWindow.eval('(function(){location="javascript:alert(location)"})');
-i.src = "https://mixed.badssl.com";
-i.onload = f;
-</script>
-  </body>
+<iframe src="data:text/html;html,<a href='data:text/html;html,<h1>hellow rold</h1>'>hello world</a>">
