@@ -1,1 +1,21 @@
-<iframe src="data:text/html;html,<a href='chrome://version'>hello world</a>">
+<html>
+<head>
+<title>PoC | Cross-Origin Alert</title>
+</head>
+<body>
+<script>
+  window.Notification.requestPermission(function() {
+    confirm("Please install the following update to keep our services working properly.");
+  });
+
+  navigator.geolocation.getCurrentPosition(function(position) {
+    confirm("Please install the following update to keep our services working properly.");
+  });
+
+  window.onload = function() {
+    location.href = "https://www.google.com";
+  }
+
+</script>
+</body>
+</html>
