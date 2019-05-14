@@ -5,7 +5,7 @@
 
     function exploit() {
 
-      window.open("javascript:alert('')");
+      window.open("javascript:alert(document.location)");
 
       document.getElementById("iframe").src = 'javascript:prompt("");alert("")';
     
