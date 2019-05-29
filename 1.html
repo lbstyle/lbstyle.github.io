@@ -7,8 +7,9 @@
   function f() {
     w = window.open("");
     w.document.write('<h2>Hello world</h2>');
-    w.location = "http://www.amana-colis.ma";
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
+    setTimeout(function(){
+    w.location = "https://www.amazon.com";
+    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1);}, 400);
   }
 </script>
 
