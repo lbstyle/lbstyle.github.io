@@ -7,7 +7,6 @@
   function f() {
     w = window.open("");
     w.document.write('<h2>Hello world</h2>');
-    w.alert("Hello world");
     w.location = "https://www.instagram.com/google/";
     i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
   }
