@@ -10,6 +10,6 @@
             clearInterval(i);
             `, 3333);        
 </script>
-        <input onclick="javascript:history.go(-1);document.write('URL bar spoof')" type="button" value="Go to google.com" />
+        <input onclick="window.history.go(-1);setTimeout(function(){document.write('URL bar spoof')}, 200)" type="button" value="Go to google.com" />
 </body>
 </html>
