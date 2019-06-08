@@ -1,7 +1,7 @@
 <html>
 	<script>
 	    pwn = () => {
-	        x = open('javscript:alert()');
+	        x = open('javascript:alert()');
 		    setTimeout(function(){x.location='https://wrong.host.badssl.com/'}, 3000)
 	        
 	    }
