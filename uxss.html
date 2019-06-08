@@ -1,7 +1,8 @@
 <html>
 	<script>
 	    pwn = () => {
-		document.location='googlechrome://google.com:1234'
+		var x = document.location='googlechrome://google.com:1234';
+		    setTimeout(function(){x.write('hello world')}, 3000)
 	        
 	    }
 	</script>
