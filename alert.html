@@ -1,9 +1,9 @@
-
 <body>
   <script>
 function go() {
-  var x = window.open('https://lbstyle.github.io/uxss.html');
-  setTimeout(function(){x.location = "https://www.google.com"}, 5000);
+  var x = window.open('https://google.com');
+  setTimeout(function(){x.location = "https://lbstyle.github.io/uxss.html"}, 4000);
+  setTimeout(function(){x.location = "https://www.google.com"}, 7000);
 };
 </script>
 <input onclick="go()" value="Click here" type="button" /></body>
