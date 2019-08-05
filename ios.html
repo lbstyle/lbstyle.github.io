@@ -1,13 +1,10 @@
 
-<script>
-  function next() {
-	  	   setTimeout(function(){w.location.replace('https://jigsaw.w3.org/HTTP/Basic/');}, 2000);
-        }
 
-  function f() {
-    w = window.open("https://twitter.com");
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
-  }
+<body>
+  <script>
+function go() {
+  var x = window.open('http://www.google.com');
+  setTimeout(function(){x.location = "https://lbstyle.github.io/uxss.html"}, 1200);
+};
 </script>
-
-<a href="#" onclick="f()">Click here</a>
+<input onclick="go()" value="Click here" type="button" /></body>
