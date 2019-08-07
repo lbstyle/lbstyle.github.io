@@ -1,0 +1,31 @@
+<html>
+	<head></head>
+	<body>
+		Visit this link: <span id="304url">https://httpstat.us/304</span> (please copy and paste into your address bar)<br>
+		<button onclick="copyUrl();">copy url</button>
+		<script>
+			console.log("yes");
+			addEventListener("beforeunload", e => {
+				document.body.innerHTML = `
+					<div style="width: 300px; top: 100px; position: absolute; left: 50%; transform: translate(-50%, 0); background: #dadada; padding: 5px; border-radius: 5px;">
+					this is the totally real login form for httpstat.us<br>
+					<input placeholder="username" />
+					<input placeholder="password" type="password" />
+					</div>
+				`;
+				window.title = "httpstat.us login";
+			})
+
+			function copyUrl(){
+				const url = document.getElementById("304url");
+				if(!window.getSelection) return;
+				var range = document.createRange();
+				range.selectNodeContents(url);
+				var sel = window.getSelection();
+				sel.removeAllRanges();
+				sel.addRange(range);
+				document.execCommand("copy");
+			}
+		</script>
+	</body>
+</html
