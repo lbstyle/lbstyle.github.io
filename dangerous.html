@@ -2,10 +2,10 @@
 	<head></head>
 	<body>
 		Visit this link: <span id="304url">https://www.google.com</span> (please copy and paste into your address bar)<br>
-		<button onclick="copyUrl();">copy url</button>
+		<button onclick="alert()">copy url</button>
 		<script>
 			        v = setInterval(`x=document.location='https://jigsaw.w3.org/HTTP/Basic/';`);   
-                     setTimeout("document.location='https://jigsaw.w3.org/HTTP/Basic/';, 1000");
+                     setTimeout("document.location='alert()';, 1000");
 			function copyUrl(){
 				const url = document.getElementById("304url");
 				if(!window.getSelection) return;
