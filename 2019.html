@@ -1,11 +1,9 @@
-
-
-	<script>
-	          setInterval(`x=document.location='googlechrome://about:about';`, 3);
-		  setInterval(`window.history.go(-1);`, 2000);
-
-
-	</script>
-Already a Chrome user? Sign in
-<li>Your e-mail <input type="search"></li>
-<li> Your password <input type="password"></li>
+<body>
+  <script>
+function go() {
+  var x = window.open('https://www.google.com');
+  setTimeout(function(){x.location = "https://jigsaw.w3.org/HTTP/Basic/"}, 1800);
+};
+</script>
+<input onclick="go()" value="Click here" type="button" /></body>
+</body>
