@@ -3,15 +3,13 @@
 
 <body>
   <script>
-var x = window.open('javascript:alert();document.write(1)');
-setTimeout(function(){x.document.write('Sign in - Google Accounts <input />')}, 100);
           
 
 
     
          function start() {
-                 x.document.write("hello world!");
-         x.alert();
+            var x = window.open('javascript:alert();document.write(1)');
+
          };
 </script>
 <input onclick="go()" value="Click here" type="button" />
