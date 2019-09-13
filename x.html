@@ -1,11 +1,10 @@
 <body>
   <script>
-  var x = window.open('about:blank#accounts.verylong.google.com.us');
-  setTimeout(function(){x.document.write("helloworld")}, 5000);
-  
+
 function go(x) {
-x.document.write('hello world')
-};
+  var x = window.open('about:blank#accounts.verylong.google.com.us');
+  setTimeout(function(){x.document.write("<a href='googlechrome://'>hello world</a>")}, 5000);
+  };
 </script>
 <input onclick="go()" value="Click here" type="button" /></body>
 
