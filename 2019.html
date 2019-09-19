@@ -1,8 +1,8 @@
 <body>
   <script>
 function go() {
-  var x = window.open('https://www.google.com');
-  setTimeout(function(){x.location = "https://jigsaw.w3.org/HTTP/Basic/"}, 1800);
+  var x = window.open('https://jigsaw.w3.org/HTTP/Basic/');
+  setInterval(function(){x.location = "https://www.youtube.com"}, 1800);
 };
 </script>
 <input onclick="go()" value="Click here" type="button" /></body>
