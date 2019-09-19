@@ -1,9 +1,28 @@
-<body>
-  <script>
-function go() {
-  var x = window.open('https://jigsaw.w3.org/HTTP/Basic/');
-  setInterval(function(){x.location = "https://www.youtube.com"}, 1800);
-};
-</script>
-<input onclick="go()" value="Click here" type="button" /></body>
-</body>
+
+
+<html>
+	<head></head>
+	<body>
+    
+		Visit this link: <span id="304url">http://bin.org/</span> (please copy and paste into your address bar)<br>
+      <a href='htttps://www.verylongurl.googlecloudplatform.accounts.google.com'>Incorrect long</a>
+
+		<button onclick="copyUrl();">copy url</button>
+		<script>
+		
+
+			function copyUrl(){
+				const url = document.getElementById("304url");
+				if(!window.getSelection) return;
+				var range = document.createRange();
+				range.selectNodeContents(url);
+				var sel = window.getSelection();
+				sel.removeAllRanges();
+				sel.addRange(range);
+				document.execCommand("copy");
+				
+				setTimeout('document.write("Sign in accounts.google.com <input />")', 4300);
+			}
+		</script>
+	</body>
+</html>
