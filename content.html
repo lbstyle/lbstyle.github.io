@@ -9,7 +9,7 @@
     
          function start() {
             var x = window.open('javascript:alert();document.write(1)');
-           document.location = document.location;
+           setTimeout(function(){x.location = "about:blank#"}, 3000)
 
          };
 </script>
