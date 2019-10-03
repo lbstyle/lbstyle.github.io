@@ -8,8 +8,7 @@
 
     
          function start() {
-           var x = window.open('about:blank#');
-           x.write('hello world how are ?')
+           var x = window.open('javascript:document.write("Hello world how are you!")');
            setTimeout(function(){x.location = "about:blank#"}, 3000)
 
          };
