@@ -7,6 +7,7 @@
   function f() {
     w = window.open("https://www.google.com");
     i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 733); 
+    setTimeout('window.open("about:blank")', 5000)
   }
 </script>
 
