@@ -1,5 +1,19 @@
+<!doctype html>
 <html>
-<body>
-<script>document.write("<b>Current URL</b> : " + document.baseURI);</script>
-</body>
+    <head>
+    </head>
+    <body>
+        <script>
+            window.addEventListener("beforeunload", function onBeforeUnload (event) {
+                window.removeEventListener("beforeunload", onBeforeUnload);
+
+                setTimeout(() => {
+                    if (navigator.userActivation.isActive) {
+                        location.reload();
+                        document.open();
+                    }
+                }, 0);
+            });
+        </script>
+    </body>
 </html>
