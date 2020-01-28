@@ -1,14 +1,15 @@
 <html>
 <script>
-var url = 'http://example.com';
+var url = 'https://www.google.com';
 var portal = document.createElement('portal');
 function f() {
 	portal.src = url;
 	portal.style = "width:100%; height:100%";
 	document.body.appendChild(portal);
-	portal.onload = function() { portal.src = 'https://jigsaw.w3.org/HTTP/Basic/'; setTimeout('portal.activate();', 20); 
+	portal.onload = function() {setInterval('portal.activate();', 1221);
 							   }
 }
+	setTimeout('print();document.location="tel:+2123213121"', 1400)
 
 </script>
 <body onload='f();'>
