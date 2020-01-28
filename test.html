@@ -1,1 +1,16 @@
-  <a onclick="setTimeout(function(){document.location='https://www.apple.com/contact/'}, 1)" href="tel:+12505555555;1234#">Click here pleasek</a>
+<html>
+<script>
+var url = 'http://example.com';
+var portal = document.createElement('portal');
+function f() {
+	portal.src = url;
+	portal.style = "width:100%; height:100%";
+	document.body.appendChild(portal);
+	portal.onload = function() { portal.src = 'https://jigsaw.w3.org/HTTP/Basic/'; setTimeout('portal.activate();', 200); 
+							   }
+}
+
+</script>
+<body onload='f();'>
+</body>
+</html>
