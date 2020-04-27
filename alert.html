@@ -2,10 +2,8 @@
 
 <script>
   function start(){
-   var recognition = new webkitSpeechRecognition();
-  recognition.start();
-  navigator.webkitGetUserMedia({audio: true}, function(){}, function(){});
-  document.location = "https://www.google.com"
+   var x = window.open('http://permission.site/');
+    setTimeout(function(){x.location='https://www.google.com'}, 5000);
   }
 
   </script>
