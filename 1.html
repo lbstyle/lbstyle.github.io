@@ -1,12 +1,9 @@
 
 <script>
-  function next() {
-         w.location.replace('https://jigsaw.w3.org/HTTP/Basic/');
-        }
 
   function f() {
-    w = window.open("https://www.google.com");
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 2933); 
+    w = window.open("https://shhnjk.azurewebsites.net/download_redirector.php?url=about://version");
+    setTimeout(function(){w.location.reload()}, 2933); 
   }
 </script>
 
