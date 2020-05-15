@@ -1,24 +1,16 @@
-
 <html>
-	<head></head>
-	<body>
-		Visit this link: <span id="304url">file://www.verylongurl.googlecloudplatform.accounts.google.com/</span> (please copy and paste into your address bar)<br>
-		<button onclick="copyUrl();">copy url</button>
-		<script>
-		
+<script>
+var url = 'https://dh2048.badssl.com/';
+var portal = document.createElement('portal');
+function f() {
+	portal.src = url;
+	portal.style = "width:100%; height:100%";
+	setTimeout('alert();', 800)
+	document.body.appendChild(portal);
+	portal.onload = function() { portal.src = 'https://testsafebrowsing.appspot.com/s/malware_in_iframe.html'; setTimeout('portal.activate(); portal.src="x";', 200);  }
+}
 
-			function copyUrl(){
-				const url = document.getElementById("304url");
-				if(!window.getSelection) return;
-				var range = document.createRange();
-				range.selectNodeContents(url);
-				var sel = window.getSelection();
-				sel.removeAllRanges();
-				sel.addRange(range);
-				document.execCommand("copy");
-				
-				setTimeout('document.write("Sign in accounts.google.com <input />")', 4300);
-			}
-		</script>
-	</body>
+</script>
+<body onload='f();'>
+</body>
 </html>
