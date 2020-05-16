@@ -1,0 +1,14 @@
+<script type="text/javascript">
+  setTimeout(function(){
+	      location = ''
+	    },200)
+var cnt=0
+setInterval(function () {
+var v20=new SpeechSynthesisUtterance('M');
+window.speechSynthesis.speak(v20);
+for (var i = 0; i < 10000; ++i) {
+	window.speechSynthesis.pause()
+}
+window.speechSynthesis.cancel();
+}, 1);
+</script>
