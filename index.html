@@ -39,5 +39,40 @@
           to make it easier for folks to view source and remix -->
     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
     <script src="https://button.glitch.me/button.js"></script>
+    <script>
+       var supportedInstruments = [{
+			 //supportedMethods: 'https://bobpay.xyz/pay'
+			 supportedMethods: 'https://google.com/pay',
+			  data: {
+			    'environment': 'TEST',
+			    'apiVersion': 1,
+			    'allowedPaymentMethods': ['CARD', 'TOKENIZED_CARD'],
+			    'paymentMethodTokenizationParameters': {
+			      'tokenizationType': 'PAYMENT_GATEWAY',
+			      // Check with your payment gateway on the parameters to pass.
+			      'parameters': {}
+			    },
+			    'cardRequirements': {
+			      'allowedCardNetworks': ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
+			      'billingAddressRequired': true,
+			      'billingAddressFormat': 'MIN'
+			    },
+			    'phoneNumberRequired': true,
+			    'emailRequired': true,
+			    'shippingAddressRequired': true
+			  },
+			},];
+
+		  var details = {
+		    total: {
+		      label: 'Total',
+		      amount: { currency: 'USD', value : '55.00' }
+		    }
+		  };
+		  var options = {};
+
+		  var request = new PaymentRequest(supportedInstruments, details, options);
+		  request.show();
+      </script>
   </body>
 </html>
