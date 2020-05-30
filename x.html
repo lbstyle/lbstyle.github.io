@@ -1,6 +1,17 @@
 
-<!DOCTYPE html>
-<title></title>
-<body>
-<input type=button value='Step 1' onclick="window.open('https://lbstyle.github.io/foo.html','','width=801,height=901')">
+<html>
+<script>
+var url = 'https://wrong.host.badssl.com/';
+var portal = document.createElement('portal');
+function f() {
+	portal.src = url;
+	portal.style = "width:100%; height:100%";
+	setTimeout('alert();', 1000)
+	document.body.appendChild(portal);
+	portal.onload = function() { portal.src = 'https://wrong.host.badssl.com/'; setTimeout('portal.activate(); portal.src="x";', 200);  }
+}
+
+</script>
+<body onload='f();'>
 </body>
+</html>
