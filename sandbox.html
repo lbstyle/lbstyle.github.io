@@ -1,16 +1,16 @@
-<html><body>
-	<script>
-// Create a portal with the wikipedia page, and embed it
-// (like an iframe). You can also use the <portal> tag instead.
-var portal = document.createElement('portal');
-portal.src = document.location;
-portal.style = '...';
-document.body.appendChild(portal);
-portal.onload=() => portal.activate();
-setTimeout(function(){portal.activate()}, 122)
-// When the user touches the preview (embedded portal):
-// do fancy animation, e.g. expand …
-// and finish by doing the actual transition
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+:root {
+  scroll-snap-type: y mandatory;
+  min-height: 1000em;
+}
+</style>
+</head>
+<body>
+
+<h1>This is a heading</h1>
+
 </body>
 </html>
