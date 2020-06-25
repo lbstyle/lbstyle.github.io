@@ -1,26 +1,17 @@
-
-
+<!DOCTYPE html>
 <html>
-	<head></head>
-	<body>
-          <a href='htttps://www.verylongurl.googlecloudplatform.accounts.google.com'>Incorrect long</a>
+<!--
+Intent URI example taken from crbug.com/1056754 with package modification here.
+-->
+<head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+</head>
 
-		Visit this link: <span id="304url">https://www.google.com:1234/</span> (please copy and paste into your address bar)<br>
+<body>
+<a id="link" target='_blank' href='intent://about:blank#Intent;package=org.chromium.chrome.tests;action=android.intent.action.VIEW;scheme=http;S.android.support.customtabs.extra.SESSION=;i.org.chromium.chrome.browser.customtabs.EXTRA_UI_TYPE=2;end;'>
+    Click to open App!!
+</a>
+</body>
 
-		<button onclick="copyUrl();">copy url</button>
-		<script>
-		
-
-			function copyUrl(){
-				const url = document.getElementById("304url");
-				if(!window.getSelection) return;
-				var range = document.createRange();
-				range.selectNodeContents(url);
-				var sel = window.getSelection();
-				sel.removeAllRanges();
-				sel.addRange(range);
-				document.execCommand("copy");
-							}
-		</script>
-	</body>
 </html>
