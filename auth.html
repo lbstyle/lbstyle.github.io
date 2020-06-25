@@ -1,6 +1,7 @@
 <body>
 <script>
-const request = new PaymentRequest([{
+function start(){
+  const request = new PaymentRequest([{
   supportedMethods: 'https://google.com/pay'
 }], {
   total: {
@@ -16,5 +17,7 @@ const request = new PaymentRequest([{
     }).catch(e => {
 
     });
+                }
 </script>
+  <input onclick="start()" value="click here" type="button" />
 </body>
