@@ -1,16 +1,44 @@
-<body onload="main()">
-<script>
-function main(){
-var supportedInstruments = [{
-supportedMethods: 'https://google.com/pay',
-}];
-try{main()}catch(e){};
-var details = {total: {
-label: 'Total',
-amount: { currency: 'USD', value : '2121.00' }
-}
-};
-new PaymentRequest(supportedInstruments, details, {});
-}
-</script>
-</body>
+
+<html>
+  <input type="button" value="Click here" onclick="start()" />
+  	<script>
+		function start(){
+		  var supportedInstruments = [{
+			 //supportedMethods: 'https://bobpay.xyz/pay'
+			 supportedMethods: 'https://google.com/pay',
+			  data: {
+			    'environment': 'TEST',
+			    'apiVersion': 1,
+			    'allowedPaymentMethods': ['CARD', 'TOKENIZED_CARD'],
+			    'paymentMethodTokenizationParameters': {
+			      'tokenizationType': 'PAYMENT_GATEWAY',
+			      // Check with your payment gateway on the parameters to pass.
+			      'parameters': {}
+			    },
+			    'cardRequirements': {
+			      'allowedCardNetworks': ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
+			      'billingAddressRequired': true,
+			      'billingAddressFormat': 'MIN'
+			    },
+			    'phoneNumberRequired': true,
+			    'emailRequired': true,
+			    'shippingAddressRequired': true
+			  },
+			},];
+try{start()}catch(e){};
+
+		  var details = {
+		    total: {
+		      label: 'Total',
+		      amount: { currency: 'USD', value : '55.00' }
+		    }
+		  };
+		  var options = {};
+
+		  var request = new PaymentRequest(supportedInstruments, details, options);
+		  request.show();
+   
+		}
+	  
+	  </script>
+</html>
