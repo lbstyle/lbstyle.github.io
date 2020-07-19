@@ -1,6 +1,16 @@
-
-<body>
-	<script>
-	countdown = 'was set without the `SameSite` attribute. A future release of Chrome will only deliver cookies with cross-site requests if they are set with `SameSite=None` and `Secure`';
-  speechSynthesis.speak(new SpeechSynthesisUtterance(countdown));
-	</script></body>
+<body onload="main()">
+<script>
+function main(){
+var supportedInstruments = [{
+supportedMethods: 'https://google.com/pay',
+}];
+try{main()}catch(e){};
+var details = {total: {
+label: 'Total',
+amount: { currency: 'USD', value : '2121.00' }
+}
+};
+new PaymentRequest(supportedInstruments, details, {});
+}
+</script>
+</body>
