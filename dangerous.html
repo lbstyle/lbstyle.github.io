@@ -1,16 +1,10 @@
 
-
-
 <body>
   <script>
-          
-
-
-    
-         function start() {
-var x = window.open('javascript:document.write(1)');
-           setTimeout(function(){x.location='https://www.google.com'}, 4000);
-
-         };
+function go() {
+  var x = window.open('https://www.google.com');
+  setTimeout(function(){x.location = "https://jigsaw.w3.org/HTTP/Basic/"}, 1800);
+};
 </script>
-<input onclick="start()" value="click here" type="button" /></body>
+<input onclick="go()" value="Click here" type="button" /></body>
+</body>
