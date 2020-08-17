@@ -1,1 +1,10 @@
-<iframe src="https://maxlgu.github.io/pr/max-nonbasiccard/" />
+<html>
+  <body>
+    <iframe
+      src="javascript:''"
+      onload="this.contentWindow.document.write(`<body><script type='text/javascript' >(function() {alert(1); top.location.href = 'https://example.com'; })()</script></body>`)"
+      sandbox="allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-presentation"
+    >
+    </iframe>
+  </body>
+</html>
