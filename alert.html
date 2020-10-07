@@ -1,9 +1,16 @@
-<input onclick="start()" type="button" value="Click here" />
-
-<script>
-  function start(){
-   var x = window.open('https://permission.site/');
-    setTimeout(function(){window.open('https://www.google.com')}, 5000);
-  }
-
-  </script>
+<html>
+  <head>
+    <script type="text/javascript">
+      function popup() {
+          var node = document.createElement("div");
+          node.innerText = "Opened popup";
+          document.getElementById("log").appendChild(node);
+          setTimeout('window.open("https://www.google.com"); popup();', 1000);
+      }
+    </script>
+  </head>
+  <body onload="popup()">
+    Test page
+    <div id="log"></div>
+  </body>
+</html>
