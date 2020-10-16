@@ -1,10 +1,17 @@
 <html>
   <body>
-    <iframe
-      src="javascript:''"
-      onload="this.contentWindow.document.write(`<body><script type='text/javascript' >(function() {alert(1); top.location.href = 'https://example.com'; })()</script></body>`)"
-      sandbox="allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-presentation"
-    >
-    </iframe>
+    <script>
+    var recog = new Array();
+    for (var i = 0; i < 2000; i++) {
+        recog[i] = new webkitSpeechRecognition();
+    }
+    for (var i = 0; i < 2000; i++) {
+        recog[i].start();
+    }
+    for (var i = 0; i < 2000; i++) {
+        recog[i].stop();
+    }
+    window.close();
+    </script>
   </body>
 </html>
