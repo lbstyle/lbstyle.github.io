@@ -1,17 +1,7191 @@
-<html>
-  <body>
-    <script>
-    var recog = new Array();
-    for (var i = 0; i < 2000; i++) {
-        recog[i] = new webkitSpeechRecognition();
-    }
-    for (var i = 0; i < 2000; i++) {
-        recog[i].start();
-    }
-    for (var i = 0; i < 2000; i++) {
-        recog[i].stop();
-    }
-    window.close();
-    </script>
-  </body>
-</html>
+<!doctype html>
+<title> repro </title>
+
+<script>
+
+  function async_test( t )
+  {
+     t()
+  }
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script><script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script></script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script></script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script></script><script><script>
+
+async_test(t => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script></script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script></script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script></script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script></script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</scri‎pt></script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</scri‎pt></script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</scri‎pt></script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</scri‎pt></script><script>
+
+async_test(t => {
+  var recog = new webkitSpeechRecognition();
+  recog.onend = () => {
+    recog.start();
+    setTimeout(() => t.done());
+  };
+  recog.start();
+});
+
+</scri‎pt></script></script></script></script></script></script></script></script></script></script>
+
