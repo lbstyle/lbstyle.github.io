@@ -1,8 +1,10 @@
-
-<!DOCTYPE html>
 <html>
- <body>
-  Secrets, secrets are no fun.
-  <iframe src="parent.html"></iframe>
- </body>
+<body>
+Click anywhere.
+<script>
+document.body.addEventListener('click', () => {
+        navigator.usb.requestDevice({ filters: [] });
+});
+</script>
+</body>
 </html>
