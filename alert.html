@@ -1,16 +1,8 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <script type="text/javascript">
-      function popup() {
-          var node = document.createElement("div");
-          node.innerText = "Opened popup";
-          document.getElementById("log").appendChild(node);
-          setTimeout('window.open("https://www.google.com"); popup();', 1000);
-      }
-    </script>
-  </head>
-  <body onload="popup()">
-    Test page
-    <div id="log"></div>
+  <body>
+    <a href="javascript:alert(window.origin);">
+      <img title="example.com" src="https://i.imgur.com/qjUi3Z9.png"/>
+    </a>
   </body>
 </html>
