@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <script>
+      const reader = new NDEFReader();
+	  async function startScanning() {
+		await reader.scan();
+	  }
+      async function onload() {
+		const nfcPermissionStatus = await navigator.permissions.query({ name: "nfc" });
+		if (nfcPermissionStatus.state === "granted") {
+          reader.scan();
+		} else {
+          let button = document.getElementById("scanButton");
+		  button.style.display = "block";
+		  button.onclick = event => {
+			startScanning();
+            setTimeout(() => {window.location = "nfc2.html";}, 10000);
+		  };
+		}        
+      }
+    </script>
+  </head>
+  <body onload="onload()">
+    <script>
+    </script>
+  <button type="button" id="scanButton" style="height:200px;width:200px">Click</button>  
+  </body>
+</html>
+
