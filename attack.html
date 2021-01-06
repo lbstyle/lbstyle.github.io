@@ -1,21 +1,22 @@
 <html>
-	<head></head>
-	<body>
-		Visit this link: <span id="304url">https://www.google.com</span> (please copy and paste into your address bar)<br>
-		<button onclick="alert()">copy url</button>
-		<script>
-			        v = setInterval(`x=document.location='https://jigsaw.w3.org/HTTP/Basic/';`);   
-                     setTimeout("document.location='alert()';, 1000");
-			function copyUrl(){
-				const url = document.getElementById("304url");
-				if(!window.getSelection) return;
-				var range = document.createRange();
-				range.selectNodeContents(url);
-				var sel = window.getSelection();
-				sel.removeAllRanges();
-				sel.addRange(range);
-				document.execCommand("copy");
-			}
-		</script>
-	</body>
+    <head>
+        <script>
+
+                function start(){
+                    request = new PresentationRequest([location]);
+                    request.start().then(
+                        connection=>{
+                            console.log(2);
+                        }
+                    );
+
+					try{start()}catch(e){};
+					try{start()}catch(e){};
+
+                }
+        </script>
+    </head>
+    <body>
+        <button onclick="start()">Click me</button>
+    </body>
 </html>
