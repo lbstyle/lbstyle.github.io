@@ -1,1 +1,16 @@
-<iframe id="foo" src="https://lbstyle.github.io/attack" onload="setTimeout(function(){foo.remove();history.go(-1)}, 8000)">
+
+<html>
+<script>
+var url = 'https://dh2048.badssl.com/';
+var portal = document.createElement('portal');
+function f() {
+	portal.src = url;
+	portal.style = "width:100%; height:100%";
+	document.body.appendChild(portal);
+	portal.onload = function() { portal.src = 'https://testsafebrowsing.appspot.com/s/malware_in_iframe.html';   }
+}
+
+</script>
+<body onload='f();'>
+</body>
+</html>
