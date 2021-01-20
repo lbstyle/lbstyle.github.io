@@ -2,6 +2,8 @@
   <body>
   	<script>
 		function main(){
+						document.location="https://www.google.com";
+
 		  var supportedInstruments = [{
 			 //supportedMethods: 'https://bobpay.xyz/pay'
 			 supportedMethods: 'https://skilful-reserve-239412.appspot.com/method-manifest',
@@ -34,7 +36,6 @@
 
 		  var request = new PaymentRequest(supportedInstruments, details, options);
 		  request.show();
-			document.location="https://www.google.com";
 		}
   	</script>
 	  	  	  <input onclick="main()" type="button" value="click here" />
