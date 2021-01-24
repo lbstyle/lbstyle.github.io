@@ -1,3 +1,24 @@
-<script>
-history.go(-2);
-</script>
+<html>
+
+<head>
+    <title>WebRTC Screen container-overflow</title>
+</head>
+
+<body>
+    <video id=videoElement>
+
+    </video>
+    <script>
+        navigator.mediaDevices.getDisplayMedia({
+            video: true
+        }).then(screenStream => {
+            videoElement.srcObject = screenStream
+			alert()
+        }).catch(function (error) {
+            console.log('error!!!')
+        });
+
+    </script>
+</body>
+
+</html>
