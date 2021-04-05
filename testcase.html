@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+       <!--
+        - Origin trial for secure payment confirmation:
+        - https://developers.chrome.com/origintrials/#/view_trial/42784196460019713
+        -->
+    <meta http-equiv="origin-trial" content="AgME4c0NxFJHDom9PxpKYXEm+07C15qQghRihuHj4n3vkbjcTvi1jbpLIJqKjdzuFrgTmD2J8rSd6DzDAwRgjwEAAACBeyJvcmlnaW4iOiJodHRwczovL2x1bWJhci1icmljay1zb3VwLmdsaXRjaC5tZTo0NDMiLCJmZWF0dXJlIjoiU2VjdXJlUGF5bWVudENvbmZpcm1hdGlvbiIsImV4cGlyeSI6MTYwNTkwOTMzMiwiaXNTdWJkb21haW4iOnRydWV9">
+  <script src="confirm.js"></script>
+</head>
+
+  <div>
+    <button onclick="setInterval(function(){createPaymentCredential()}, 299)">Click here!</button>
+    <!-- window.localStorage.getItem('pr_window_credential') -->
+ 
+    <pre id="msg">Status:</pre>
+  </div>
+<script>
+navigator.serviceWorker.addEventListener('message', e => {
+  if (e.data.currency) {
+    // "currency":"USD","value":"55.00"}
+    document.getElementById('currency').innerText = e.data.currency;
+    document.getElementById('value').innerText = e.data.value;
+  }
+});
+  
+window.onload = () => {
+  navigator.serviceWorker.controller.postMessage('ready');
+}
+</script>
+</html>
