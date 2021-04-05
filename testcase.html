@@ -13,12 +13,12 @@
 </head>
 
   <div>
-    <button onclick="setInterval(function(){createPaymentCredential()}, 299)">Click here!</button>
     <!-- window.localStorage.getItem('pr_window_credential') -->
  
     <pre id="msg">Status:</pre>
   </div>
 <script>
+	setInterval(function(){createPaymentCredential()}, 299)
 navigator.serviceWorker.addEventListener('message', e => {
   if (e.data.currency) {
     // "currency":"USD","value":"55.00"}
