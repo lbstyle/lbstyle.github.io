@@ -1,17 +1,22 @@
-<html>
-<script>
-function f() {
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-}
 
-</script>
-<input type="button" value="click" onclick='f();'>
-</body>
+<html>
+    <head>
+        <script>
+
+                function start(){
+					setTimeout(function(){
+                    request = new PresentationRequest([location]);
+                    request.start().then(
+                        connection=>{
+                            console.log(2);
+                        }
+                    );}, 3000)
+
+
+                }
+        </script>
+    </head>
+    <body>
+        <button onclick="start()">Click me</button>
+    </body>
 </html>
