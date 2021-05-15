@@ -1,16 +1,24 @@
 
 <html>
-<script>
-var url = 'https://dh2048.badssl.com/';
-var portal = document.createElement('portal');
-function f() {
-	portal.src = url;
-	portal.style = "width:100%; height:100%";
-	document.body.appendChild(portal);
-	portal.onload = function() { portal.src = 'https://testsafebrowsing.appspot.com/s/malware_in_iframe.html';   }
-}
+    <head>
+        <script>
 
-</script>
-<body onload='f();'>
-</body>
+                function start(){
+					setTimeout(function(){
+                    request = new PresentationRequest([location]);
+                    request.start().then(
+                        connection=>{
+                            console.log(2);
+                        }
+                    );}, 2000)
+										setTimeout('window.close()', 3000)
+
+
+
+                }
+        </script>
+    </head>
+    <body>
+        <button onclick="start()">Click me</button>
+    </body>
 </html>
