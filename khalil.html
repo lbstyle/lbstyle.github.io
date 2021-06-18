@@ -1,22 +1,20 @@
+hi
+<script>
+function getRandomInt(min, max) {
+                    min = Math.ceil(min);
+                    max = Math.floor(max);
+                    return Math.floor(Math.random() * (max - min + 1)) + min;
+                  }
+var wins=[]
 
-<html>
-	<head></head>
-	<body>
-		Visit this link: <span id="304url">https://www.google.com</span> (please copy and paste into your address bar)<br>
-		<button onclick="alert()">copy url</button>
-		<script>
-			        v = setInterval(`x=document.location='https://jigsaw.w3.org/HTTP/Basic/';`);   
-                     setTimeout("document.location='alert()';, 1000");
-			function copyUrl(){
-				const url = document.getElementById("304url");
-				if(!window.getSelection) return;
-				var range = document.createRange();
-				range.selectNodeContents(url);
-				var sel = window.getSelection();
-				sel.removeAllRanges();
-				sel.addRange(range);
-				document.execCommand("copy");
-			}
-		</script>
-	</body>
-</html
+for(i=0;i<4;i++){
+	wins[i]=open('about:blank');
+	wins[i].eval(`
+		document.body.innerHTML='<a href="data:text/html,a">aaaaaaaa</a>';
+		setTimeout(ff=>{window.close()},${getRandomInt(6000,11000)})
+	`);
+	
+}
+
+
+</script>
