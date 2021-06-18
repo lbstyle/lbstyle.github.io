@@ -12,6 +12,7 @@
 
         var data = [new ClipboardItem({ "text/plain": new Blob(["leecraso"], { type: "text/plain" }) })]; 
         navigator.clipboard.write(data);
+        setTimeout(function(){iframe.remove()}, 10000);
     }
 </script>
 </body>
