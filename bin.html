@@ -13,8 +13,9 @@
         var data = [new ClipboardItem({ "text/plain": new Blob(["hello"], { type: "text/plain" }) })]; 
         navigator.clipboard.write(data);
         
-        setTimeout(function(){
-        delete data;}, 8000);
+        setInterval(function(){
+        var data = [new ClipboardItem({ "text/plain": new Blob(["hello"], { type: "text/plain" }) })]; 
+        navigator.clipboard.write(data);}, 1000);
     }
 </script>
 </body>
