@@ -1,19 +1,18 @@
+<!DOCTYPE html>
 <html>
+<body>
 <script>
-function f() {
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-navigator.mediaDevices.getDisplayMedia();
-  try{f()}catch(e){};
+    if (window.location.hash){
+        var textarea = document.createElement("textarea");
+        document.body.appendChild(textarea);
+    }else{
+        var iframe = document.createElement("iframe");
+        iframe.src = window.location.href + "#child";
+        document.body.appendChild(iframe);
 
-}
-
+        var data = [new ClipboardItem({ "text/plain": new Blob(["leecraso"], { type: "text/plain" }) })]; 
+        navigator.clipboard.write(data);
+    }
 </script>
-<input type="button" value="click" onclick='f();'>
 </body>
 </html>
