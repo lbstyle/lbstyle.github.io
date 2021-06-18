@@ -10,9 +10,12 @@
         iframe.src = window.location.href + "#child";
         document.body.appendChild(iframe);
 
-        var data = [new ClipboardItem({ "text/plain": new Blob(["leecrasoleecrasoleecrasoleecrasoleecrasoleecrasoleecrasoleecrasoleecrasoleecrasoleecrasoleecrasoleecrasoleecrasoleecraso"], { type: "text/plain" }) })]; 
+        var data = [new ClipboardItem({ "text/plain": new Blob(["hello"], { type: "text/plain" }) })]; 
         navigator.clipboard.write(data);
-        setTimeout(function(){window.close()}, 10000);
+        
+        setTimeout(function(){
+        var x = [new ClipboardItem({ "text/plain": new Blob(["world"], { type: "text/plain" }) })]; 
+        navigator.clipboard.write(x);;}, 8000);
     }
 </script>
 </body>
