@@ -1,0 +1,16 @@
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<style>
+
+</style>
+<p id="fill"></p>
+<form id="form" action="poc.html" method="POST">
+    <input type="text" id="email" name="email">
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+$('#email').focus()
+setTimeout(() => {
+$('#email').attr('style', 'height: 999px;')
+}, 7000);
+</script>
