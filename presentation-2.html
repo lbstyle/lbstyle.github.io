@@ -8,12 +8,10 @@
                 });
 
                 function start(){
-                    request = new PresentationRequest([location]);
-                    request.start().then(
-                        connection=>{
-                            console.log(2);
-                        }
-                    );
+                       navigator.share({
+      title: 'My app',
+      url: document.location.href,
+    });
                 }
 
                 function gc(){
