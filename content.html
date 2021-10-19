@@ -1,15 +1,7 @@
-<html>
   <script>
-  function remove() {
-    let frame = document.getElementById("ifrm");
-    frame.parentNode.removeChild(frame);
-  }
-  function load() {
-    setTimeout(remove, 100);
-  }
-  </script>
-  <body onload="load()">
-    <iframe id="ifrm" src="https://lbstyle.github.io/payment.html"></iframe>
-
-  </body>
-</html>
+  navigator.share({
+      title: 'My app',
+      url: document.location.href,
+    });
+	setTimeout('window.close()', 4000)
+	</script>
