@@ -1,13 +1,31 @@
-<!DOCTYPE html>
-<title></title>
-<body>
-<input type=button value='Step 1' onclick='start()'>
-<script>
-function start(){
-	var x = window.open('demo.html);
-	setTimeout(function(){x.close()}, 4000);
-	
-}
-</script>
+<form id="form" action="poc.html" method="GET">
+  <label for="frmAddressS">Address</label>
+  <input name="address1" required id="frmAddressS" placeholder="aaaaaabbbbbb" autocomplete="shipping street-address">
 
-</body>
+  <label for="frmCityS">City</label>
+  <input name="city" required id="frmCityS" placeholder="AA" autocomplete="shipping locality">
+  
+  <label for="frmStateS">State</label>
+  <input name="state" required id="frmStateS" placeholder="AA" autocomplete="shipping region">
+  
+  <label for="frmZipS">Zip</label>
+  <input name="pcode" required id="frmZipS" placeholder="10015" autocomplete="shipping postal-code">
+
+  <label for="frmCountryS">Country</label>
+  <input name="ccode" required id="frmCountryS" placeholder="AA" autocomplete="country">
+
+  <input type="submit" value="Submit">
+</form>
+
+<script>
+  async function fillForm() {
+    document.getElementById("frmAddressS").value = "aaaaaabbbbbb";
+    document.getElementById("frmCityS").value = "AA";
+    document.getElementById("frmStateS").value = "AA";
+    document.getElementById("frmZipS").value = "10015";
+    document.getElementById("frmCountryS").value = "AA";
+    document.getElementById("form").submit();
+  }
+  window.onload = fillForm;
+  
+</script>
