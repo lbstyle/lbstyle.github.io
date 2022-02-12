@@ -5,9 +5,8 @@
         setTimeout(()=>{document.documentElement.requestFullscreen();
             document.documentElement.requestFullscreen();
         },100);
-	    setTimeout(()=>{document.location="https://contacts.google.com"
+	    setTimeout(()=>{navigator.share({title: 'https://www.google.com'});
         },200);
-	        setTimeout(()=>{ alert();
-        },400);
+	      
     }
 </script>
