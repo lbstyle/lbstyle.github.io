@@ -1,18 +1,11 @@
-
-
-<body>
-	<button id="play">Share</button>
-</body>
-
+<button id="test1">Trigger</button>
 <script>
-	var btn=document.getElementById('play');
-        btn.onclick=crash;
-	function crash()
-	{
-	    navigator.share({
-      title: 'My app',
-      url: document.location.href,
-    });
-	}
+    var test1 = document.getElementById("test1");
+    test1.onclick = () =>{
+        setTimeout(()=>{document.documentElement.requestFullscreen();
+            document.documentElement.requestFullscreen();
+        },100);
+	    setTimeout(()=>{document.location="https://contacts.google.com"
+        },500);
+    }
 </script>
-
