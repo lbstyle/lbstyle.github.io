@@ -1,13 +1,1 @@
-<html>
-<body>
-Click anywhere.
-<script>
-document.body.addEventListener('click', () => {
-navigator.bluetooth.requestDevice({
-        // filters: [...] <- Prefer filters to save energy & show relevant devices.
-        // acceptAllDevices here ensures dialog can populate, we don't care with what.
-        acceptAllDevices:true
-      })});
-</script>
-</body>
-</html>
+<input onclick="window.open("foo.html", "", "width=350,height=350");">
