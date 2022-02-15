@@ -1,15 +1,9 @@
-<html>
-  <script>
-  function remove() {
-    let frame = document.getElementById("ifrm");
-    frame.parentNode.removeChild(frame);
-  }
-  function load() {
-    setTimeout(remove, 100);
-  }
-  </script>
-  <body onload="load()">
-    <iframe id="ifrm" src="script.html"></iframe>
-
-  </body>
-</html>
+<iframe srcdoc="<script>
+var mediaQueryList = window.matchMedia('print');
+mediaQueryList.addListener(function(mql) {
+    if (mql.matches) {
+        frameElement.remove();
+    };
+});
+print();
+</script>">
