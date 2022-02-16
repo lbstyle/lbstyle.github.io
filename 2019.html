@@ -1,9 +1,10 @@
-<iframe srcdoc="<script>
+<body onload=""><iframe srcdoc="<script>
+print();
 var mediaQueryList = window.matchMedia('print');
 mediaQueryList.addListener(function(mql) {
     if (mql.matches) {
-        frameElement.remove();
+alert();
+frameElement.remove();
     };
 });
-print();
 </script>">
