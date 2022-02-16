@@ -1,10 +1,43 @@
-<body onload=""><iframe srcdoc="<script>
-print();
-var mediaQueryList = window.matchMedia('print');
-mediaQueryList.addListener(function(mql) {
-    if (mql.matches) {
-alert();
-frameElement.remove();
+<div id="qdiv">
+<img id="qimg" src="https://www.google.com/favicon.ico"/>
+</div>
+
+<script>
+
+
+drop = (e) => {
+  if (e.dataTransfer.files.length > 0) {
+    let read = new FileReader();
+
+    read.readAsBinaryString((red = e.dataTransfer.files[0]));
+	
+    document.body.innerHTML += "<b>" + red.name + "</b> size:" + red.size + "<br>";
+	
+    read.onloadend = function () {
+      var afile = document.createElement("textarea");
+      afile.style = "height: 215px; width: 386px;";
+      afile.value = read.result;
+      document.body.appendChild(afile);
     };
-});
-</script>">
+	
+  } else {
+    document.body.innerHTML = "No file detected";
+  }
+};
+
+function q(e) {
+  e.stopPropagation();
+  e.preventDefault();
+}
+dropbox = document.body;
+dropbox.addEventListener("dragenter", q, false);
+dropbox.addEventListener("dragover", q, false);
+dropbox.addEventListener("drop", drop, false);
+    
+qimg.ondragstart=e=>{
+e.dataTransfer.effectAllowed = 'all';
+
+console.dir(e.dataTransfer);
+}
+
+</script>
