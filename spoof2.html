@@ -1,7 +1,20 @@
+
+<!DOCTYPE html>
 <html>
-  <body>
-	  <script>
-		  setTimeout('document.location="https://www.google.com"', 1)
-		  </script>
-  </body>
+<meta charset="utf-8">
+
+<body>
+<button id="button_fuzz" onclick="start()">ggg</button>
+</body>
+
+<script>
+
+function start() {
+var myWindow = window.open("https://google.com:1234", "", "width=800,height=800");
+setTimeout(function(){myWindow.document.write(5)}, 5000)
+
+}
+
+</script>
+
 </html>
