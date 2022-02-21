@@ -1,10 +1,21 @@
-<h1>
-	</1>
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
 
-	<script>
-			          setInterval(`document.location='googlechrome://about:about';`, 2000);
+<body>
+<button id="button_fuzz" onclick="start()">Click here</button>
+</body>
 
-	</script>
-Sign in to Chrome - Google Accounts
-Email: <input onclick="" />
-Password: <input onclick="" />
+<script>
+
+function start() {
+var x = window.open('https://www.google.com:1233');
+setTimeout(function(){x.document.write('hello World');}, 1300)
+35
+
+
+}
+
+</script>
+
+</html>
