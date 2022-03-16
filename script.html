@@ -1,3 +1,10 @@
-<portal src='portal.html' id='foo' onload='setInterval(function(){alert();foo.activate();alert()}, 800)'>
 
-</portal>
+<body>
+<script>
+parent_frame = document.body.appendChild(document.createElement("iframe"));
+child_frame = document.createElement("iframe");
+child_frame.name = "trigger";
+parent_frame.contentDocument.body.appendChild(child_frame);
+  child_frame.src="portal.html"
+</script>
+</body>
