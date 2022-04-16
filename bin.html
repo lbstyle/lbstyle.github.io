@@ -1,22 +1,19 @@
-<!DOCTYPE html>
-<html>
 <body>
 <script>
-    if (window.location.hash){
-        var textarea = document.createElement("textarea");
-        document.body.appendChild(textarea);
-    }else{
-        var iframe = document.createElement("iframe");
-        iframe.src = window.location.href + "#child";
-        document.body.appendChild(iframe);
+const PLUGIN_COUNT = 50;
 
-        var data = [new ClipboardItem({ "text/plain": new Blob(["hello"], { type: "text/plain" }) })]; 
-        navigator.clipboard.write(data);
-        
-        setInterval(function(){
-        var data = [new ClipboardItem({ "text/plain": new Blob(["hello"], { type: "text/plain" }) })]; 
-        navigator.clipboard.write(data);}, 1000);
+ready_count = 0;
+
+for (let i = 0; i < PLUGIN_COUNT; ++i) {
+  plugin = document.createElement("embed");
+  plugin.src = "data:application/pdf,a";
+  document.body.appendChild(plugin);
+  plugin.onload = () => {
+    if (++ready_count == PLUGIN_COUNT) {
+      frame = document.body.appendChild(document.createElement("frame"));
+      frame.src = "https://testsafebrowsing.appspot.com/s/malware.html";  
     }
+  }
+}
 </script>
 </body>
-</html>
