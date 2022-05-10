@@ -1,18 +1,8 @@
-<script>
-  function test() {
-    const constraints = {
-      audio: false,
-      video: {
-        mandatory: {
-          chromeMediaSource: 'desktop',
-        }
-      }
-    }
-    navigator.mediaDevices.getUserMedia(constraints);
-    setTimeout(() => {
-      window.location.reload();
-    }, 4000);
-  }
 
-  window.onload = test;
+<button id="test">Open</button>
+<script>
+    var test1=document.getElementById("test");
+    test1.onclick = () =>{
+        window.open('back.html', "", "");
+    }    
 </script>
