@@ -1,8 +1,11 @@
-<button id="test">Trigger</button>
+
+<portal src='url.pdf' id='foo' onload='setInterval(function(){foo.activate();alert()}, 22)'>
+
+</portal>
 <script>
-    var test1=document.getElementById("test");
-    test1.onclick = () =>{
-        test1.textContent = "Clicked";
-        setTimeout(()=>{window.close();}, 10000);
-    } 
+  window.addEventListener('portalactivate', e => {
+        document.body.appendChild(e.adoptPredecessor());
+		alert();
+  		history.go(-1)
+    });
 </script>
