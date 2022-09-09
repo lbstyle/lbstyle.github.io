@@ -1,5 +1,6 @@
-
-
-<portal src='back.html' id='foo' onload='setInterval(function(){foo.activate()}, 22)'>
-
-</portal>
+<script>
+    window.addEventListener('portalactivate', e => {
+	    location.reload();
+        document.body.appendChild(e.adoptPredecessor());
+    });
+</script>
