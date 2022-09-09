@@ -1,9 +1,11 @@
-<script>
-		setTimeout(()=>{
-window.open('');
-window.open('');
-//window.open('');
-//window.open('');
-//window.open('');
-            },5000);
-</script>
+<body draggable="true">
+    start dragging
+
+    <portal src="portal.html" style="display: none;"></portal>
+    <script>
+        document.body.ondragstart = () => {
+            setTimeout(() => {
+                document.querySelector('portal').activate();
+            }, 10);
+        }
+    </script>
