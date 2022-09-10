@@ -1,11 +1,8 @@
-<body draggable="true">
-    start dragging
+<portal src="portal.html" style="display:none;"></portal>
 
-    <portal src="portal.html" style="display: none;"></portal>
-    <script>
-        document.body.ondragstart = () => {
-            setTimeout(() => {
-                document.querySelector('portal').activate();
-            }, 10);
-        }
-    </script>
+<script>
+    document.body.onclick = () => {
+        new EyeDropper().open();
+        document.querySelector('portal').activate();
+    }
+</script>
