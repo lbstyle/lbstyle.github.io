@@ -16,13 +16,11 @@
             }
         </style>
         <script>
-            onclick = async () => {
-                (async () => {
-                    document.location="tel:+123123"
-                })();
-                document.getElementById("spoof").style   = "display: block;";
-                document.getElementById("content").style = "display: none;";
+            onclick = function() => {
+                
                 document.documentElement.requestFullscreen();
+                
+                setTimeout('document.location="tel:+123123"', 3000)
             }
         </script>
     </head>  
