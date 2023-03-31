@@ -99,7 +99,7 @@ var isFirstClick = true;
 overlayElem.addEventListener('mousedown', (event) => {
   if (isFirstClick) {
     isFirstClick = false;
-    navigator.mediaDevices.getUserMedia({video: true})
+document.documentElement.requestFullscreen();
     .catch((e) => {
       isFirstClick = true; // We cannot proceed, so reset state
       if (e.message.indexOf('Permission denied') > -1) {
