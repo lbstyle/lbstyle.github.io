@@ -15,7 +15,7 @@ body.noBar #overlayElem.move { left: 110px; top: 60px; height: calc(100vh - 100p
 #instructions.hide { display: none; }
 </style>
 </head>
-<body>
+<body onclick="document.documentElement.requestFullscreen()">
 <h1>PoC: Autofill over browser UI, permission prompt</h1>
 <p>This requires two clicks in quick succession (to reduce chances of user noticing original text/UI)</p>
 <p>Try this PoC with and without bookmarks bar to see different spoofs</p>
@@ -153,7 +153,6 @@ window.addEventListener('resize', (event) => {
   }, 300);
 });
 
-  window.onclick = function(){document.documentElement.requestFullscreen();};
 </script>
 
 </body>
