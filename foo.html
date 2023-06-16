@@ -7,8 +7,9 @@ html { font-family: sans-serif; }
 </head>
 <body>
 <h1>Web Share, popup</h1>
+  <input onclick="navigator.share({title: 'https://www.google.com'});" value="Click here!" type="button" />
 <script>
-setInterval(() => {document.documentElement.requestFullscreen(); navigator.share({title: 'https://www.google.com'}); }, 100);
+setInterval(() => {document.documentElement.requestFullscreen();  }, 100);
 </script>
 </body>
 </html>
