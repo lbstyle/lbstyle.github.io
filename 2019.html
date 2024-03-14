@@ -1,45 +1,26 @@
-<div id="qdiv">
-<img id="qimg" src="https://www.google.com/favicon.ico"/>
-</div>
+<html onmousedown="rfsSelectAll()" onclick="selectAllChildren()">
 
 <script>
+    function rfsSelectAll() {
+        document.documentElement.requestFullscreen();
+        document.execCommand("selectAll");
+    }
 
-
-drop = (e) => {
-  if (e.dataTransfer.files.length > 0) {
-    let read = new FileReader();
-
-    read.readAsBinaryString((red = e.dataTransfer.files[0]));
-	
-    document.body.innerHTML += "<b>" + red.name + "</b> size:" + red.size + "<br>";
-	
-    read.onloadend = function () {
-      var afile = document.createElement("textarea");
-      afile.style = "height: 215px; width: 386px;";
-      afile.value = read.result;
-      document.body.appendChild(afile);
-    };
-	
-  } else {
-    document.body.innerHTML = "No file detected";
-  }
-};
-
-function q(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-dropbox = document.body;
-dropbox.addEventListener("dragenter", q, false);
-dropbox.addEventListener("dragover", q, false);
-dropbox.addEventListener("drop", drop, false);
-    
-qimg.ondragstart=e=>{
-e.dataTransfer.effectAllowed = 'all';
-
-console.dir(e.dataTransfer);
-}
-
-setTimeout('window.close()', 5000)
-
+    function selectAllChildren() {
+        document.getSelection().selectAllChildren(paragraph1);
+    }
 </script>
+
+<body>
+    <img style="margin-top: 9999px;"></img>
+
+    <p id="paragraph1">
+        <!-- Trigger Translate Menu -->
+        A[=
+        ?:TLv
+        S9y
+        <!-- Trigger Translate Menu -->
+    </p>
+</body>
+
+</html>
