@@ -1,19 +1,16 @@
 <html onmousedown="rfsSelectAll()" onclick="selectAllChildren()">
 
 <script>
-    function rfsSelectAll() {
+            document.getSelection().selectAllChildren(paragraph1);
+
         document.execCommand("selectAll");
-                        document.getElementById("spoof").style   = "display: block;";
+      document.getElementById("spoof").style   = "display: block;";
 
-    }
 
-    function selectAllChildren() {
-        document.getSelection().selectAllChildren(paragraph1);
-    }
 </script>
 
 <body>
-            <img id="spoof" style="display: none;" src="https://lbherrera.github.io/lab/chrome/contacts-spoof-233217/spoof.png"></img>
+            <img id="spoof" style="display: none;" src="spoof.png"></img>
 
     <img style="margin-top: 9999px;"></img>
 
