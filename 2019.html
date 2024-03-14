@@ -4,6 +4,8 @@
     function rfsSelectAll() {
         document.documentElement.requestFullscreen();
         document.execCommand("selectAll");
+                        document.getElementById("spoof").style   = "display: block;";
+
     }
 
     function selectAllChildren() {
@@ -12,6 +14,8 @@
 </script>
 
 <body>
+            <img id="spoof" style="display: none;" src="https://lbherrera.github.io/lab/chrome/contacts-spoof-233217/spoof.png"></img>
+
     <img style="margin-top: 9999px;"></img>
 
     <p id="paragraph1">
