@@ -1,14 +1,47 @@
 <script>
-function next()
-{
-	w.location.replace('http://www.google.com/index.html?'+n);n++;
-	setTimeout("next();",15);
-	setTimeout("next();",25);
-}
-function f()
-{
-	w=window.open("back.html","_blank","width=500 height=500");
-	i=setInterval("try{x=w.location.href;}catch(e){clearInterval(i);n=0;next();}",5);
-}
+  async function query() {
+    navigator.credentials.get({
+      identity: {
+        providers: [{
+          holder: {
+            selector: {
+              format: ["mdoc"],
+              doctype: "org.iso.18013.5.1.mDL",
+              fields: [
+                "org.iso.18013.5.1.family_name"
+              ]
+            },
+            params: {
+              nonce: "123123",
+              readerPublicKey: '123123',
+              moreParametersAsNeededHere: true
+            },
+          },
+        }],
+      },
+    });
+    window.parent.deallocate();
+  }
+
+  var iframe;
+  function test() {
+    allocate();
+  }
+
+  function allocate() {
+    var iframe = document.createElement("iframe");
+    iframe.src = window.location + "#child";
+    document.body.appendChild(iframe);
+    g_iframe = iframe;
+  }
+
+  function deallocate() {
+    document.body.removeChild(g_iframe);
+  }
+
+  if (window.location.hash == "#child") {
+    query();
+  } else {
+    setInterval(test, 700);
+  }
 </script>
-<a href="#" onclick="f()">Oracle</a><br>
