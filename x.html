@@ -3,7 +3,7 @@
   <script>
 function go() {
   var x = window.open('https://www.google.com:1234');
-  setTimeout(function(){x.location = "attack.html"}, 3000);
+  setTimeout(function(){x.document.write(1)}, 3000);
 };
 </script>
 <input onclick="go()" value="Click here" type="button" /></body>
