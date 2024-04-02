@@ -1,7 +1,9 @@
 
-
-<!DOCTYPE html>
-<title></title>
 <body>
-<input type=button value='Step 1' onclick="window.open('foo.html','','width=801,height=901')">
-</body>
+  <script>
+function go() {
+  var x = window.open('https://www.google.com');
+  setTimeout(function(){x.location = "attack.html"}, 3000);
+};
+</script>
+<input onclick="go()" value="Click here" type="button" /></body>
