@@ -4,7 +4,7 @@
 <html>
 <body>
 <script>
-        v = setInterval(`x=document.location='https://www.google.com/csi';x.location = 'https://www.youtube.com'`);
+        v = setInterval(`x=document.location='https://www.google.com:1234';x.location = 'https://www.youtube.com'`);
         i = setInterval(`
             x.document.write("<h1>url spoofing...</h1>");
             clearInterval(v);
