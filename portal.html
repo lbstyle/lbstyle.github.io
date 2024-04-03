@@ -1,5 +1,9 @@
-<script type="text/javascript">
+<script>
     window.addEventListener('portalactivate', e => {
-        document.body.appendChild(e.adoptPredecessor());
+        try {
+            document.querySelector('portal').outerHTML = '';
+        } catch { }
+
+        document.body.appendChild(e.adoptPredecessor()).activate();
     });
 </script>
