@@ -1,4 +1,4 @@
-<input type="button" onclick="document.body.requestFullscreen();start()"><script>
+<input type="button" value="click here" onclick="document.body.requestFullscreen();start();triggerKeyboard()"><script>
 function start() {  
 
       // From https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API
@@ -68,6 +68,14 @@ function start() {
           .catch((err) => {
             displayOutcome("webauthn-attestation", "error")(err);
           });
+      
     }
+      function triggerKeyboard() {
+        const input = document.getElementById('input1');
+        input.select();
+}
 </script>
-<input />
+            <img id="spoof" style="display: none;" src="spoof.png"></img>
+
+  <input id="input1" value="Enter your password" type="password">
+
