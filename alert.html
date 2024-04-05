@@ -1,47 +1,32 @@
-<script>
-  async function query() {
-    navigator.credentials.get({
-      identity: {
-        providers: [{
-          holder: {
-            selector: {
-              format: ["mdoc"],
-              doctype: "org.iso.18013.5.1.mDL",
-              fields: [
-                "org.iso.18013.5.1.family_name"
-              ]
-            },
-            params: {
-              nonce: "123123",
-              readerPublicKey: '123123',
-              moreParametersAsNeededHere: true
-            },
-          },
-        }],
-      },
-    });
-    window.parent.deallocate();
-  }
+<input type="button" onclick="start()"><script>
+function start() {   var createCredentialDefaultArgs = {
+          publicKey: {
+              // Relying Party (a.k.a. - Service):
+              rp: {
+                  name: "Acme"
+              },
 
-  var iframe;
-  function test() {
-    allocate();
-  }
+              // User:
+              user: {
+                  id: new Uint8Array(16),
+                  name: "john.p.smith@example.com",
+                  displayName: "John P. Smith"
+              },
 
-  function allocate() {
-    var iframe = document.createElement("iframe");
-    iframe.src = window.location + "#child";
-    document.body.appendChild(iframe);
-    g_iframe = iframe;
-  }
+              pubKeyCredParams: [{
+                  type: "public-key",
+                  alg: -7
+              }],
 
-  function deallocate() {
-    document.body.removeChild(g_iframe);
-  }
+              attestation: "direct",
 
-  if (window.location.hash == "#child") {
-    query();
-  } else {
-    setInterval(test, 700);
-  }
+              timeout: 60000,
+
+              challenge: new Uint8Array([ // must be a cryptographically random number sent from a server
+                  0x8C, 0x0A, 0x26, 0xFF, 0x22, 0x91, 0xC1, 0xE9, 0xB9, 0x4E, 0x2E, 0x17, 0x1A, 0x98, 0x6A, 0x73,
+                  0x71, 0x9D, 0x43, 0x48, 0xD5, 0xA7, 0x6A, 0x15, 0x7E, 0x38, 0x94, 0x52, 0x77, 0x97, 0x0F, 0xEF
+              ]).buffer
+          }
+      };
+    }
 </script>
