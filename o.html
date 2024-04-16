@@ -1,1 +1,38 @@
-<iframe src="https://testsafebrowsing.appspot.com/s/malware.html">
+<html onmousedown="run()">
+
+<head id="fullscreenElement">
+    <script>
+        var count = 0;
+        var refsInterval;
+
+        function run() {
+            document.documentElement.onmousedown = function () {}
+
+            fullscreenElement.requestFullscreen();
+            refsInterval = setInterval(requestExitFullScreen, 80);
+        }
+
+        function requestExitFullScreen() {
+            fullscreenElement.requestFullscreen();
+            aElement.appendChild(fullscreenElement); // Append fullscreen element to aElement to exit fullscreen mode
+        }
+    </script>
+</head>
+
+<body>
+    <h2 id="aElement">Tap anywhere on the page</h2>
+    <h3 id="fullscreenChangeCount"></h3>
+</body>
+
+<script>
+    document.onfullscreenchange = function () {
+        count++;
+        fullscreenChangeCount.innerHTML = count;
+
+        if (count >= 6) {
+            clearInterval(refsInterval);
+        }
+    }
+</script>
+
+</html>
