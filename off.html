@@ -1,17 +1,163 @@
-<html>
-<body>
-<button onclick="activate()" style="background-color:red; font-size:36px;">
-CLICK ME TO ACTIVATE THE PORTAL
-</button>
-<script>
-var portal = document.createElement('portal')
-portal.src = "about://version"
-portal.style = "height:1000px;width:1000px;"
-document.body.appendChild(portal)
 
-function activate() {
- portal.activate()
-}
-</script>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="connect-src https://webid-fcm-idp.glitch.me/test/;"
+    />
+    <meta
+      http-equiv="origin-trial"
+      content=""
+    />
+    <script src="https://webid-fcm-idp.glitch.me/test/fedcm.js"></script>
+    <title>My fancy site</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/purecss@1.0.1/build/base-min.css"
+    />
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body class="rp">
+    <section id="head">
+      <h1>FedCM Button Mode Demo Site</h1>
+    </section>
+    <section>
+      Log:
+      <textarea id="log"></textarea>
+    </section>
+
+    <section id="content">
+      <button onclick="login()">Sign in with IdP</button>
+<!--       <iframe src="https://fedcm-button-iframe.glitch.me" allow="identity-credentials-get" style="display: block; position: relative; top: 0px; left: 0px; height: 44px; width: 240px; border: 10px; margin: -2px -18px;">        
+      </iframe> -->
+<!--       <button onclick="logout()">Sign out</button>
+      <button onclick="abort()">Abort</button> -->
+      <!--
+      <p>
+        <a href="https://glitch.com/edit/#!/webid-auto-sign-in">View demo source</a>
+      </p>
+
+      <button onclick="revoke()">
+        Revoke
+      </button> 
+    --></section>
+
+    <text id="signed-in-msg" style="font-size: 2em; color: green; opacity: 0">
+      You have signed in!</text
+    >
+  </body>
+
+  <script>
+    function log(message) {
+      console.log(message);
+      document.getElementById("log").textContent += `${message}\n`;
+    }
+    async function logout() {
+      await navigator.credentials.preventSilentAccess();
+      log("You are signed out");
+    }
+    let controller = new AbortController();
+    function abort() {
+      controller.abort();
+      log("Aborted");
+    }
+    async function main() {
+      if (!window.IdentityCredential) {
+        log(`IdentityCredential is not available.`);
+        log(`ensure FedCM is enabled && page is HTTPS.`);
+
+        return;
+      }
+      log(`Click "Sign in with IdP" to proceed\n(optional) To sign out of IdP, from a different tab visit https://webid-fcm-idp.glitch.me/mark-logout.html\n\n`);
+      
+      // const cred = await navigator.credentials.get({
+      //     identity: {
+      //       // context: "use",
+      //       providers: [
+      //         {
+      //           configURL: "https://webid-fcm-idp.glitch.me/test/fedcm.json",
+      //           clientId: "1234",
+      //           nonce: "5678",
+      //         },
+      //       ],
+      //       context: "use"
+      //     },
+      //     signal: controller.signal,
+      //     mediation: "required",
+      //   });
+      
+      // log(`requesting token in 1 seconds...`)
+      // setTimeout(async (t) => {
+      //   await login();
+      // }, 0);
+      // setTimeout(() => {
+      //     location.href='https://www.google.com';
+      //     log("should have redirected");
+      //   }, 5000);
+    }
+
+    // async function revoke() {
+    //   const provider = {
+    //     url: "https://webid-fcm-idp.glitch.me",
+    //     clientId: "1234",
+    //     nonce: "5678",
+    //   };
+    //   log(`revoking`);
+    //   await FederatedCredential.revoke("albus21334213", provider);
+    //   log(`revoked`);
+    // }
+    async function login() {
+      try {
+        log("Choose an account to sign in to IdP");
+        //log("https://" + window.location.host)
+        // let controller2 = new AbortController();
+        const cred = await navigator.credentials.get({
+          identity: {
+            // context: "use",
+            providers: [
+              {
+                configURL: "https://webid-fcm-idp.glitch.me/test/fedcm.json",
+                clientId: "fedcm-button",
+                nonce: "5678",
+              },
+            ],
+            mode: "button",
+            //context: "use"
+          },
+          signal: controller.signal,
+          mediation: "required",
+        });
+
+        const token = cred.token;
+
+        console.log(token);
+        //log(`received token: ${token.idToken}`);
+        if (token) log(`\n\nToken received! You are signed in as ${token}`);
+        
+        // if (cred.isAutoReauthn !== undefined) {
+        //  const isAutoReauthn = cred.isAutoReauthn;
+        //  log(`User was auto re-authenticated? ${isAutoReauthn}`);
+        // }
+        // if (cred.isAccountAutoSelected !== undefined) {
+        //  const isAutoReauthn = cred.isAccountAutoSelected;
+        //  log(`Account auto selected? ${isAutoReauthn}`);
+        // }
+        document.getElementById("signed-in-msg").style.opacity = 1;
+        // setTimeout(() => {
+        //   cred.logoutRPs();
+        // }, 5000);
+      } catch (e) {
+        log(`\n\nRejected with ${e}`);
+        // document.getElementById("signed-in-msg").style.opacity = 1;
+        // document.getElementById("signed-in-msg").style.color = "red";
+        // document.getElementById("signed-in-msg").textContent = "Auto sign-in cancelled!";
+      }
+    }
+    main();
+  </script>
 </html>
