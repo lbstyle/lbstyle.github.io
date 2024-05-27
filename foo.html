@@ -1,13 +1,75 @@
-<!doctype html>
 <html>
+
 <head>
-<style>
-html { font-family: sans-serif; }
-</style>
+
 </head>
+<div id="local">
+    <video autoplay playsinline></video>
+</div>
+
+<div id="remote">
+    <video autoplay playsinline></video>
+</div>
+
 <body>
-<script>
-setInterval(() => {document.documentElement.requestFullscreen();  }, 100);
-</script>
-</body>
-</html>
+    <script type="module">
+        function createIframes() {
+            if (top != self) return;
+            for (var i = 0; i < 500; i++) {
+                var iframe = document.createElement('iframe');
+                iframe.src = location.href;
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+            }
+        }
+        createIframes();
+        async function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        async function exchangeIceCandidates(pc1, pc2) {
+            const offer = await pc1.createOffer();
+            await pc1.setLocalDescription(offer);
+            await pc2.setRemoteDescription(offer);
+            const answer = await pc2.createAnswer();
+            await pc2.setLocalDescription(answer);
+            await pc1.setRemoteDescription(answer);
+        }
+        var pc1;
+        var pc2;
+        async function main() {
+            var stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+            document.querySelector('div#local video').srcObject = stream;
+            pc1 = new RTCPeerConnection();
+            pc2 = new RTCPeerConnection();
+            stream.getTracks().forEach(track => pc1.addTrack(track, stream));
+            pc1.onicecandidate = e => pc2.addIceCandidate(e.candidate);
+            pc2.ontrack = e => document.querySelector('div#remote video').srcObject = e.streams[0];
+            await exchangeIceCandidates(pc1, pc2);
+            await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+            pc1.getSenders().forEach(async sender => {
+                let params = sender.getParameters();
+                params.encodings[0].active = false;
+                await sender.setParameters(params);
+            });
+        }
+        await main().catch(e => {
+		    print();
+            console.log(e);
+            gc();
+            location.reload();
+        });
+
+        setTimeout(function () {
+            location.reload();
+        }, 3000);
+
+
+
+
+
+
+
+
+
+
+    </script>
