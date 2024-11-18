@@ -4,11 +4,11 @@
 
 <script>
 
-window.onblur=function incognito() {
+window.onclick=function() {
 
 
-location.replace('intent://evil.com#Intent;scheme=https;package=com.sec.android.app.sbrowser;end');
-
+var x = window.open('https://permission.site');
+  setTimeout(function(){x.location="about:blank"}, 6000)
 
 }
 
