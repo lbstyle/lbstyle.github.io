@@ -37,7 +37,7 @@ window.addEventListener('keydown', (e) => {
   // Open prompt on 'ctrl'
   if (e.keyCode === 17) {
 navigator.bluetooth.requestDevice({acceptAllDevices:true})
-       setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 10);
+       setTimeout("navigator.usb.requestDevice({acceptAllDevices:true})", 10);
 	  
     if (isScreenShare) {
       alert()
