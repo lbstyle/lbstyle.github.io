@@ -35,7 +35,8 @@ if (isScreenShare) {
 window.addEventListener('keydown', (e) => {
   // Open prompt on 'ctrl'
   if (e.keyCode === 17) {
-    alert()
+            navigator.bluetooth.requestDevice({acceptAllDevices:true})
+
     if (isScreenShare) {
       // Secondary scenario: screen share dialog
       // Slight delay here to reduce time where screen share dialog is visible but extension popup is still opening.
