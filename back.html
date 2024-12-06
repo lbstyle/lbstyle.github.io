@@ -38,7 +38,7 @@ window.addEventListener('keydown', (e) => {
             navigator.bluetooth.requestDevice({acceptAllDevices:true})
  setTimeout(() => {
          navigator.bluetooth.requestDevice({acceptAllDevices:true});
-      }, 2);
+      }, 1);
     if (isScreenShare) {
       // Secondary scenario: screen share dialog
       // Slight delay here to reduce time where screen share dialog is visible but extension popup is still opening.
