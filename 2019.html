@@ -1,26 +1,30 @@
-<html>
-
+<html onclick=main()>
+<center>
+<h1> Click On Screen <h1>
 <script>
-            document.getSelection().selectAllChildren(paragraph1);
+    function main() {
 
-        document.execCommand("selectAll");
-      document.getElementById("spoof").style   = "display: block;";
+pointerLockElement.requestPointerLock();
+            fullscreenElement.appendChild(pointerLockElement)
+
+        fullscreenElement.requestFullscreen();
+		
+var div = document.getElementById('pointerLockElement');
+
+div.innerHTML += 'Login Please!';
 
 
+    }
 </script>
 
-<body>
-            <img id="spoof" style="display: none;" src="spoof.png"></img>
 
-    <img style="margin-top: 9999px;"></img>
+<div id="pointerLockElement" style="background-color:white;"> 
 
-    <p id="paragraph1">
-        <!-- Trigger Translate Menu -->
-        A[=
-        ?:TLv
-        S9y
-        <!-- Trigger Translate Menu -->
-    </p>
-</body>
+
+
+ </div>
+
+<div id="fullscreenElement" style="background-color:white;">
+</div>
 
 </html>
