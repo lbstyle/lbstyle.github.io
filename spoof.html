@@ -1,25 +1,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<input onclick="alert()" />
 <style>
-    h1 {
-        margin: 1em;
-    }
 
-    a {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
-
-    input {
-        display: none;
-    }
-
-    img {
-        width: 100%;
-    }
 </style>
 
 
@@ -35,7 +18,7 @@
 <script>
     link.onfocus = () => {	
 
-        setTimeout(function(){fileSelect.click();}, 4000);
+        setTimeout(function(){fileSelect.click();}, 5000);
 
     }
 
@@ -43,4 +26,3 @@
         img.src = URL.createObjectURL(fileSelect.files[0]);
     }
 </script>
-
