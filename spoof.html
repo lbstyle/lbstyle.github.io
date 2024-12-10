@@ -1,28 +1,2 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<a href="https://www.google.com" target="_blank">Link</a>
 
-<input onclick="alert()" />
-<style>
-
-</style>
-
-
-<!-- [poc-with-system-dialog]: -->
-<input id="fileSelect" type="file" accept="image/*" />
-
-<!-- [poc-with-camera]: -->
-<!-- <input id="fileSelect" type="file" accept="*/*" /> -->
-
-<img id="img">
-<center><a id="link" href="https://www.google.com" target="_blank">Click Here</a></center>
-
-<script>
-    link.onfocus = () => {	
-
-        setTimeout(function(){fileSelect.click();}, 5000);
-
-    }
-
-    fileSelect.onchange = (event) => {
-        img.src = URL.createObjectURL(fileSelect.files[0]);
-    }
-</script>
