@@ -1,38 +1,11 @@
-<html onmousedown="run()">
-
-<head id="fullscreenElement">
-    <script>
-        var count = 0;
-        var refsInterval;
-
-        function run() {
-            document.documentElement.onmousedown = function () {}
-
-            fullscreenElement.requestFullscreen();
-            refsInterval = setInterval(requestExitFullScreen, 80);
-        }
-
-        function requestExitFullScreen() {
-            fullscreenElement.requestFullscreen();
-            aElement.appendChild(fullscreenElement); // Append fullscreen element to aElement to exit fullscreen mode
-        }
-    </script>
-</head>
-
-<body>
-    <h2 id="aElement">Tap anywhere on the page</h2>
-    <h3 id="fullscreenChangeCount"></h3>
+<html><body>
 </body>
-
 <script>
-    document.onfullscreenchange = function () {
-        count++;
-        fullscreenChangeCount.innerHTML = count;
-
-        if (count >= 10) {
-            clearInterval(refsInterval);
-        }
-    }
+    // w = window.open("http://localhost:8000/poc.html")
+    w1 = window.open("https://fill.dev/form/credit-card-simple")
+    setTimeout(()=>{
+        w.close();
+        // w1.close();
+    },10000)
 </script>
-
 </html>
