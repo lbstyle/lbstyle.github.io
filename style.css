@@ -1,33 +1,50 @@
-body {
-  background-color: #546E7A;
-  color: white;
-  font-family: Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
+/* Copyright 2018 Google LLC.
+SPDX-License-Identifier: Apache-2.0 */
 
-a, a:visited {
-  color: white;
+/* CSS files add styling rules to your content */
+
+body {
+  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  margin: 2em;
 }
 
 h1 {
   text-align: center;
 }
 
-.hidden {
-  display: none !important;
-}
-
-#installContainer {
-  position: absolute;
-  bottom: 1em;
-  display: flex;
-  justify-content: center;
+.toolbar {
   width: 100%;
+  display: flex;
+  margin-top: 16px;
+  justify-content: center;
 }
 
-#installContainer button {
-  background-color: inherit;
-  border: 1px solid white;
-  color: white;
-  font-size: 1em;
-  padding: 0.75em;
+.instructions {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+output {
+  display: block;
+  color: gray;
+  margin: 32px 16px;
+  text-align: center;
+  border: 1px silver dashed;
+  padding: 16px;
+  border-radius: 16px;  
+}
+
+button {
+  display: block;
+  font-size: 16px;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 0 8px;
+  text-transform: uppercase;
+}
+
+/* Hide Install button until beforeinstallprompt fires */
+#install { 
+  display: none;
 }

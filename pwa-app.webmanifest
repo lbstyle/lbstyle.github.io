@@ -1,0 +1,23 @@
+{
+  "name": "Microsoft Teams",
+  "short_name": "A",
+  "theme_color": "white",
+  "background_color": "silver",
+  "start_url": "./",
+  "id": "demo-5",
+  "display": "fullscreen",
+  "scope": "./",
+  "icons": [
+     {
+        "src": "https://cdn.glitch.global/b315c8fc-3c3c-4f47-a059-b29529667661/office.png?v=1672166270711",
+        "type": "image/png",
+        "sizes": "512x512"
+     },
+     {
+        "src": "https://cdn.glitch.global/b315c8fc-3c3c-4f47-a059-b29529667661/office.png?v=1672166270711",
+        "type": "image/png",
+        "sizes": "512x512",
+        "purpose": "maskable"
+     }
+   ]
+}
