@@ -1,14 +1,29 @@
-
+<html onmousedown="rfsSelectAll()" onclick="selectAllChildren()">
 
 <script>
-  function next() {
-         w.location.replace('https://jigsaw.w3.org/HTTP/Basic/');
-        }
+    function rfsSelectAll() {
+        document.execCommand("selectAll");
+      document.getElementById("spoof").style   = "display: block;";
 
-  function f() {
-    w = window.open("https://www.google.com");
-    i = setInterval("try { x = w.location.href; } catch(e) { clearInterval(i); next(); }", 2933); 
-  }
+    }
+
+    function selectAllChildren() {
+        document.getSelection().selectAllChildren(paragraph1);
+    }
 </script>
 
-<a href="#" onclick="f()">Click here</a>
+<body>
+            <img id="spoof" style="display: none;" src="spoof.png"></img>
+
+    <img style="margin-top: 9999px;"></img>
+
+    <p id="paragraph1">
+        <!-- Trigger Translate Menu -->
+        A[=
+        ?:TLv
+        S9y
+        <!-- Trigger Translate Menu -->
+    </p>
+</body>
+
+</html>
