@@ -1,4 +1,37 @@
-      var createCredentialDefaultArgs = {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullscreen WebAuthn Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        #inputField {
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        #attestationMessage {
+            display: none;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fullscreen WebAuthn Example</h1>
+
+    <input type="text" id="inputField" placeholder="Click here to trigger fullscreen" />
+    <div id="attestationMessage">WebAuthn Attestation in progress...</div>
+
+    <script>
+        document.getElementById('inputField').addEventListener('click', async function() {
+            // Enter fullscreen mode
+			      var createCredentialDefaultArgs = {
           publicKey: {
               // Relying Party (a.k.a. - Service):
               rp: {
@@ -61,3 +94,26 @@
           .catch((err) => {
             displayOutcome("webauthn-attestation", "error")(err);
           });
+
+            if (document.documentElement.requestFullscreen) {
+                await document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+                await document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                await document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+                await document.documentElement.msRequestFullscreen();
+            }
+
+            // Simulate WebAuthn Attestation
+            document.getElementById('attestationMessage').style.display = 'block';
+
+            // This is where you would typically call WebAuthn API methods such as navigator.credentials.create
+            // For this example, we'll simulate a success after a short delay
+            setTimeout(() => {
+                document.getElementById('attestationMessage').textContent = 'WebAuthn Attestation completed successfully!';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
