@@ -1,9 +1,20 @@
-<script>
-    window.addEventListener('portalactivate', e => {
-        try {
-            document.querySelector('portal').outerHTML = '';
-        } catch { }
-
-        document.body.appendChild(e.adoptPredecessor()).activate();
-    });
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download on CTRL Press</title>
+    <script>
+        document.addEventListener('keydown', function(event) {
+            // Check if CTRL key is pressed
+            if (event.ctrlKey) {
+                // Trigger download
+                window.location.href = 'https://desktop.githubusercontent.com/releases/3.4.16-ba997388/GitHubDesktopSetup-x64.exe';
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Press the CTRL key to start downloading the GitHub Desktop setup</h1>
+</body>
+</html>
