@@ -1,2 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Magnifier Popup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
 
-<input onclick="navigator.registerProtocolHandler('web+mooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo', '123%s', 'title');document.documentElement.webkitRequestFullScreen();" value="Clcik to spoof" type="button" />
+        /* Basic styling for the text */
+        .text-container {
+            font-size: 16px;
+            margin: 20px;
+            cursor: pointer;
+            color: #007bff;
+        }
+
+        /* Popup (Modal) styles */
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Black background with transparency */
+        }
+
+        /* Popup content */
+        .popup-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: 60%;
+            text-align: center;
+        }
+
+        .popup-content h2 {
+            font-size: 32px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="text-container" onclick="showPopup()">Click to magnify text in a popup!</div>
+
+    <!-- Popup (Modal) -->
+    <div id="textPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>This is magnified text in the popup!</h2>
+            <p>You can add more content here, and it will appear larger.</p>
+        </div>
+    </div>
+
+    <script>
+        // Show the popup
+        function showPopup() {
+            document.getElementById('textPopup').style.display = "block";
+        }
+
+        // Close the popup
+        function closePopup() {
+            document.getElementById('textPopup').style.display = "none";
+        }
+
+        // Close the popup if the user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('textPopup')) {
+                document.getElementById('textPopup').style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
