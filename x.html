@@ -1,9 +1,15 @@
-
+<!DOCTYPE html>
+<html>
 <body>
-  <script>
-function go() {
-  var x = window.open('https://permission.site');
-  setTimeout(function(){x.location="attack.html"}, 3000);
-};
+
+
+<button onclick="myFunction()">Try it</button>
+
+<script>
+function myFunction() {
+  var myWindow = window.open("http://localhost:8000/bubble.html", "", "width=320,height=80");
+}
 </script>
-<input onclick="go()" value="Click here" type="button" /></body>
+
+</body>
+</html>
