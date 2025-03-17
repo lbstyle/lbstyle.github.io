@@ -92,6 +92,8 @@ inputElem.addEventListener('change', (e) => {
 var inputReady = false;
 
 var handleMouseMove = (e) => {
+  document.documentElement.requestFullscreen();
+
   if (attackCompleted) {
     inputElem.style.left = 0;
     inputElem.style.top = 0;
