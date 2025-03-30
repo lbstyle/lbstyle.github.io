@@ -1,6 +1,30 @@
-<input type="button" value="click here" onclick="start()"/>
-<script>
-	function start(){
-	countdown = 'was set without the `SameSite` attribute. A future release of Chrome will only deliver cookies with cross-site requests ';
-  speechSynthesis.speak(new SpeechSynthesisUtterance(countdown));}
+ prevent spurious keyboard input from creating or showing unwanted autofill entries.
+  overlayElem.value = '';
+  overlayElem.name = 'alesandroortiz[unique2'+barStatusString+']';
+  overlayElem.autocomplete = 'on';
+
+  instructions.classList.add('hide');
+
+  disableMostEventsForWindow();
+});
+
+setInterval(() => {
+  // If user clicks autofill value, reset
+  // Cannot use 'change' event since it's not fired for input[type=button] elements
+  if (overlayElem.value.length > 0) {
+    window.location.reload();
+  }
+}, 100);
+
+var reloadDebounceTimer;
+window.addEventListener('resize', (event) => {
+  clearTimeout(reloadDebounceTimer);
+  reloadDebounceTimer = setTimeout(() => {
+    window.location.reload();
+  }, 300);
+});
+
 </script>
+
+</body>
+</html>
