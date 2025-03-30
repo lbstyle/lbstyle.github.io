@@ -1,45 +1,28 @@
 
+<!DOCTYPE html>
 <html>
-  <body onload="main()">
-  	<script>
-		function main(){
-		  var supportedInstruments = [{
-			 //supportedMethods: 'https://bobpay.xyz/pay'
-			 supportedMethods: 'https://skilful-reserve-239412.appspot.com/method-manifest',
-			  data: {
-			    'environment': 'TEST',
-			    'apiVersion': 1,
-			    'allowedPaymentMethods': ['CARD', 'TOKENIZED_CARD'],
-			    'paymentMethodTokenizationParameters': {
-			      'tokenizationType': 'PAYMENT_GATEWAY',
-			      // Check with your payment gateway on the parameters to pass.
-			      'parameters': {}
-			    },
-			    'cardRequirements': {
-			      'allowedCardNetworks': ['AMEX', 'DISCOVER', 'MASTERCARD', 'VISA'],
-			      'billingAddressRequired': true,
-			      'billingAddressFormat': 'MIN'
-			    },
-			    'phoneNumberRequired': true,
-			    'emailRequired': true,
-			    'shippingAddressRequired': true
-			  },
-			},];
-main();
-		  var details = {
-		    total: {
-		      label: 'Total',
-		      amount: { currency: 'USD', value : '55.00' }
-		    }
-		  };
-		  var options = {};
+<title> Google Insall </title>
+<body>
+<center>
+<h1>Click anywhere</h1>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</center>
+<script>
+  
+function popupWindow(url, windowName, win, w, h) {
+    const y = win.top.outerHeight / 3 + win.top.screenY - ( h / 3);
+    const x = win.top.outerWidth / 2 + win.top.screenX - ( w / 2);
+    return win.open(url, windowName, `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${y}, left=${x}`);
+}
+  
+  
+  
+  document.body.addEventListener("click", function (evt) {
+        popupWindow('script.html', 'test', window, 200, 400);
 
-		  var request = new PaymentRequest(supportedInstruments, details, options);
+});
 
-    request.show()
-			
-			setTimeout(function(){request.abort()}, 1200)
-		}
-  	</script>
-  </body>
+</script>
+
+</body>
 </html>
