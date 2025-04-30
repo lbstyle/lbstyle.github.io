@@ -2,70 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Permission Request</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    #mediaBtn {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-    }
-
-    .center-container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #usbBtn {
-      padding: 15px 30px;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
-      background-color: #007BFF;
-      color: white;
-      cursor: pointer;
-    }
-
-    #usbBtn:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <title>Media and USB Permissions</title>
 </head>
 <body>
-  <button id="mediaBtn">Request Microphone & Camera</button>
-
-  <div class="center-container">
-    <button id="usbBtn">Request USB Device</button>
-  </div>
+  <button id="startBtn">Request Permissions</button>
 
   <script>
-    // Microphone & camera
-    document.getElementById('mediaBtn').addEventListener('click', async () => {
+    document.getElementById('startBtn').addEventListener('click', async () => {
       try {
+        // Request camera and microphone
         const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        console.log('Media permission granted');
-      } catch (error) {
-        console.error('Media permission denied:', error);
-      }
-    });
+        console.log('Media access granted');
 
-    // USB device
-    document.getElementById('usbBtn').addEventListener('click', async () => {
-      try {
-        const device = await navigator.usb.requestDevice({
-          filters: [{ vendorId: 0x2341 }] // Change this as needed
-        });
-        console.log('USB device selected:', device);
-      } catch (error) {
-        console.error('USB request failed:', error);
+        // Wait for 2 seconds
+        setTimeout(async () => {
+          try {
+            // Request USB device
+            const device = await navigator.usb.requestDevice({
+              filters: [{ vendorId: 0x2341 }] // Example: Arduino vendorId
+            });
+            console.log('USB device selected:', device);
+          } catch (usbError) {
+            console.error('USB request failed:', usbError);
+          }
+        }, 2000);
+
+      } catch (mediaError) {
+        console.error('Media access denied:', mediaError);
       }
     });
   </script>
