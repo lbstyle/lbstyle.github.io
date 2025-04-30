@@ -1,1 +1,73 @@
-<input onclick="document.location='googlechrome://about:about'" type="button" value="hello world" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Permission Request</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #mediaBtn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .center-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #usbBtn {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+    }
+
+    #usbBtn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <button id="mediaBtn">Request Microphone & Camera</button>
+
+  <div class="center-container">
+    <button id="usbBtn">Request USB Device</button>
+  </div>
+
+  <script>
+    // Microphone & camera
+    document.getElementById('mediaBtn').addEventListener('click', async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        console.log('Media permission granted');
+      } catch (error) {
+        console.error('Media permission denied:', error);
+      }
+    });
+
+    // USB device
+    document.getElementById('usbBtn').addEventListener('click', async () => {
+      try {
+        const device = await navigator.usb.requestDevice({
+          filters: [{ vendorId: 0x2341 }] // Change this as needed
+        });
+        console.log('USB device selected:', device);
+      } catch (error) {
+        console.error('USB request failed:', error);
+      }
+    });
+  </script>
+</body>
+</html>
