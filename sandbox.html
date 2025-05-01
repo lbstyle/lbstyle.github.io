@@ -1,1 +1,37 @@
-<a href="tel:1883">hello world</a>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fullscreen and Share</title>
+</head>
+<body>
+
+<button id="shareButton">Go Fullscreen & Share</button>
+
+<script>
+document.getElementById("shareButton").addEventListener("click", async () => {
+  // Go full screen
+  if (document.documentElement.requestFullscreen) {
+    await document.documentElement.requestFullscreen();
+  } else if (document.documentElement.webkitRequestFullscreen) { // Safari
+    await document.documentElement.webkitRequestFullscreen();
+  }
+
+  // Wait 1 second
+  setTimeout(() => {
+    if (navigator.share) {
+      navigator.share({
+        title: '⚠ Camera and Microphone ⚠\nhttps://www.google.com wants to',
+        text: 'Call 123-456-7890'
+      }).catch((error) => {
+        console.error("Sharing failed:", error);
+      });
+    } else {
+      alert("Web Share API is not supported in your browser.");
+    }
+  }, 222);
+});
+</script>
+
+</body>
+</html>
