@@ -39,7 +39,7 @@
             // Open a blank window and inject HTML content after 200 ms
             setTimeout(function(){
                 const newWindow = window.open('about:blank', '', 'width=600,height=80');
-                newWindow.document.write('<label style="visibility: hidden" for="options">WWWWWWw</label><img src="poc.png" alt="Screenshot" style="width:455px; height:auto;">');
+                newWindow.document.write('<label style="visibility: hidden" for="options"></label><img src="poc.png" alt="Screenshot" style="width:455px; height:auto;">');
                 newWindow.document.close(); // Ensure the content is rendered
             }, 200);
         }
