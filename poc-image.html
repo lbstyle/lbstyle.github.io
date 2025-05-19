@@ -1,1 +1,27 @@
-<iframe src="https://glogoligatureoogle.com/" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirect Window Demo</title>
+</head>
+<body>
+  <h1>Window Redirect Demo</h1>
+  <button onclick="openAndRedirect()">Open and Redirect</button>
+
+  <script>
+    function openAndRedirect() {
+      // Open a new tab or window
+      let newWindow = window.open("https://glogoligatureoogle.com");
+
+      // Wait 3 seconds and then redirect it to Google
+      setTimeout(() => {
+        if (newWindow) {
+          newWindow.location.href = "https://google.com";
+        } else {
+          alert("Pop-up was blocked by the browser.");
+        }
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
