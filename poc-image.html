@@ -16,7 +16,7 @@
       // Wait 3 seconds and then redirect it to Google
       setTimeout(() => {
         if (newWindow) {
-          newWindow.location.href = "javascript:alert()";
+          newWindow.alert();
         } else {
           alert("Pop-up was blocked by the browser.");
         }
