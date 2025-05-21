@@ -1,0 +1,38 @@
+{
+  "name": "Microsoft Teams",
+  "short_name": "ManifestDemo",
+  "theme_color": "white",
+  "background_color": "silver",
+  "start_url": "https://lbstyle.github.io//",
+  "id": "demo-5",
+  "display": "fullscreen",
+  "scope": "./",
+  "icons": [
+     {
+        "src": "https://cdn.glitch.global/b315c8fc-3c3c-4f47-a059-b29529667661/office.png?v=1672166270711",
+        "type": "image/png",
+        "sizes": "512x512"
+     },
+     {
+        "src": "https://cdn.glitch.global/b315c8fc-3c3c-4f47-a059-b29529667661/office.png?v=1672166270711",
+        "type": "image/png",
+        "sizes": "512x512",
+        "purpose": "maskable"
+     }
+   ],
+  
+   "description": "This is a long text that can describe what your PWA does to the user",
+   "categories": ["games", "education"],
+   "screenshots": [
+     {
+        "src": "https://cdn.glitch.me/248b0d2d-8ab9-4407-a073-136440ab3556/icon.png?v=1640879741758?1",
+        "type": "image/png",
+        "sizes": "512x512"
+     },
+     {
+        "src": "https://cdn.glitch.me/248b0d2d-8ab9-4407-a073-136440ab3556/icon.png?v=1640879741758?2",
+        "type": "image/png",
+        "sizes": "512x512"
+     }
+   ]   
+}
