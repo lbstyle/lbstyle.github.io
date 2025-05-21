@@ -10,7 +10,7 @@ window.addEventListener("DOMContentLoaded", async event => {
   }
   document.addEventListener("click", () => {  
     installApp()
-    location.href = "about:blank"
+    location.href = ""
   })
 });
 
