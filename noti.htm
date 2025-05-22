@@ -1,26 +1,69 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Redirect Window Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+html { font-family: sans-serif; }
+html, body { margin: 0; }
+.textInput {
+    font-size: 1.2em;
+    position: absolute;
+}
+#inputElem {
+    top: 0;
+    left: 0;
+}
+#inputElem2 {
+    top: 200px;
+    left: 100px;
+}
+#instructions {
+    text-align: center;
+    margin-top: 300px;
+    font-size: 1.5em;
+    user-select: none;
+}
+</style>
 </head>
-<body onclick="	  navigator.bluetooth.requestDevice({acceptAllDevices:true});">
-  <h1>Window Redirect Demo</h1>
-  <button onclick="openAndRedirect()">Open and Redirect</button>
+<body>
+<input value="abcdefghijklmnopqrstuvwxyz" id="inputElem" class="textInput" virtualkeyboardpolicy="manual">
+<input value="abcdefghijklmnopqrstuvwxyz" id="inputElem2" class="textInput" virtualkeyboardpolicy="manual">
+<div id="instructions">Tap an input field</div>
+<script>
+var firstTapDone = false;
+var firstSelectionDone = false;
+var isDone = false;
 
-  <script>
-    function openAndRedirect() {
-      // Open a new tab or window
-	  navigator.bluetooth.requestDevice({acceptAllDevices:true});
+var selectionChangeHandler = () => {
+  if (!firstSelectionDone) {
+    firstSelectionDone = true;
+    return;
+  }
+  if (isDone) { return; }
+  isDone = true;
+  setTimeout(() => {
+	  alert()
+    window.open('about:blank')
+  }, 400);
+}
 
+var initEventListeners = () => {
+    // pointerdown emitted before touch finishes
+    window.addEventListener('pointerdown', () => {
+        if (firstTapDone) { return; }
+        firstTapDone = true;
+        instructions.innerText = 'Touch and move blue handle,\nthen wait a few moments...';
+        inputElem.addEventListener('selectionchange', selectionChangeHandler);
+        inputElem2.addEventListener('selectionchange', selectionChangeHandler);
+    });
+}
 
-      // Wait 3 seconds and then redirect it to Google
-      setInterval(() => {
-             let newWindow = window.open("https://glogoligatureoogle.com");
-
-      }, 2000);
-    }
-  </script>
+if (document.prerendering) {
+    document.addEventListener('prerenderingchange', initEventListeners);
+} else {
+    initEventListeners();
+}
+</script>
 </body>
 </html>
