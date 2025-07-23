@@ -1,19 +1,35 @@
-var scenario = 'permission'; // or 'screenshare'
-var url = 'http://lbstyle.github/select.html';
-var popupUrl = 'popup.html';
-var width = 850;
-var height = 700;
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Location Permission After Delay</title>
+</head>
+<body>
 
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.windows.create({url: url, width: width, height: height});
-      chrome.action.openPopup();
+<div id="output"></div>
 
-});
+<script>
+  window.onload = function () {
+    setTimeout(() => {
+      const output = document.getElementById("output");
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === 'poc_loaded') {
-    chrome.action.setPopup({ popup: popupUrl });
-    // Optionally open the popup programmatically
-    chrome.action.openPopup();
-  }
-});
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            output.textContent = `Latitude: ${lat}, Longitude: ${lon}`;
+          },
+          function (error) {
+            output.textContent = "Location access denied or unavailable.";
+            console.error("Geolocation error:", error);
+          }
+        );
+      } else {
+        output.textContent = "Geolocation is not supported by this browser.";
+      }
+    }, 2000); // Delay of 2000 milliseconds = 2 seconds
+  };
+</script>
+
+</body>
+</html>
