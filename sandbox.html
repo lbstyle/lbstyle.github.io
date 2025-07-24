@@ -2,21 +2,16 @@
 <head>
   <script>
     async function main() {
-	
       dev = null;
       await navigator.serial
         .requestPort()  // Request a serial port instead of USB device
         .then((serialPort) => {
           dev = serialPort;
-           for (var i=1;i<163;i++){
-navigator.mediaDevices.getUserMedia({
-          video: true,    // Request video
-          audio: true     // Request microphone (audio)
-        });
-		
+           for (var i=1;i<154;i++){
 				navigator.usb
 				.requestDevice({ filters: [] })
 				.then((usbDevice) => {
+				
 				
 			});
 		}
