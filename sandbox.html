@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bluetooth Device Request</title>
+  <title>Serial Device Request</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -19,38 +19,51 @@
 </head>
 <body>
 
-  <h1>Bluetooth Device Request</h1>
-  <p>Click the button below to request a Bluetooth device:</p>
-  <button id="requestButton">Request Bluetooth Device</button>
+  <h1>Serial Device Request</h1>
+  <p>Click the button below to request a serial device:</p>
+  <button id="requestButton">Request Serial Device</button>
 
   <div id="deviceInfo" style="margin-top: 20px;"></div>
 
   <script>
-    // Function to request a Bluetooth device
-    async function requestBluetoothDevice() {
+    // Function to request a serial device
+    async function requestSerialDevice() {
       try {
-        // Request a Bluetooth device with the "battery_service" filter
-        const device = await navigator.bluetooth.requestDevice({
-          filters: [
-            { services: ['battery_service'] }
-          ]
-        });
+        // Request access to a serial device
+        const port = await navigator.serial.requestPort();
 
-        // Display device info
+        // Open the serial port
+        await port.open({ baudRate: 9600 });
+
+        // Display device information
         document.getElementById('deviceInfo').innerHTML = `
           <h2>Device Found:</h2>
-          <p>Name: ${device.name}</p>
-          <p>Id: ${device.id}</p>
-          <p>Connected: ${device.gatt ? 'Yes' : 'No'}</p>
+          <p>Port: ${port.usbVendorId} - ${port.usbProductId}</p>
+          <p>Status: Opened</p>
         `;
+
+        // Set up a reader to read data from the device
+        const reader = port.readable.getReader();
+        const decoder = new TextDecoder();
+
+        // Read data in a loop
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) {
+            reader.releaseLock();
+            break;
+          }
+          console.log('Received data: ', decoder.decode(value));
+        }
+
       } catch (error) {
-        console.log('Bluetooth request failed:', error);
+        console.error('Serial request failed:', error);
         document.getElementById('deviceInfo').innerHTML = '<p>Device request failed.</p>';
       }
     }
 
     // Attach event listener to button
-    document.getElementById('requestButton').addEventListener('click', requestBluetoothDevice);
+    document.getElementById('requestButton').addEventListener('click', requestSerialDevice);
   </script>
 
 </body>
