@@ -1,9 +1,2 @@
-
-<script> function go(){ 
- var x=window.open('https://www.google.com/csi'); 
- setTimeout(function(){
- a=x.alert('Go to gmail.com');x.prompt('E-mail','');b=x.prompt('Password','');x.alert('Welcome to Gmail.com');} ,1000);
-  } 
- </script> 
- 
- <button onclick="go()">go</button>
+    <iframe id="myIframe" src="sandbox.html" width="600" height="400" 
+            onload="setTimeout(function(){ document.getElementById('myIframe').remove(); }, 4200);"></iframe>
