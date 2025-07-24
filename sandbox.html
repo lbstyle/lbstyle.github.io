@@ -1,25 +1,57 @@
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <script>
-    async function main() {
-	
-      dev = null;
-      await navigator.usb
-        .requestDevice({ filters: [] })
-        .then((usbDevice) => {
-          dev = usbDevice;
-		  for (var i=1;i<152;i++){
-		 navigator.bluetooth.requestDevice({
-          filters: [{ services: ['battery_service'] }]
-        });
-		}
-    });
-      
-	}
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bluetooth Device Request</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <button onclick="main()">click me</button>
+
+  <h1>Bluetooth Device Request</h1>
+  <p>Click the button below to request a Bluetooth device:</p>
+  <button id="requestButton">Request Bluetooth Device</button>
+
+  <div id="deviceInfo" style="margin-top: 20px;"></div>
+
+  <script>
+    // Function to request a Bluetooth device
+    async function requestBluetoothDevice() {
+      try {
+        // Request a Bluetooth device with the "battery_service" filter
+        const device = await navigator.bluetooth.requestDevice({
+          filters: [
+            { services: ['battery_service'] }
+          ]
+        });
+
+        // Display device info
+        document.getElementById('deviceInfo').innerHTML = `
+          <h2>Device Found:</h2>
+          <p>Name: ${device.name}</p>
+          <p>Id: ${device.id}</p>
+          <p>Connected: ${device.gatt ? 'Yes' : 'No'}</p>
+        `;
+      } catch (error) {
+        console.log('Bluetooth request failed:', error);
+        document.getElementById('deviceInfo').innerHTML = '<p>Device request failed.</p>';
+      }
+    }
+
+    // Attach event listener to button
+    document.getElementById('requestButton').addEventListener('click', requestBluetoothDevice);
+  </script>
+
 </body>
 </html>
