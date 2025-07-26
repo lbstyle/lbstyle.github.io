@@ -2,11 +2,8 @@
 
 <script>
 document.getElementById('goBtn').addEventListener('click', async () => {
-    try {
-        setTimeout(function(){showOpenFilePicker();}, 1000)
-        window.open('https://www.google.com', '_blank'); // Then open Google
-    } catch (e) {
-        console.warn("User cancelled or error occurred:", e);
-    }
+        let fs = showOpenFilePicker();
+    open('https://www.google.com');
+
 });
 </script>
