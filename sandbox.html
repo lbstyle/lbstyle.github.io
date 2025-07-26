@@ -1,20 +1,12 @@
-<html>
-<head>
-  <script>
-    async function main() {
-      dev = null;
-      await navigator.serial
-        .requestPort()  // Request a serial port instead of USB device
-        .then((serialPort) => {
-          dev = serialPort;
-           for (var i=1;i<254;i++){
-				navigator.serial.requestPort();
-		}
-        });
+<button id="goBtn">Pick file and open Google</button>
+
+<script>
+document.getElementById('goBtn').addEventListener('click', async () => {
+    try {
+        await showOpenFilePicker(); // User picks a file
+        window.open('https://www.google.com', '_blank'); // Then open Google
+    } catch (e) {
+        console.warn("User cancelled or error occurred:", e);
     }
-  </script>
-</head>
-<body>
-  <button onclick="main()">click me</button>
-</body>
-</html>
+});
+</script>
