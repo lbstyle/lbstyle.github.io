@@ -1,9 +1,62 @@
-<button id="goBtn">Pick file and open Google</button>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    h1 {
+        margin: 1em;
+    }
+
+    a {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    input {
+        display: none;
+    }
+
+    img {
+        width: 100%;
+    }
+</style>
+
+<h1>Tap to upload photo to Google</h1>
+
+<!-- [poc-with-system-dialog]: -->
+<input id="fileSelect" type="file" accept="image/*" />
+
+<!-- [poc-with-camera]: -->
+<!-- <input id="fileSelect" type="file" accept="*/*" /> -->
+
+<img id="preview" style="max-width: 100%; margin-top: 20px;" />
+<a id="link" target="_blank"></a>
 
 <script>
-document.getElementById('goBtn').addEventListener('click', async () => {
-        let fs = showOpenFilePicker();
-    open('https://www.google.com');
+    link.onclick = () => {	
 
-});
+        showOpenFilePicker().then(([fileHandle]) => {
+        // Get the file from the file handle
+        fileHandle.getFile().then((file) => {
+            // Create a FileReader to read the file
+            const reader = new FileReader();
+
+            // When the file is loaded, set the result as the image source
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+
+            // Read the image as a data URL
+            reader.readAsDataURL(file);
+        });
+    });
+ open('https://www.google.com')
+
+    }
+
+    fileSelect.onchange = (event) => {
+        img.src = URL.createObjectURL(fileSelect.files[0]);
+    }
 </script>
