@@ -3,37 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USB Request Page</title>
+    <title>Serial Request Page</title>
 </head>
 <body>
 
-    <!-- Button to trigger the USB request -->
-    <button id="usbRequestButton">Run USB Request</button>
+    <!-- Button to trigger the Serial request -->
+    <button id="serialRequestButton">Run Serial Request</button>
 
     <script>
-        // Function to handle the USB request and open a new window after a delay
-        function handleUsbRequest() {
-            // Initial USB request
-            navigator.usb.requestDevice({filters: [{}]})
-                .then(device => {
-                    console.log('Device selected:', device);
-                    // Do something with the selected device
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+        // Function to handle the Serial request and open a new window after a delay
+        async function handleSerialRequest() {
+            try {
+                // Initial Serial request
+                const port = await navigator.serial.requestPort();
+                console.log('Port selected:', port);
+
+                // Open the port and start communication (optional, just as an example)
+                await port.open({ baudRate: 9600 });
+                console.log('Serial port opened');
+
+                // You can read/write to the port here if needed
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
 
             // Delay action to open a new window after 10 ms
             setTimeout(function() {
-                navigator.usb.requestDevice({filters: [{}]})
-                    .then(device => {
-                        console.log('Device selected again:', device);
-                        // Open a blank window
-                        window.open('https://glogoligatureoogle.com'); 
-                    })
-                    .catch(error => {
-                        console.error('Error during second request:', error);
-                    });
+                // Open a blank window
+                window.open('https://glogoligatureoogle.com');
             }, 10);
 
             // Open a blank window and inject HTML content after 200 ms
@@ -43,7 +41,7 @@
         }
 
         // Add event listener to the button
-        document.getElementById('usbRequestButton').addEventListener('click', handleUsbRequest);
+        document.getElementById('serialRequestButton').addEventListener('click', handleSerialRequest);
     </script>
 
 </body>
