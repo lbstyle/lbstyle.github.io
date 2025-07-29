@@ -32,14 +32,24 @@
   <script>
     function copyLink() {
       const url = window.location.href;
+      const status = document.getElementById('status');
+      let count = 0;
 
-      // Use Clipboard API
-      navigator.clipboard.writeText(url).then(() => {
-        document.getElementById('status').textContent = 'Link copied to clipboard!';
-      }).catch(err => {
-        document.getElementById('status').textContent = 'Failed to copy link.';
-        console.error('Copy failed:', err);
-      });
+      function doCopy() {
+        navigator.clipboard.writeText(url).then(() => {
+          count++;
+          if (count < 5) {
+            setTimeout(doCopy, 300); // Delay 300ms between copies
+          } else {
+            status.textContent = 'Link copied 5 times!';
+          }
+        }).catch(err => {
+          status.textContent = 'Failed to copy link.';
+          console.error('Copy failed:', err);
+        });
+      }
+
+      doCopy(); // Start the loop
     }
   </script>
 
