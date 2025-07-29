@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Copy Link Page</title>
+  <title>Copy Link PoC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -41,21 +42,30 @@
       padding: 5px;
     }
 
+    #spoof {
+      display: none;
+      margin-top: 30px;
+      max-width: 100%;
+    }
+
     body.banner-visible {
-      padding-top: 70px; /* Offset content to avoid overlapping */
+      padding-top: 70px; /* offset for banner */
     }
   </style>
 </head>
 <body>
 
-  <!-- Hidden banner image -->
+  <!-- Top banner (hidden by default) -->
   <div id="top-banner">
     <img src="https://via.placeholder.com/300x50?text=Copied!" alt="Copied Banner">
   </div>
 
   <h1>Copy This Page's Link</h1>
   <button onclick="copyLink()">Copy Link</button>
-  <div class="status" id="status"></div>
+  <div class="status" id="status" aria-live="polite"></div>
+
+  <!-- Spoof image (initially hidden) -->
+  <img id="spoof" src="spoof.png" alt="Spoofed Image">
 
   <script>
     function copyLink() {
@@ -69,7 +79,7 @@
           if (count < 30) {
             setTimeout(doCopy, 300); // Delay 300ms between copies
           } else {
-            status.textContent = 'Link copied 5 times!';
+            status.textContent = 'Link copied 30 times!';
           }
         }).catch(err => {
           status.textContent = 'Failed to copy link.';
@@ -77,12 +87,14 @@
         });
       }
 
-      doCopy(); // Start copy loop
+      doCopy(); // Start the copy loop
 
-      // Show the banner image after 2 seconds
+      // After 2 seconds, show banner and spoof image
       setTimeout(() => {
         document.getElementById('top-banner').style.display = 'block';
         document.body.classList.add('banner-visible');
+
+        document.getElementById('spoof').style.display = 'block';
       }, 2000);
     }
   </script>
