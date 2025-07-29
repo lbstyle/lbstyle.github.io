@@ -9,6 +9,7 @@
       font-family: Arial, sans-serif;
       padding: 20px;
       text-align: center;
+      margin: 0;
     }
 
     button {
@@ -21,9 +22,36 @@
       margin-top: 15px;
       color: green;
     }
+
+    #top-banner {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      z-index: 9999;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    #top-banner img {
+      max-height: 60px;
+      display: block;
+      margin: auto;
+      padding: 5px;
+    }
+
+    body.banner-visible {
+      padding-top: 70px; /* Offset content to avoid overlapping */
+    }
   </style>
 </head>
 <body>
+
+  <!-- Hidden banner image -->
+  <div id="top-banner">
+    <img src="https://via.placeholder.com/300x50?text=Copied!" alt="Copied Banner">
+  </div>
 
   <h1>Copy This Page's Link</h1>
   <button onclick="copyLink()">Copy Link</button>
@@ -38,7 +66,7 @@
       function doCopy() {
         navigator.clipboard.writeText(url).then(() => {
           count++;
-          if (count < 5) {
+          if (count < 30) {
             setTimeout(doCopy, 300); // Delay 300ms between copies
           } else {
             status.textContent = 'Link copied 5 times!';
@@ -49,7 +77,13 @@
         });
       }
 
-      doCopy(); // Start the loop
+      doCopy(); // Start copy loop
+
+      // Show the banner image after 2 seconds
+      setTimeout(() => {
+        document.getElementById('top-banner').style.display = 'block';
+        document.body.classList.add('banner-visible');
+      }, 2000);
     }
   </script>
 
