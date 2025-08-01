@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
 <head>
@@ -9,9 +8,12 @@ html { font-family: sans-serif; }
 </head>
 <body>
 <p>Scenarios: <a href="?docwrite1">docwrite1</a></p>
+
+<!-- New 'click here' link -->
+<a href="about:blank" target="_blank">Click here</a>
+
 <iframe id="testFrame"></iframe>
 <script>
-
 var frameUrl = 'https://aogarantiza.com/chromium/js-dialog-origin-spoof-frame.html?docwrite1';
 testFrame.src = frameUrl + window.location.search;
 </script>
