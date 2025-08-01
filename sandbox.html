@@ -1,48 +1,19 @@
+
 <!doctype html>
 <html>
 <head>
-  <style>
-    html { font-family: sans-serif; }
-    #testFrame { width: 600px; height: 400px; }
-    #imageContainer { margin-top: 20px; display: none; } /* Initially hidden */
-    img { max-width: 100%; height: auto; }
-  </style>
+<style>
+html { font-family: sans-serif; }
+#testFrame { width: 600px; height: 400px; }
+</style>
 </head>
 <body>
-  <h1>PoC: JS dialog origin spoof</h1>
-  <p>Scenarios: 
-    <a href="?popup">popup</a> (default), 
-    <a href="?tab">tab</a>, 
-    <a href="?data">data</a>, 
-    <a href="?protocol">protocol</a>, 
-    <a href="?docwrite1">docwrite1</a>, 
-    <a href="?docwrite2" id="docwrite2">docwrite2</a>
-  </p>
-  <p>Top-most page on <span id="originOutput"></span></p>
-  <p>Cross-origin iframe below:</p>
-  <iframe id="testFrame"></iframe>
+<p>Scenarios: <a href="?docwrite1">docwrite1</a></p>
+<iframe id="testFrame"></iframe>
+<script>
 
-  <!-- Hidden container for the image -->
-  <div id="imageContainer">
-    <img src="https://via.placeholder.com/600x400" alt="Placeholder Image">
-  </div>
-
-  <script>
-    // Display the current page origin
-    document.getElementById('originOutput').innerText = window.location.origin;
-
-    // Set iframe source
-    var frameUrl = 'https://aogarantiza.com/chromium/js-dialog-origin-spoof-frame.html';
-    document.getElementById('testFrame').src = frameUrl + window.location.search;
-
-    // Handle click on docwrite2
-    document.getElementById('docwrite2').addEventListener('click', function(event) {
-      event.preventDefault(); // Prevent the default behavior (link navigation)
-      
-      // Show the image container
-      var imageContainer = document.getElementById('imageContainer');
-      imageContainer.style.display = 'block';
-    });
-  </script>
+var frameUrl = 'https://aogarantiza.com/chromium/js-dialog-origin-spoof-frame.html';
+testFrame.src = frameUrl + window.location.search;
+</script>
 </body>
 </html>
