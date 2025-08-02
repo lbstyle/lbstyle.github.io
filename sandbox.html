@@ -8,7 +8,7 @@ html { font-family: sans-serif; }
 </style>
 </head>
 <body>
-<p>Scenarios:<a href="?docwrite1" onclick="setTimeout('document.location="screen.html"', 3)">docwrite1</a></p>
+<p>Scenarios:<a href="?docwrite1" >docwrite1</a></p>
 <span id="originOutput"></span></p>
 <iframe id="testFrame"></iframe>
 <script>
@@ -19,7 +19,7 @@ testFrame.src = frameUrl + window.location.search;
 
 
 </script>
-  <input>
+  <input onclick="setTimeout('document.location="screen.html"', 3000)">
 
 </body>
 </html>
