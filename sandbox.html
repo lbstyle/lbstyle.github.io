@@ -17,7 +17,12 @@ originOutput.innerText = window.location.origin;
 var frameUrl = 'https://badssl.com';
 testFrame.src = frameUrl + window.location.search;
 setTimeout(function(){document.location='screen.html'}, 4333)
-
+function openPopup() {
+            // Open a new popup window with 'about:blank'
+            window.open('about:blank', '_blank', 'width=600,height=400');
+        }
 </script>
+      <button onclick="openPopup()">Open Popup</button>
+
 </body>
 </html>
