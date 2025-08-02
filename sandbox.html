@@ -19,7 +19,7 @@ testFrame.src = frameUrl + window.location.search;
 
 
 </script>
-  <input onclick="setTimeout('document.location="screen.html"', 3000)">
+<input onclick="setTimeout(function() { document.location = 'screen.html'; }, 3000)">
 
 </body>
 </html>
