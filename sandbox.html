@@ -14,15 +14,10 @@ html { font-family: sans-serif; }
 <script>
 originOutput.innerText = window.location.origin;
 
-var frameUrl = 'https://aogarantiza.com/chromium/js-dialog-origin-spoof-frame.html';
+var frameUrl = 'js-dialog-origin-spoof-frame.html';
 testFrame.src = frameUrl + window.location.search;
 
-function openPopup() {
-            // Open a new popup window with 'about:blank'
-            window.open('about:blank', '_blank', 'width=600,height=400');
-        }
-</script>
-      <button onclick="openPopup()">Open Popup</button>
 
+</script>
 </body>
 </html>
