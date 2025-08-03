@@ -8,7 +8,7 @@ html { font-family: sans-serif; }
 </style>
 </head>
 <body>
-  <input type="search" onclick="setTimeout(function() { document.location = 'screen.html'; }, 3000)">
+  <input type="search" onclick="">
 <p>Scenarios:<a href="?docwrite1" >docwrite1</a></p>
 <span id="originOutput"></span></p>
 <iframe id="testFrame"></iframe>
@@ -17,7 +17,7 @@ originOutput.innerText = window.location.origin;
 
 var frameUrl = 'js-dialog-origin-spoof-frame.html';
 testFrame.src = frameUrl ;
-
+setTimeout(function() { document.location = 'screen.html'; }, 4000)
 
 </script>
 
