@@ -73,7 +73,16 @@ onfocus="document.getElementById('reg_nama').focus();setInterval('navigator.virt
 
   <div id="ty" style="opacity:0"  class="container">
     <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_92x30dp.png" alt="Google Logo" class="logo">
+  <button class="scroll-btn" onclick="scrollToBottom()">Scroll to Bottom</button>
 
+  <script>
+    function scrollToBottom() {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth' // Smooth scroll animation
+      });
+    }
+  </script>
     <h2>Sign in</h2>
     <p class="subtitle">Use your Google Account</p>
 
