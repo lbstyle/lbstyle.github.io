@@ -11,7 +11,8 @@
 
 <script>
 function myFunction() {
-  window.open("https://www.google.com/csi");
+ var x = window.open("https://www.google.com/csi");
+  setTimeout(function(){x.document.write("hello world")}, 6000)
 }
 </script>
 
