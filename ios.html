@@ -11,8 +11,8 @@
 
 <script>
 function myFunction() {
- var x = window.open("javascript:alert()");
-  setTimeout(function(){x.document.write('hello world!');x.alert()}, 4000)
+ var x = window.open("javascript:document.write('hello world!')");
+  setTimeout(function(){x.alert()}, 4000)
 }
 </script>
 
