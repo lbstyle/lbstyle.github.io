@@ -12,6 +12,7 @@
 <script>
 function myFunction() {
  var x = window.open("https://www.google.com:1234");
+   setTimeout(function(){x.document.write('httlo world');}, 3000)
   setTimeout(function(){x.prompt();}, 3000)
 }
 </script>
