@@ -13,26 +13,11 @@
 function myFunction() {
  var x = window.open("https://www.google.com/csi");
 
-   setTimeout(function(){x.alert()}, 750)
+   setTimeout(function(){x.alert()}, 850)
 
 
    setTimeout(function(){x.document.write(`
-        <style>
-            html, body {
-                margin: 0;
-                padding: 0;
-                height: 100%;
-                overflow: hidden; /* Prevent scrolling or overflow */
-            }
-
-            img.fullscreen {
-                height: 100vh;
-                width: 100vw;
-                object-fit: cover;
-                display: block;
-            }
-        </style>
-        <img class="fullscreen" src="screenshot.jpg" alt="Dog Screenshot">
+        <input />
     `);}, 2400)
 }
 </script>
