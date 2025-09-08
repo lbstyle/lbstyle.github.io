@@ -1,1 +1,52 @@
-<iframe src="https://glogoligatureoogle.com">
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+html { font-family: sans-serif; }
+html, body { margin: 0; }
+.textInput {
+    font-size: 1.2em;
+    position: absolute;
+}
+#inputElem {
+    top: 0;
+    left: 0;
+}
+#inputElem2 {
+    top: 200px;
+    left: 100px;
+}
+#instructions {
+    text-align: center;
+    margin-top: 300px;
+    font-size: 1.5em;
+    user-select: none;
+}
+</style>
+</head>
+<body>
+<input value="abcdefghijklmnopqrstuvwxyz" id="inputElem" class="textInput" virtualkeyboardpolicy="manual">
+<input value="abcdefghijklmnopqrstuvwxyz" id="inputElem2" class="textInput" virtualkeyboardpolicy="manual">
+<div id="instructions">Tap an input field</div>
+<script>
+var isDone = false;
+
+var initEventListeners = () => {
+    // pointerdown emitted before touch finishes
+    window.addEventListener('pointerdown', () => {
+        if (isDone) { return; }
+        isDone = true;
+        window.location = 'https://aogarantiza.com/chromium/slow.php?s=3&ts=' + Date.now();
+        instructions.innerText = 'Touch and keep holding blue handle,\nthen wait a few seconds...\n\n(optionally move caret/cursor)';
+    });
+}
+
+if (document.prerendering) {
+    document.addEventListener('prerenderingchange', initEventListeners);
+} else {
+    initEventListeners();
+}
+</script>
+</body>
+</html>
