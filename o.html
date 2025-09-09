@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,6 @@ html, body { margin: 0; }
     left: 0;
     width: 100vw;
     height: 100vh;
-    height: 200px;
     font-size: 0.01em;
     outline: none;
     border: none;
@@ -28,8 +28,8 @@ html, body { margin: 0; }
     height: 200%;
 }
 #inputElem.selected {
+    top: 430px;
     height: 1px;
-    height: 37px;
 }
 #instructions {
     position: absolute;
@@ -45,7 +45,7 @@ html, body { margin: 0; }
 }
 #spoof {
     position: absolute;
-    top: 0;
+    top: 410px;
     left: 0;
     width: 82px;
     height: 40px;
@@ -54,13 +54,10 @@ html, body { margin: 0; }
     text-align: center;
     background: #f5fafe;
 }
-#spoofBackground {
-    background: #d7e8f0;
-    height: 31px;
-}
 #spoofText {
-    margin-top: 8px;
-    font-size: 13px;
+    margin-top: 4px;
+    line-height: 1;
+    font-size: 30px;
 }
 #slider {
     position: absolute;
@@ -80,7 +77,7 @@ html, body { margin: 0; }
 </head>
 <body>
 <input value="a" id="inputElem" virtualkeyboardpolicy="manual">
-<div id="spoof"><div id="spoofBackground"><div id="spoofText">google.com</div></div></div>
+<div id="spoof"><div id="spoofText">&#x279C;</div></div>
 <div id="slider"></div>
 <div id="instructions">Tap once or slide finger</div>
 <script>
@@ -97,15 +94,15 @@ var firstInteractionDone = false;
 var firstTouchMove = true;
 var isDone = false;
 
-const LEFT_THRESHOLD = 124;
-const RIGHT_THRESHOLD = LEFT_THRESHOLD + 4;
+const LEFT_THRESHOLD = 256;
+const RIGHT_THRESHOLD = LEFT_THRESHOLD + 8;
 
 var initEventListeners = () => {
 
     window.addEventListener('pointerup', () => {
         if (firstInteractionDone) { return; }
         firstInteractionDone = true;
-        instructions.innerText = 'Slide finger to the left';
+        instructions.innerText = 'Slide finger to the right';
     });
 
     inputElem.addEventListener('touchend', () => {
@@ -153,6 +150,7 @@ var initEventListeners = () => {
             spoof.classList.add('show');
             if (isDone) { return; }
             isDone = true;
+
             setTimeout(() => {
                 fetch(SIGNAL_SERVER + '/signal', {method: 'post'});
             }, 0);
@@ -164,7 +162,7 @@ var initEventListeners = () => {
             return;
         }
         firstRequestMade = true;
-        window.location = SIGNAL_SERVER + '/?slownav&ts=' + Date.now();
+        window.location = SIGNAL_SERVER + '/permission?slownav&ts=' + Date.now();
         inputElem.classList.add('tapped');
     });
 }
