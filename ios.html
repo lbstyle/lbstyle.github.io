@@ -11,9 +11,13 @@
 
 <script>
 function myFunction() {
- var x = window.open("https://permission.site");
-   setTimeout(function(){x.location="cam2.html"}, 1000);
-   
+ var x = window.open("https://permission.site:1234");
+   setTimeout(function(){x.alert()}, 1050)
+
+
+   setTimeout(function(){x.document.write(`
+        <input />
+    `);}, 2400)   
 }
 </script>
 
