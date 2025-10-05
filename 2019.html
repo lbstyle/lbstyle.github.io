@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fake Address Bar Example</title>
+<title>Fake Address Bar with Rotation Behavior</title>
 <style>
   body {
     margin: 0;
@@ -13,7 +13,6 @@
     flex-direction: column;
   }
 
-  /* Input at the top */
   header {
     padding: 16px;
     background: #fff;
@@ -29,12 +28,11 @@
     box-sizing: border-box;
   }
 
-  /* Spacer to keep space above bottom bar */
   main {
     flex: 1;
   }
 
-  /* Fake google.com bar at bottom */
+  /* Fake google.com bar */
   .fake-bar {
     text-align: center;
     background: #fff7f0;
@@ -47,6 +45,14 @@
     bottom: 0;
     width: 100%;
     z-index: 9999;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Hide the bar in landscape mode */
+  @media (orientation: landscape) {
+    .fake-bar {
+      display: none;
+    }
   }
 </style>
 </head>
