@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Show Fake URL After Rotation</title>
+<title>Show Fake URL After Rotation (Auto Scroll)</title>
 <style>
   body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #fff;
-    height: 100vh;
+    height: 150vh; /* give page extra height to allow scrolling if needed */
     display: flex;
     flex-direction: column;
   }
@@ -58,7 +58,7 @@
 <body>
 
 <header>
-  <input type="text" placeholder="Type something..." />
+  <input type="text" placeholder="Type something..." id="inputBox" />
 </header>
 
 <main></main>
@@ -73,10 +73,14 @@
     if (!shown) {
       fakeBar.classList.add('show');
       shown = true;
+
+      // Give Chrome a moment to adjust viewport, then scroll
+      setTimeout(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+      }, 400);
     }
   }
 
-  // Detect actual device rotation
   window.addEventListener('orientationchange', handleRotation);
 </script>
 
