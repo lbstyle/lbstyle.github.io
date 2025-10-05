@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fake Address Bar with Rotation Behavior</title>
+<title>Show Fake URL After Rotation</title>
 <style>
   body {
     margin: 0;
@@ -32,7 +32,6 @@
     flex: 1;
   }
 
-  /* Fake google.com bar */
   .fake-bar {
     text-align: center;
     background: #fff7f0;
@@ -45,14 +44,14 @@
     bottom: 0;
     width: 100%;
     z-index: 9999;
-    transition: opacity 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
   }
 
-  /* Hide the bar in landscape mode */
-  @media (orientation: landscape) {
-    .fake-bar {
-      display: none;
-    }
+  .show {
+    opacity: 1;
+    visibility: visible;
   }
 </style>
 </head>
@@ -64,7 +63,22 @@
 
 <main></main>
 
-<div class="fake-bar">google.com</div>
+<div class="fake-bar" id="fakeBar">google.com</div>
+
+<script>
+  const fakeBar = document.getElementById('fakeBar');
+  let shown = false;
+
+  function handleRotation() {
+    if (!shown) {
+      fakeBar.classList.add('show');
+      shown = true;
+    }
+  }
+
+  // Detect actual device rotation
+  window.addEventListener('orientationchange', handleRotation);
+</script>
 
 </body>
 </html>
