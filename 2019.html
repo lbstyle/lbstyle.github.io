@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fake Address Bar Test</title>
+<title>Fake Address Bar Example</title>
 <style>
   body {
     margin: 0;
@@ -11,10 +11,30 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
   }
 
-  /* Fake address bar */
+  /* Input at the top */
+  header {
+    padding: 16px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  /* Spacer to keep space above bottom bar */
+  main {
+    flex: 1;
+  }
+
+  /* Fake google.com bar at bottom */
   .fake-bar {
     text-align: center;
     background: #fff7f0;
@@ -28,21 +48,15 @@
     width: 100%;
     z-index: 9999;
   }
-
-  input {
-    width: 90%;
-    margin: 20px auto;
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    display: block;
-  }
 </style>
 </head>
 <body>
 
-<input type="text" placeholder="Type here..." />
+<header>
+  <input type="text" placeholder="Type something..." />
+</header>
+
+<main></main>
 
 <div class="fake-bar">google.com</div>
 
