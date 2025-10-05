@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Show Fake URL After Rotation (Auto Scroll)</title>
+<title>Show Fake URL Above Keyboard</title>
 <style>
   body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #fff;
-    height: 150vh; /* give page extra height to allow scrolling if needed */
+    height: 100vh;
     display: flex;
     flex-direction: column;
   }
@@ -41,12 +40,11 @@
     font-size: 18px;
     padding: 8px 0;
     position: fixed;
-    bottom: 0;
     width: 100%;
     z-index: 9999;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease, bottom 0.2s ease;
   }
 
   .show {
@@ -58,7 +56,7 @@
 <body>
 
 <header>
-  <input type="text" placeholder="Type something..." id="inputBox" />
+  <input type="text" placeholder="Type something..." />
 </header>
 
 <main></main>
@@ -66,22 +64,34 @@
 <div class="fake-bar" id="fakeBar">google.com</div>
 
 <script>
-  const fakeBar = document.getElementById('fakeBar');
-  let shown = false;
+const fakeBar = document.getElementById('fakeBar');
+let shown = false;
 
-  function handleRotation() {
-    if (!shown) {
-      fakeBar.classList.add('show');
-      shown = true;
-
-      // Give Chrome a moment to adjust viewport, then scroll
-      setTimeout(() => {
-        window.scrollTo(0, document.body.scrollHeight);
-      }, 400);
-    }
+function showFakeBar() {
+  if (!shown) {
+    fakeBar.classList.add('show');
+    shown = true;
   }
+}
 
-  window.addEventListener('orientationchange', handleRotation);
+function adjustFakeBar() {
+  const vv = window.visualViewport;
+  if (vv) {
+    // Position bar just above the keyboard
+    fakeBar.style.bottom = `${window.innerHeight - vv.height}px`;
+  } else {
+    fakeBar.style.bottom = '0';
+  }
+}
+
+// Show fake bar on rotation
+window.addEventListener('orientationchange', () => {
+  showFakeBar();
+  adjustFakeBar();
+});
+
+// Adjust bar whenever keyboard opens/closes
+window.visualViewport?.addEventListener('resize', adjustFakeBar);
 </script>
 
 </body>
