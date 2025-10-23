@@ -8,10 +8,13 @@
 <p>Click the button to open a new browser window.</p>
 
 <input onclick="setTimeout(function(){myFunction()}, 1000)"></input>
+<input></input>
 
 <script>
 function myFunction() {
  alert();
+  document.documentElement.requestFullscreen();
+
 }
 </script>
 
