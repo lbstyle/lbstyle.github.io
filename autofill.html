@@ -58,11 +58,14 @@
 
 <header>
   <input onclick="setTimeout(function(){myFunction()}, 1000)" placeholder="Type something..." />
+  <input onclick="showFakeBar();adjustFakeBar();" />
+
 </header>
 
 <main></main>
 
 <div class="fake-bar" id="fakeBar">google.com</div>
+
 
 <script>
 const fakeBar = document.getElementById('fakeBar');
@@ -93,8 +96,6 @@ window.visualViewport?.addEventListener('resize', adjustFakeBar);
 function myFunction() {
  alert();
   document.documentElement.requestFullscreen();
-    showFakeBar();
-  adjustFakeBar();
 
 
 }
