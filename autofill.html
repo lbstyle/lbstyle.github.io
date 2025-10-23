@@ -1,54 +1,38 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Show Fake URL Above Keyboard</title>
+<title>Fake URL and Fullscreen Example</title>
 <style>
   body {
-    margin: 0;
     font-family: Arial, sans-serif;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+    margin: 20px;
   }
-
-  header {
-    padding: 16px;
-    background: #fff;
-    border-bottom: 1px solid #ddd;
-  }
-
-  input[type="text"] {
-    width: 100%;
-    padding: 12px;
+  input {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
+    width: 100%;
+    max-width: 400px;
   }
-
-  main {
-    flex: 1;
-  }
-
   .fake-bar {
-    text-align: center;
+    position: fixed;
+    left: 0;
+    width: 100%;
     background: #fff7f0;
     border-top: 1px solid #e0cbb0;
     border-bottom: 1px solid #e0cbb0;
     color: #222;
     font-size: 18px;
+    text-align: center;
     padding: 8px 0;
-    position: fixed;
-    width: 100%;
     z-index: 9999;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease, bottom 0.2s ease;
   }
-
-  .show {
+  .fake-bar.show {
     opacity: 1;
     visibility: visible;
   }
@@ -56,49 +40,70 @@
 </head>
 <body>
 
-<header>
-  <input onclick="setTimeout(function(){myFunction()}, 1000)" placeholder="Type something..." />
-  <input onclick="showFakeBar();adjustFakeBar();" />
+<h1>The Window Object</h1>
+<h2>The open() Method</h2>
 
-</header>
+<p>Click the first input to trigger fullscreen after 1 second.</p>
 
-<main></main>
+<input id="firstInput" placeholder="First input (triggers fullscreen)" />
+<input id="secondInput" placeholder="Second input (fake bar appears)" />
 
 <div class="fake-bar" id="fakeBar">google.com</div>
 
-
 <script>
-const fakeBar = document.getElementById('fakeBar');
-let shown = false;
+  const fakeBar = document.getElementById('fakeBar');
+  const firstInput = document.getElementById('firstInput');
+  const secondInput = document.getElementById('secondInput');
 
-function showFakeBar() {
-  if (!shown) {
+  // Your existing function for the first input
+  function myFunction() {
+    alert('Going fullscreen now!');
+    // Request fullscreen on document element
+    document.documentElement.requestFullscreen().catch(err => {
+      console.warn('Fullscreen request failed:', err);
+    });
+  }
+
+  // Show/hide fake bar functions
+  function showFakeBar() {
     fakeBar.classList.add('show');
-    shown = true;
+    adjustFakeBar();
   }
-}
 
-function adjustFakeBar() {
-  const vv = window.visualViewport;
-  if (vv) {
-    // Position bar just above the keyboard
-    fakeBar.style.bottom = `${window.innerHeight - vv.height}px`;
-  } else {
-    fakeBar.style.bottom = '0';
+  function hideFakeBar() {
+    fakeBar.classList.remove('show');
   }
-}
 
-// Show fake bar on rotation
+  // Position the fake bar above keyboard
+  function adjustFakeBar() {
+    const vv = window.visualViewport;
+    if (vv) {
+      fakeBar.style.bottom = `${window.innerHeight - vv.height}px`;
+    } else {
+      fakeBar.style.bottom = '0';
+    }
+  }
 
-// Adjust bar whenever keyboard opens/closes
-window.visualViewport?.addEventListener('resize', adjustFakeBar);
+  // First input: on click, run myFunction after 1 second
+  firstInput.addEventListener('click', () => {
+    setTimeout(myFunction, 1000);
+  });
 
-function myFunction() {
- alert();
-  document.documentElement.requestFullscreen();
+  // Second input: show fake bar on focus, hide on blur
+  secondInput.addEventListener('focus', showFakeBar);
+  secondInput.addEventListener('blur', hideFakeBar);
 
-
-}
+  // Adjust fake bar position when viewport changes
+  window.visualViewport?.addEventListener('resize', () => {
+    if (fakeBar.classList.contains('show')) {
+      adjustFakeBar();
+    }
+  });
+  window.addEventListener('orientationchange', () => {
+    if (fakeBar.classList.contains('show')) {
+      adjustFakeBar();
+    }
+  });
 </script>
 
 </body>
