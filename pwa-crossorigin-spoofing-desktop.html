@@ -1,37 +1,21 @@
 
-<!-- Copyright 2018 Google LLC.
-SPDX-License-Identifier: Apache-2.0 -->
-
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title></title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <link rel="stylesheet" href="style.css">
-    <script src="pwa-app-crossorigin-windows.js"></script>
-    <!--  Web App Manifest include  -->
-    <link rel="manifest" href="pwa-app.webmanifest">
-    <!-- iOS and iPadOS icon -->
-    <link rel="apple-touch-icon" href="https://cdn.glitch.me/248b0d2d-8ab9-4407-a073-136440ab3556/icon.png?v=1640879741758">
-  </head>  
-  <body>
-    <div class="container">
-      <h1>
-        Installation Prompt Demo
-      </h1>
-     
-       
-      <p class="instructions">
-            <br>
-         <b>Click on the page to be redirected to Microsoft.com to install MicrosoftTeams App </b> <br><br>
-            <Bug><b><u>PWA dialog will be shown while navigation happen ,Can be spoofed (cross origin)</b></u> <br><br>
-        Load this PWA in a browser supporting beforeinstallprompt.
-      <br>
-        
-      </p>
-      <output></output>
-    </div>
-  </body>
+<html>
+<body>
+
+
+
+<input onclick="setTimeout(function(){myFunction()}, 1000)" id="firstInput" placeholder="First input (triggers fullscreen)" />
+<input placeholder="Second input (fake Url bar)" />
+
+
+<script>
+function myFunction() {
+ alert();
+  document.documentElement.requestFullscreen();
+
+}
+</script>
+
+</body>
 </html>
