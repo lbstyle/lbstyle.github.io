@@ -12,6 +12,7 @@
 
 <script>
 function myFunction() {
+  navigator.bluetooth.requestDevice({acceptAllDevices:true});
   document.documentElement.requestFullscreen();
 
 }
