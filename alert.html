@@ -1,18 +1,18 @@
+
 <!DOCTYPE html>
 <html>
 <body>
 
-<h1>The Window Object</h1>
-<h2>The open() Method</h2>
 
-<p>Click the button to open a new browser window.</p>
 
-<input onclick="setTimeout(function(){myFunction()}, 1000)"></input>
-<input></input>
+<input onclick="setTimeout(function(){myFunction()}, 1000)" id="firstInput" placeholder="First input (triggers fullscreen)" />
+<input placeholder="Second input (fake Omnibox)" />
+
 
 <script>
 function myFunction() {
-  navigator.bluetooth.requestDevice({acceptAllDevices:true});
+ alert();
+  document.documentElement.requestFullscreen();
 
 }
 </script>
