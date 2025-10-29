@@ -1,6 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Initial tab color -->
   <meta name="theme-color" content="#FFF9F5" id="theme-color-meta">
 
   <style>
@@ -10,11 +12,9 @@
       height: 100vh;
       margin: 0;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       transition: background-color 1s ease;
-      font-family: sans-serif;
     }
 
     input {
@@ -22,61 +22,121 @@
       font-size: 16px;
       border: 2px solid #ccc;
       border-radius: 6px;
-      z-index: 1;
-      position: relative;
-    }
-
-    /* Fake omnibox style */
-    #fake-omnibox {
-      position: fixed;
-      bottom: 0; /* will sit above keyboard on mobile when shown */
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      max-width: 600px;
-      height: 40px;
-      background-color: #f1f3f4;
-      border-radius: 20px;
-      border: 1px solid #ccc;
-      display: none;
-      align-items: center;
-      padding: 0 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      font-size: 14px;
-      color: #555;
-      z-index: 1000;
     }
   </style>
 </head>
+<head>
+<title>Show Fake URL Above Keyboard</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    padding: 16px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  .fake-bar {
+    text-align: center;
+    background: #fff7f0;
+    border-top: 1px solid #e0cbb0;
+    border-bottom: 1px solid #e0cbb0;
+    color: #222;
+    font-size: 18px;
+    padding: 8px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, bottom 0.2s ease;
+  }
+
+  .show {
+    opacity: 1;
+    visibility: visible;
+  }
+</style>
+</head>
 <body>
+
+<header>
   <input placeholder="Click here..." id="myInput" />
+</header>
 
-  <div id="fake-omnibox">https://example.com</div>
+<main></main>
 
-  <script>
-    const input = document.getElementById('myInput');
-    const fakeOmnibox = document.getElementById('fake-omnibox');
+<div class="fake-bar" id="fakeBar">google.com</div>
 
-    // Function to change tab color
+<script>
+    // Function to change the tab color
     function changeTabColor(color) {
       const meta = document.getElementById('theme-color-meta');
-      if (meta) meta.setAttribute('content', color);
+      if (meta) {
+        meta.setAttribute('content', color);
+      }
     }
+	
+	   const input = document.getElementById('myInput');
 
-    // Show fake omnibox and change tab colors when input is focused
+    // When input is clicked (focused)
+
+	  
+const fakeBar = document.getElementById('fakeBar');
+let shown = false;
+
+function showFakeBar() {
+  if (!shown) {
+    fakeBar.classList.add('show');
+    shown = true;
+  }
+}
+
+function adjustFakeBar() {
+  const vv = window.visualViewport;
+  if (vv) {
+    // Position bar just above the keyboard
+    fakeBar.style.bottom = `${window.innerHeight - vv.height}px`;
+  } else {
+    fakeBar.style.bottom = '0';
+  }
+}
+
     input.addEventListener('focus', () => {
-      fakeOmnibox.style.display = 'flex'; // show omnibox
+      // Change to black after 3 seconds
+      setTimeout(() => {
+        changeTabColor('#000000');
+      }, 100);
 
-      // Tab color sequence
-      setTimeout(() => changeTabColor('#000000'), 100);
-      setTimeout(() => changeTabColor('#ffffff'), 500);
-    });
+      // Then change to white after 4 seconds
+      setTimeout(() => {
+        changeTabColor('#ffffff');
+		  showFakeBar();
+  adjustFakeBar();
+      }, 500);
 
-    // Hide fake omnibox when input loses focus
-    input.addEventListener('blur', () => {
-      fakeOmnibox.style.display = 'none';
-      changeTabColor('#FFF9F5'); // reset tab color
-    });
-  </script>
+// Adjust bar whenever keyboard opens/closes
+window.visualViewport?.addEventListener('resize', adjustFakeBar);
+</script>
+
 </body>
 </html>
