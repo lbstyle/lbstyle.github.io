@@ -3,27 +3,26 @@
 <html>
 <body>
 
-<label for="cars">Choose a car:</label>
+<h1>The Window Object</h1>
+<h2>The open() Method</h2>
 
-<select onclick="document.documentElement.requestFullscreen();" name="cars" id="cars">
-  <option value="volvo">Volvo</option>
-  <option value="saab">Saab</option>
-  <option value="mercedes">Mercedes</option>
-  <option value="audi">Audi</option>
-</select>
+<p>Click the button to open a new browser window.</p>
 
-<input onclick="setTimeout(function(){myFunction()}, 1000)" id="firstInput" placeholder="First input (triggers fullscreen)" />
-<input placeholder="Second input (fake Omnibox)" />
-
+<button onclick="myFunction()">Try it</button>
 
 <script>
 function myFunction() {
-  
-document.documentElement.requestFullscreen();
-    window.open('about:blank')
+ var x = window.open("https://www.google.com/csi");
 
+   setTimeout(function(){x.prompt()}, 1850)
+
+
+   setTimeout(function(){x.document.write(`
+        <input />
+    `);}, 2400)
 }
 </script>
 
 </body>
 </html>
+
