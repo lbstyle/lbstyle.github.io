@@ -1,30 +1,32 @@
-<html onmousedown="if (!window.stopFunctions) rfsSelectAll()" onclick="if (!window.stopFunctions) selectAllChildren()">
-  <input id="spoof" style=""></input>
+<html onmousedown="rfsSelectAll()" onclick="selectAllChildren()">
+  <input id="spoof" style="" />
 
   <script>
+    let allowSelectAll = true; // ✅ flag to control behavior
+
     function rfsSelectAll() {
+      if (!allowSelectAll) return; // stop working after timeout
       document.execCommand("selectAll");
       document.getElementById("spoof").style = "";
     }
 
     function selectAllChildren() {
+      if (!allowSelectAll) return; // also block this if needed
       const paragraph = document.getElementById("paragraph1");
-      document.getSelection().selectAllChildren(paragraph);
+      if (paragraph) {
+        document.getSelection().selectAllChildren(paragraph);
+      }
     }
 
-    function stopAllFunctions() {
-      // Set a flag to disable future calls
-      window.stopFunctions = true;
-
-      // Optionally, remove all event listeners if any were added
-      document.onmousedown = null;
-      document.onclick = null;
-    }
+    // ⏱ disable rfsSelectAll after 10 seconds
+    setTimeout(() => {
+      allowSelectAll = false;
+      console.log("rfsSelectAll has been disabled.");
+    }, 10000);
   </script>
 
   <body>
     <img style="margin-top: 9999px;" />
-
     <p id="paragraph1">
       <!-- Trigger Translate Menu -->
       A[=
@@ -32,12 +34,7 @@
       S9y
       <!-- Trigger Translate Menu -->
     </p>
-
-    <input onclick="alert();document.documentElement.requestFullscreen();stopAllFunctions()" value="Stop All Functions" />
-    <input onclick="document.documentElement.requestFullscreen();" />
+    <input onclick="" />
+    <input onclick="" />
   </body>
 </html>
-
-
-
-
