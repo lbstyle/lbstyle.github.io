@@ -1,32 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Initial tab color -->
-  <meta name="theme-color" content="#FFF9F5" id="theme-color-meta">
-
-  <style>
-    body {
-      background-color: #FFF9F5;
-      color: black;
-      height: 100vh;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 1s ease;
-    }
-
-    input {
-      padding: 10px 20px;
-      font-size: 16px;
-      border: 2px solid #ccc;
-      border-radius: 6px;
-    }
-  </style>
-</head>
-<head>
-<title>Show Fake URL Above Keyboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fake URL Above Keyboard</title>
 <style>
   body {
     margin: 0;
@@ -34,6 +10,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: #FFF9F5; /* Keep the page background */
   }
 
   header {
@@ -80,7 +57,7 @@
 <body>
 
 <header>
-  <input placeholder="Click here..." id="myInput" />
+  <input type="text" placeholder="Type something..." id="myInput" />
 </header>
 
 <main></main>
@@ -88,54 +65,48 @@
 <div class="fake-bar" id="fakeBar">google.com</div>
 
 <script>
-    // Function to change the tab color
-    function changeTabColor(color) {
-      const meta = document.getElementById('theme-color-meta');
-      if (meta) {
-        meta.setAttribute('content', color);
-      }
-    }
-	
-	   const input = document.getElementById('myInput');
-
-    // When input is clicked (focused)
-
-	  
 const fakeBar = document.getElementById('fakeBar');
-let shown = false;
+const input = document.getElementById('myInput');
 
+// Show fake bar
 function showFakeBar() {
-  if (!shown) {
-    fakeBar.classList.add('show');
-    shown = true;
-  }
+  fakeBar.classList.add('show');
 }
 
+// Hide fake bar
+function hideFakeBar() {
+  fakeBar.classList.remove('show');
+  fakeBar.style.bottom = '0px';
+}
+
+// Adjust bar position above keyboard
 function adjustFakeBar() {
   const vv = window.visualViewport;
   if (vv) {
-    // Position bar just above the keyboard
     fakeBar.style.bottom = `${window.innerHeight - vv.height}px`;
   } else {
-    fakeBar.style.bottom = '0';
+    fakeBar.style.bottom = '0px';
   }
 }
 
-    input.addEventListener('focus', () => {
-      // Change to black after 3 seconds
-      setTimeout(() => {
-        changeTabColor('#000000');
-      }, 100);
+// Show fake bar when input is focused
+input.addEventListener('focus', () => {
+  setTimeout(() => {
+    showFakeBar();
+    adjustFakeBar();
+  }, 300); // Delay ensures keyboard is open
+});
 
-      // Then change to white after 4 seconds
-      setTimeout(() => {
-        changeTabColor('#ffffff');
-		  showFakeBar();
-  adjustFakeBar();
-      }, 500);
+// Hide fake bar when input loses focus
+input.addEventListener('blur', () => {
+  hideFakeBar();
+});
 
-// Adjust bar whenever keyboard opens/closes
-window.visualViewport?.addEventListener('resize', adjustFakeBar);
+// Adjust bar when keyboard opens/closes or device rotates
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', adjustFakeBar);
+}
+window.addEventListener('orientationchange', adjustFakeBar);
 </script>
 
 </body>
