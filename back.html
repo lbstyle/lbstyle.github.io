@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Initial tab color: black -->
-  <meta name="theme-color" content="" id="theme-color-meta">
+  <!-- Initial tab color -->
+  <meta name="theme-color" content="#FFF9F5" id="theme-color-meta">
 
   <style>
-    /* Initial background: soft cream (#FFF9F5) */
     body {
       background-color: #FFF9F5;
       color: black;
@@ -14,16 +13,23 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 1s ease; /* smooth fade */
+      transition: background-color 1s ease;
+    }
+
+    input {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
     }
   </style>
 </head>
 
 <body>
-  <input placeholder="Type here..." />
+  <input placeholder="Click here..." id="myInput" />
 
   <script>
-    // Function to change tab color
+    // Function to change the tab color
     function changeTabColor(color) {
       const meta = document.getElementById('theme-color-meta');
       if (meta) {
@@ -31,14 +37,20 @@
       }
     }
 
-    
-    // Change tab color to grey after 10 seconds
-    setTimeout(() => {
-      changeTabColor('#000000');
-    }, 3000); // 10000 ms = 10 seconds
-     setTimeout(() => {
-      changeTabColor('#ffffff');
-    }, 4000); // 10000 ms = 10 seconds
+    const input = document.getElementById('myInput');
+
+    // When input is clicked (focused)
+    input.addEventListener('focus', () => {
+      // Change to black after 3 seconds
+      setTimeout(() => {
+        changeTabColor('#000000');
+      }, 100);
+
+      // Then change to white after 4 seconds
+      setTimeout(() => {
+        changeTabColor('#ffffff');
+      }, 200);
+    });
   </script>
 </body>
 </html>
