@@ -1,40 +1,82 @@
-<html onmousedown="rfsSelectAll()" onclick="selectAllChildren()">
-  <input id="spoof" style="" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="theme-color" content="#FFF9F5" id="theme-color-meta">
+
+  <style>
+    body {
+      background-color: #FFF9F5;
+      color: black;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 1s ease;
+      font-family: sans-serif;
+    }
+
+    input {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* Fake omnibox style */
+    #fake-omnibox {
+      position: fixed;
+      bottom: 0; /* will sit above keyboard on mobile when shown */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 600px;
+      height: 40px;
+      background-color: #f1f3f4;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      display: none;
+      align-items: center;
+      padding: 0 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      font-size: 14px;
+      color: #555;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <input placeholder="Click here..." id="myInput" />
+
+  <div id="fake-omnibox">https://example.com</div>
 
   <script>
-    let allowSelectAll = true; // ✅ flag to control behavior
+    const input = document.getElementById('myInput');
+    const fakeOmnibox = document.getElementById('fake-omnibox');
 
-    function rfsSelectAll() {
-      if (!allowSelectAll) return; // stop working after timeout
-      document.execCommand("selectAll");
-      document.getElementById("spoof").style = "";
+    // Function to change tab color
+    function changeTabColor(color) {
+      const meta = document.getElementById('theme-color-meta');
+      if (meta) meta.setAttribute('content', color);
     }
 
-    function selectAllChildren() {
-      if (!allowSelectAll) return; // also block this if needed
-      const paragraph = document.getElementById("paragraph1");
-      if (paragraph) {
-        document.getSelection().selectAllChildren(paragraph);
-      }
-    }
+    // Show fake omnibox and change tab colors when input is focused
+    input.addEventListener('focus', () => {
+      fakeOmnibox.style.display = 'flex'; // show omnibox
 
-    // ⏱ disable rfsSelectAll after 10 seconds
-    setTimeout(() => {
-      allowSelectAll = false;
-      console.log("rfsSelectAll has been disabled.");
-    }, 10000);
+      // Tab color sequence
+      setTimeout(() => changeTabColor('#000000'), 100);
+      setTimeout(() => changeTabColor('#ffffff'), 500);
+    });
+
+    // Hide fake omnibox when input loses focus
+    input.addEventListener('blur', () => {
+      fakeOmnibox.style.display = 'none';
+      changeTabColor('#FFF9F5'); // reset tab color
+    });
   </script>
-
-  <body>
-    <img style="margin-top: 9999px;" />
-    <p id="paragraph1">
-      <!-- Trigger Translate Menu -->
-      A[=
-      ?:TLv
-      S9y
-      <!-- Trigger Translate Menu -->
-    </p>
-    <input onclick="" />
-    <input onclick="" />
-  </body>
+</body>
 </html>
