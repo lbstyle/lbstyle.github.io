@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fake URL Above Keyboard</title>
+<title>Fake URL Above Keyboard with Tab Color</title>
+<meta name="theme-color" content="#FFF9F5" id="theme-color-meta">
 <style>
   body {
     margin: 0;
@@ -10,7 +11,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #FFF9F5; /* Keep the page background */
+    background-color: #FFF9F5; /* Keep page background unchanged */
   }
 
   header {
@@ -67,6 +68,12 @@
 <script>
 const fakeBar = document.getElementById('fakeBar');
 const input = document.getElementById('myInput');
+const metaTheme = document.getElementById('theme-color-meta');
+
+// Function to change tab color
+function changeTabColor(color) {
+  if (metaTheme) metaTheme.setAttribute('content', color);
+}
 
 // Show fake bar
 function showFakeBar() {
@@ -89,20 +96,26 @@ function adjustFakeBar() {
   }
 }
 
-// Show fake bar when input is focused
+// Handle input focus
 input.addEventListener('focus', () => {
+  // Change tab color sequence immediately on focus
+  setTimeout(() => changeTabColor('#000000'), 100); // black
+  setTimeout(() => changeTabColor('#ffffff'), 500); // then white
+
+  // Show fake omnibox after a short delay (so tab color changes first)
   setTimeout(() => {
     showFakeBar();
     adjustFakeBar();
-  }, 300); // Delay ensures keyboard is open
+  }, 600); // slightly after color change
 });
 
-// Hide fake bar when input loses focus
+// Handle input blur
 input.addEventListener('blur', () => {
   hideFakeBar();
+  changeTabColor('#FFF9F5'); // reset tab color when input loses focus
 });
 
-// Adjust bar when keyboard opens/closes or device rotates
+// Adjust bar position when keyboard opens/closes or device rotates
 if (window.visualViewport) {
   window.visualViewport.addEventListener('resize', adjustFakeBar);
 }
