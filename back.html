@@ -1,5 +1,21 @@
 <head>
-  <meta name="theme-color" content="#000000">
+  <!-- Initial tab color: black -->
+  <meta name="theme-color" content="#000000" id="theme-color-meta">
 </head>
+<body>
+  <script>
+    // Function to change tab color
+    function changeTabColor(color) {
+      const meta = document.getElementById('theme-color-meta');
+      if (meta) {
+        meta.setAttribute('content', color);
+      }
+    }
 
-<input>
+    // Change tab color to white after 10 seconds (10000 milliseconds)
+    setTimeout(() => {
+      changeTabColor('#ffffff');
+    }, 10000);
+  </script>
+  <input />
+</body>
