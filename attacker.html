@@ -1,4 +1,4 @@
-<html onmousedown="rfsSelectAll()" onclick="selectAllChildren()">
+<html onmousedown="if (!window.stopFunctions) rfsSelectAll()" onclick="if (!window.stopFunctions) selectAllChildren()">
   <input id="spoof" style=""></input>
 
   <script>
@@ -8,33 +8,32 @@
     }
 
     function selectAllChildren() {
-      document.getSelection().selectAllChildren(paragraph1);
+      const paragraph = document.getElementById("paragraph1");
+      document.getSelection().selectAllChildren(paragraph);
     }
 
-    // Function to stop both behaviors
-    function stopSelectionFunctions() {
-      // Remove event handlers from <html>
-      document.documentElement.onmousedown = null;
-      document.documentElement.onclick = null;
+    function stopAllFunctions() {
+      // Set a flag to disable future calls
+      window.stopFunctions = true;
 
-      // Override functions so they no longer do anything
-      window.rfsSelectAll = () => {};
-      window.selectAllChildren = () => {};
-
-      console.log("Selection functions stopped.");
+      // Optionally, remove all event listeners if any were added
+      document.onmousedown = null;
+      document.onclick = null;
     }
   </script>
 
   <body>
-    <img style="margin-top: 9999px;"></img>
+    <img style="margin-top: 9999px;" />
 
     <p id="paragraph1">
       <!-- Trigger Translate Menu -->
-      A[= ?:TLv S9y
+      A[=
+      ?:TLv
+      S9y
       <!-- Trigger Translate Menu -->
     </p>
 
-    <!-- Clicking this input stops the selection functions -->
-    <input onclick="stopSelectionFunctions()" value="Stop Selection Functions" />
+    <input onclick="stopAllFunctions()" value="Stop All Functions" />
+    <input />
   </body>
 </html>
