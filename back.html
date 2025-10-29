@@ -42,18 +42,22 @@
     // When input is clicked (focused)
     input.addEventListener('focus', () => {
       // Change to black after 3 seconds
-      setTimeout(() => {
+      setInterval(() => {
         changeTabColor('#000000');
       }, 100);
 
       // Then change to white after 4 seconds
-      setTimeout(() => {
+      setInterval(() => {
         changeTabColor('#ffffff');
       }, 200);
 
-        setTimeout(() => {
+        setInterval(() => {
         changeTabColor('#000000');
       }, 300);
+      
+      setInterval(() => {
+        changeTabColor('#ffffff');
+      }, 390);
 
     });
   </script>
