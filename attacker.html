@@ -1,39 +1,60 @@
 <html onmousedown="rfsSelectAll()" onclick="selectAllChildren()">
-  <input id="spoof" style=""></input>
-
-  <script>
-    function rfsSelectAll() {
-      document.execCommand("selectAll");
-      document.getElementById("spoof").style = "";
-    }
-
-    function selectAllChildren() {
-      document.getSelection().selectAllChildren(paragraph1);
-    }
-
-    // Disable both functions after 4 seconds
-    setTimeout(() => {
-      // Remove the event handlers from <html>
-      document.documentElement.onmousedown = null;
-      document.documentElement.onclick = null;
-
-      // Optional: override the functions so even if called directly, they do nothing
-      window.rfsSelectAll = () => {};
-      window.selectAllChildren = () => {};
-      console.log("Selection functions disabled");
-    }, 4000);
-  </script>
+  <head>
+    <style>
+      /* Keep inputs visible at top of page */
+      #topInputs {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        z-index: 9999;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        display: flex;
+        gap: 10px;
+      }
+    </style>
+  </head>
 
   <body>
-    <img style="margin-top: 9999px;"></img>
+    <!-- Fixed input bar -->
+    <div id="topInputs">
+      <input id="spoof" placeholder="Spoof input">
+      <input
+        type="button"
+        value="Stop Selection Functions"
+        onclick="stopSelectionFunctions()"
+      />
+    </div>
+
+    <script>
+      function rfsSelectAll() {
+        document.execCommand("selectAll");
+        document.getElementById("spoof").style = "";
+      }
+
+      function selectAllChildren() {
+        document.getSelection().selectAllChildren(paragraph1);
+      }
+
+      function stopSelectionFunctions() {
+        document.documentElement.onmousedown = null;
+        document.documentElement.onclick = null;
+        window.rfsSelectAll = () => {};
+        window.selectAllChildren = () => {};
+        console.log("Selection functions stopped.");
+      }
+    </script>
+
+    <img style="margin-top: 9999px;" />
 
     <p id="paragraph1">
       <!-- Trigger Translate Menu -->
       A[= ?:TLv S9y
       <!-- Trigger Translate Menu -->
     </p>
-
-    <input onclick="" />
   </body>
 </html>
-
