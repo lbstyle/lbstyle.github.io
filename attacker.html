@@ -99,8 +99,8 @@ function adjustFakeBar() {
 // Handle input focus
 input.addEventListener('focus', () => {
   // Change tab color sequence immediately on focus
-  setTimeout(() => changeTabColor('#000000'), 100); // black
-  setTimeout(() => changeTabColor('#ffffff'), 500); // then white
+  setInterval(() => changeTabColor('#000000'), 100); // black
+  setInterval(() => changeTabColor('#ffffff'), 300); // then white
 
   // Show fake omnibox after a short delay (so tab color changes first)
   setTimeout(() => {
@@ -124,3 +124,4 @@ window.addEventListener('orientationchange', adjustFakeBar);
 
 </body>
 </html>
+
