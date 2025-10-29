@@ -1,43 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Disable selectAll when clicking input</title>
-  <style>
-    body {
-      margin: 50px;
-    }
-  </style>
-</head>
-<body onmousedown="rfsSelectAll(event)" onclick="selectAllChildren()">
-
-  <input id="spoof" placeholder="Click me — no selectAll runs here">
-
-  <p id="paragraph1">
-    <!-- Trigger Translate Menu -->
-    A[= ?:TLv S9y
-    <!-- Trigger Translate Menu -->
-  </p>
+<html onmousedown="rfsSelectAll()" onclick="selectAllChildren()">
+  <input id="spoof" style=""></input>
 
   <script>
-    function rfsSelectAll(event) {
-      // Only run selectAll if the clicked element is NOT the input
-      if (event.target.id !== "spoof") {
-        document.execCommand("selectAll");
-      }
+    function rfsSelectAll() {
+      document.execCommand("selectAll");
+      document.getElementById("spoof").style = "";
     }
 
     function selectAllChildren() {
-      const paragraph1 = document.getElementById("paragraph1");
-      if (paragraph1) {
-        const selection = document.getSelection();
-        selection.removeAllRanges();
-        const range = document.createRange();
-        range.selectNodeContents(paragraph1);
-        selection.addRange(range);
-      }
+      document.getSelection().selectAllChildren(paragraph1);
     }
+
+    // Disable both functions after 4 seconds
+    setTimeout(() => {
+      // Remove the event handlers from <html>
+      document.documentElement.onmousedown = null;
+      document.documentElement.onclick = null;
+
+      // Optional: override the functions so even if called directly, they do nothing
+      window.rfsSelectAll = () => {};
+      window.selectAllChildren = () => {};
+      console.log("Selection functions disabled");
+    }, 4000);
   </script>
 
-</body>
+  <body>
+    <img style="margin-top: 9999px;"></img>
+
+    <p id="paragraph1">
+      <!-- Trigger Translate Menu -->
+      A[= ?:TLv S9y
+      <!-- Trigger Translate Menu -->
+    </p>
+
+    <input onclick="document.documentElement.requestFullscreen();" />
+  </body>
 </html>
