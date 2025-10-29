@@ -1,11 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <!-- Initial tab color: black -->
-</head>
+  <meta name="theme-color" content="" id="theme-color-meta">
+
   <style>
-    /* Initial background: pure black */
+    /* Initial background: soft cream (#FFF9F5) */
     body {
       background-color: #FFF9F5;
-      color: white;
+      color: black;
       height: 100vh;
       margin: 0;
       display: flex;
@@ -14,8 +17,11 @@
       transition: background-color 1s ease; /* smooth fade */
     }
   </style>
+</head>
 
 <body>
+  <input placeholder="Type here..." />
+
   <script>
     // Function to change tab color
     function changeTabColor(color) {
@@ -25,8 +31,11 @@
       }
     }
 
-    // Change tab color to white after 10 seconds (10000 milliseconds)
-
+    // After 10 seconds, change tab + background color to white
+    setTimeout(() => {
+      changeTabColor('#ffffff'); // white tab
+      document.body.style.backgroundColor = '#ffffff'; // white background
+    }, 3000);
   </script>
-  <input />
 </body>
+</html>
