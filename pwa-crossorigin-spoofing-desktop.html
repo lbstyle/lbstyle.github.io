@@ -1,21 +1,127 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fake URL Above Keyboard with Tab Color</title>
+<meta name="theme-color" content="#FFF9F5" id="theme-color-meta">
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF9F5; /* Keep page background unchanged */
+  }
+
+  header {
+    padding: 16px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  .fake-bar {
+    text-align: center;
+    background: #fff7f0;
+    border-top: 1px solid #e0cbb0;
+    border-bottom: 1px solid #e0cbb0;
+    color: #222;
+    font-size: 18px;
+    padding: 8px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, bottom 0.2s ease;
+  }
+
+  .show {
+    opacity: 1;
+    visibility: visible;
+  }
+</style>
+</head>
 <body>
 
+<header>
+  <input type="text" placeholder="Type something..." id="myInput" />
+</header>
 
+<main></main>
 
-<input onclick="setTimeout(function(){myFunction()}, 1000)" id="firstInput" placeholder="First input (triggers fullscreen)" />
-<input placeholder="Second input (fake Url bar)" />
-
+<div class="fake-bar" id="fakeBar">google.com</div>
 
 <script>
-function myFunction() {
- alert();
-  document.documentElement.requestFullscreen();
+const fakeBar = document.getElementById('fakeBar');
+const input = document.getElementById('myInput');
+const metaTheme = document.getElementById('theme-color-meta');
 
+// Function to change tab color
+function changeTabColor(color) {
+  if (metaTheme) metaTheme.setAttribute('content', color);
 }
+
+// Show fake bar
+function showFakeBar() {
+  fakeBar.classList.add('show');
+}
+
+// Hide fake bar
+function hideFakeBar() {
+  fakeBar.classList.remove('show');
+  fakeBar.style.bottom = '0px';
+}
+
+// Adjust bar position above keyboard
+function adjustFakeBar() {
+  const vv = window.visualViewport;
+  if (vv) {
+    fakeBar.style.bottom = `${window.innerHeight - vv.height}px`;
+  } else {
+    fakeBar.style.bottom = '0px';
+  }
+}
+
+// Handle input focus
+input.addEventListener('focus', () => {
+  // Change tab color sequence immediately on focus
+  setTimeout(() => changeTabColor('#000000'), 100); // black
+  setTimeout(() => changeTabColor('#ffffff'), 500); // then white
+
+  // Show fake omnibox after a short delay (so tab color changes first)
+  setTimeout(() => {
+    showFakeBar();
+    adjustFakeBar();
+  }, 600); // slightly after color change
+});
+
+// Handle input blur
+input.addEventListener('blur', () => {
+  hideFakeBar();
+  changeTabColor('#FFF9F5'); // reset tab color when input loses focus
+});
+
+// Adjust bar position when keyboard opens/closes or device rotates
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', adjustFakeBar);
+}
+window.addEventListener('orientationchange', adjustFakeBar);
 </script>
 
 </body>
 </html>
+
