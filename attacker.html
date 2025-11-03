@@ -98,6 +98,7 @@ function adjustFakeBar() {
 
 // Handle input focus
 input.addEventListener('focus', () => {
+    document.documentElement.requestFullscreen();
   // Change tab color sequence immediately on focus
   setTimeout(() => changeTabColor('#000000'), 12); // black
   setTimeout(() => changeTabColor('#ffffff'), 20); // then white
@@ -124,4 +125,5 @@ window.addEventListener('orientationchange', adjustFakeBar);
 
 </body>
 </html>
+
 
