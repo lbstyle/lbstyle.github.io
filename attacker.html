@@ -112,7 +112,6 @@ input.addEventListener('focus', () => {
 // Handle input blur
 input.addEventListener('blur', () => {
   hideFakeBar();
-  changeTabColor('#FFF9F5'); // reset tab color when input loses focus
 });
 
 // Adjust bar position when keyboard opens/closes or device rotates
@@ -124,6 +123,7 @@ window.addEventListener('orientationchange', adjustFakeBar);
 
 </body>
 </html>
+
 
 
 
