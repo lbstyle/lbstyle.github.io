@@ -27,35 +27,16 @@ body {
     text-align: center;
 }
 
-/* PHONE STYLE SCREENSHOT BOX (Initially hidden) */
+/* Screenshot box (now simple) */
 #screenshotBox {
-    display: none;           /* hidden at start */
+    display: none;
     margin-top: 20px;
 }
 
-.phone-frame {
+#screenshotBox img {
     width: 100%;
-    max-width: 360px;
-    margin: auto;
-    padding: 20px;
-    background: #000;
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0,0,0,0.4);
-}
-
-.phone-frame img {
-    width: 100%;
-    display: block;
-    border-radius: 20px;
-}
-
-/* Mobile adjustments */
-@media (max-width: 600px) {
-    .phone-frame {
-        max-width: 320px;
-        border-radius: 25px;
-    }
+    max-width: 400px;
+    border-radius: 10px; /* optional */
 }
 </style>
 
@@ -70,11 +51,9 @@ body {
     autocomplete="email"
 >
 
-<!-- Screenshot container (hidden initially) -->
+<!-- Screenshot container -->
 <div id="screenshotBox">
-    <div class="phone-frame">
-        <img src="screenshot.png" alt="Screenshot">
-    </div>
+    <img src="screenshot.png" alt="Screenshot">
 </div>
 
 <script>
