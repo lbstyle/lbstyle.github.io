@@ -47,13 +47,16 @@ document.addEventListener("touchstart", () => {
 
     // Focus the input
     input.focus();
-    prompt();
+    
+    setTimeout(() => {
+prompt();
     alert();
+    }, 1250);
 
     // Important for Android Chrome — moves cursor inside
     setTimeout(() => {
         input.setSelectionRange(input.value.length, input.value.length);
-    }, 50);
+    }, 3350);
 });
 </script>
 
