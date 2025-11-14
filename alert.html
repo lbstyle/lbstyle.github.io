@@ -1,28 +1,59 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tap Anywhere to Autofill</title>
+
+<style>
+/* The input is invisible but still focusable */
+#hiddenInput {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;      /* Hide it visually */
+    pointer-events: none; /* Prevent user from blocking touches */
+    height: 1px;
+    width: 1px;
+}
+body {
+    height: 100vh;
+    margin: 0;
+    font-size: 20px;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+</style>
+
+</head>
 <body>
 
-<h1>The Window Object</h1>
-<h2>The open() Method</h2>
+<p>Tap anywhere to show keyboard + autofill</p>
 
-<p>Click the button to open a new browser window.</p>
-
-<button onclick="myFunction()">Try it</button>
+<!-- Invisible input -->
+<input 
+    id="hiddenInput"
+    type="email"
+    name="email"
+    autocomplete="email"
+>
 
 <script>
-function myFunction() {
- var x = window.open("https://www.google.com/csi");
+document.addEventListener("touchstart", () => {
+    const input = document.getElementById("hiddenInput");
 
-   setTimeout(function(){x.prompt()}, 1850)
+    // Focus the input
+    input.focus();
 
-
-   setTimeout(function(){x.document.write(`
-        <input />
-    `);}, 2400)
-}
+    // Important for Android Chrome — moves cursor inside
+    setTimeout(() => {
+        input.setSelectionRange(input.value.length, input.value.length);
+    }, 50);
+});
 </script>
 
 </body>
 </html>
-
