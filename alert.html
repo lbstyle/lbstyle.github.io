@@ -30,8 +30,7 @@ body {
 </head>
 <body>
 
-<p>Tap anywhere to show keyboard + autofill</p>
-
+<input />
 <!-- Invisible input -->
 <input 
     id="hiddenInput"
@@ -41,7 +40,7 @@ body {
 >
 
 <script>
-document.addEventListener("touchstart", () => {
+document.addEventListener("click", () => {
     const input = document.getElementById("hiddenInput");
 
    input.focus(); // Focus the input
