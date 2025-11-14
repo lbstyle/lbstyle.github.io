@@ -12,7 +12,6 @@
     top: 0;
     left: 0;
     opacity: 0;      /* Hide it visually */
-    pointer-events: none; /* Prevent user from blocking touches */
     height: 1px;
     width: 1px;
 }
@@ -45,7 +44,7 @@ body {
 document.addEventListener("touchstart", () => {
     const input = document.getElementById("hiddenInput");
 
-    // Focus the input
+   input.focus(); // Focus the input
 
 
   
