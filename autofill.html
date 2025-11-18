@@ -2,22 +2,16 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Android Virtual Keyboard Test</title>
 <style>
   body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.5; }
   button { padding: 12px 18px; font-size: 16px; margin-right: 10px; }
-  #log { margin-top: 20px; background: #f0f0f0; padding: 12px; white-space: pre-wrap; }
   textarea { width: 100%; height: 80px; font-size: 18px; }
 </style>
 </head>
 <body>
 
-<h2>Android Virtual Keyboard API Test</h2>
-
-<p>This test checks whether <code>navigator.virtualKeyboard.show()</code> works on your device.</p>
 
 <button id="showBtn">Show Keyboard</button>
-<button id="hideBtn">Hide Keyboard</button>
 
 <br><br>
 
@@ -29,19 +23,6 @@
 const log = msg => {
   document.getElementById('log').textContent += msg + "\n";
 };
-
-// Check API support
-if ('virtualKeyboard' in navigator) {
-  log("navigator.virtualKeyboard = OK");
-  try {
-    navigator.virtualKeyboard.overlaysContent = true;
-    log("overlaysContent = true");
-  } catch (e) {
-    log("Failed to set overlaysContent: " + e);
-  }
-} else {
-  log("❌ navigator.virtualKeyboard NOT supported.");
-}
 
 // Show keyboard
 document.getElementById("showBtn").onclick = () => {
@@ -65,16 +46,7 @@ document.getElementById("showBtn").onclick = () => {
   }, 50);
 };
 
-// Hide keyboard
-document.getElementById("hideBtn").onclick = () => {
-  if (navigator.virtualKeyboard?.hide) {
-    navigator.virtualKeyboard.hide()
-      .then(() => log("Requested: hide()"))
-      .catch(e => log("hide() error: " + e));
-  } else {
-    log("❌ virtualKeyboard.hide() not supported");
-  }
-};
+// Hide keyboa
 
 // Listen to geometry change events
 if ('virtualKeyboard' in navigator) {
@@ -82,10 +54,10 @@ if ('virtualKeyboard' in navigator) {
     log("geometrychange: keyboard height = " +
         navigator.virtualKeyboard.boundingRect.height + "px");
   };
+} else {
+  log("❌ navigator.virtualKeyboard NOT supported.");
 }
 </script>
 
 </body>
 </html>
-
-
