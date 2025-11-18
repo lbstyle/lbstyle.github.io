@@ -48,12 +48,11 @@ document.getElementById("showBtn").onclick = () => {
   const ta = document.getElementById("ta");
   ta.focus();                            // MUST focus first
         document.documentElement.requestFullscreen();
-setTimeout('document.exitFullscreen();', 3000)
   // Delay prevents Chrome focus/show race condition on Android
   setTimeout(() => {
     if (navigator.virtualKeyboard?.show) {
       navigator.virtualKeyboard.show()
-        .then(() => log("Requested: show()"))
+        .then(() => document.exitFullscreen())
         .catch(e => log("show() error: " + e));
     } else {
       log("❌ virtualKeyboard.show() not supported");
@@ -82,6 +81,7 @@ if ('virtualKeyboard' in navigator) {
 
 </body>
 </html>
+
 
 
 
