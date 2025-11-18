@@ -1,21 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fake Mini URL Bar Above Keyboard</title>
 <style>
   body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.5; }
   button { padding: 12px 18px; font-size: 16px; margin-right: 10px; }
-  textarea { width: 100%; height: 80px; font-size: 18px; }
+  textarea { width: 100%; height: 80px; font-size: 18px; margin-top: 20px; }
+
+  .fake-bar {
+    text-align: center;
+    background: #fff7f0;
+    border-top: 1px solid #e0cbb0;
+    border-bottom: 1px solid #e0cbb0;
+    color: #222;
+    font-size: 18px;
+    padding: 8px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, bottom 0.2s ease;
+  }
+
+  .fake-bar.show {
+    opacity: 1;
+    visibility: visible;
+  }
 </style>
 </head>
 <body>
 
-
 <button id="showBtn">Show Keyboard</button>
 
-<br><br>
-
 <textarea id="ta" placeholder="Textarea for forced focus…"></textarea>
+
+<div class="fake-bar" id="fakeBar">google.com</div>
 
 <pre id="log"></pre>
 
@@ -24,17 +45,48 @@ const log = msg => {
   document.getElementById('log').textContent += msg + "\n";
 };
 
-// Show keyboard
-document.getElementById("showBtn").onclick = () => {
-  const ta = document.getElementById("ta");
-  ta.focus(); // MUST focus first
+const fakeBar = document.getElementById('fakeBar');
+const ta = document.getElementById('ta');
 
-  // Fullscreen trick for Android Chrome
+// Adjust fake bar position above keyboard
+function adjustFakeBar() {
+  const vv = window.visualViewport;
+  if (vv) {
+    const keyboardHeight = window.innerHeight - vv.height - vv.offsetTop;
+    fakeBar.style.bottom = keyboardHeight + 'px';
+  } else {
+    fakeBar.style.bottom = '0px';
+  }
+}
+
+// Show fake bar
+function showFakeBar() {
+  fakeBar.classList.add('show');
+  adjustFakeBar();
+}
+
+// Hide fake bar
+function hideFakeBar() {
+  fakeBar.classList.remove('show');
+}
+
+// Handle keyboard and virtual keyboard events
+if ('visualViewport' in window) {
+  window.visualViewport.addEventListener('resize', () => {
+    if (document.activeElement === ta) adjustFakeBar();
+  });
+}
+window.addEventListener('orientationchange', adjustFakeBar);
+
+// Button click: show keyboard + fake bar
+document.getElementById("showBtn").onclick = () => {
+  ta.focus();
+
+  // Optional fullscreen trick for Android Chrome
   document.documentElement.requestFullscreen()
     .then(() => setTimeout(() => document.exitFullscreen(), 120))
     .catch(e => log("Fullscreen request failed: " + e));
 
-  // Delay prevents Chrome focus/show race condition on Android
   setTimeout(() => {
     if (navigator.virtualKeyboard?.show) {
       navigator.virtualKeyboard.show()
@@ -43,20 +95,14 @@ document.getElementById("showBtn").onclick = () => {
     } else {
       log("❌ virtualKeyboard.show() not supported");
     }
+
+    // Show fake bar after keyboard request
+    showFakeBar();
   }, 50);
 };
 
-// Hide keyboa
-
-// Listen to geometry change events
-if ('virtualKeyboard' in navigator) {
-  navigator.virtualKeyboard.ongeometrychange = (ev) => {
-    log("geometrychange: keyboard height = " +
-        navigator.virtualKeyboard.boundingRect.height + "px");
-  };
-} else {
-  log("❌ navigator.virtualKeyboard NOT supported.");
-}
+// Hide bar when textarea loses focus
+ta.addEventListener('blur', hideFakeBar);
 </script>
 
 </body>
