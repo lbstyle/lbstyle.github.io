@@ -1,18 +1,142 @@
-
 <!DOCTYPE html>
-<html>
-<body onload="setTimeout('prompt();alert()', 2500);setTimeout('alert()',6000)">
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keyboard + Fake Omnibox Demo</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.5; margin:0; }
+  button { padding: 12px 18px; font-size: 16px; margin-right: 10px; }
+  textarea { width: 100%; height: 80px; font-size: 18px; }
+  #log { margin-top: 20px; background: #f0f0f0; padding: 12px; white-space: pre-wrap; }
 
+  /* Fake omnibox styling */
+  .fake-bar {
+    text-align: center;
+    background: #fff7f0;
+    border-top: 1px solid #e0cbb0;
+    border-bottom: 1px solid #e0cbb0;
+    color: #222;
+    font-size: 18px;
+    padding: 8px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, bottom 0.2s ease;
+  }
+  .fake-bar.show {
+    opacity: 1;
+    visibility: visible;
+  }
+</style>
+</head>
+<body>
 
+<h2>Android Virtual Keyboard + Fake Omnibox Demo</h2>
 
-<input onclick="setTimeout(function(){myFunction()}, 1000)" id="firstInput" placeholder="First input (triggers fullscreen)" />
-<input placeholder="Second input (fake Omnibox)" />
+<button id="showBtn">Show Keyboard</button>
+<button id="hideBtn">Hide Keyboard</button>
 
-<iframe src="https://alesandroortiz.com/security/chromium/js-dialog-origin-spoof.html?data"></iframe>
+<br><br>
+
+<textarea id="ta" placeholder="Textarea for forced focus…"></textarea>
+
+<pre id="log"></pre>
+
+<div class="fake-bar" id="fakeBar">google.com</div>
+
 <script>
-function myFunction() {
- prompt();
- alert();
+const log = msg => {
+  document.getElementById('log').textContent += msg + "\n";
+};
+
+const ta = document.getElementById('ta');
+const fakeBar = document.getElementById('fakeBar');
+
+// Check Virtual Keyboard API support
+if ('virtualKeyboard' in navigator) {
+  log("navigator.virtualKeyboard = OK");
+  try {
+    navigator.virtualKeyboard.overlaysContent = true;
+    log("overlaysContent = true");
+  } catch (e) {
+    log("Failed to set overlaysContent: " + e);
+  }
+} else {
+  log("❌ navigator.virtualKeyboard NOT supported.");
+}
+
+// --- Fake omnibox helpers ---
+function showFakeBar() {
+  fakeBar.classList.add('show');
+  adjustFakeBar();
+}
+
+function hideFakeBar() {
+  fakeBar.classList.remove('show');
+  fakeBar.style.bottom = '0px';
+}
+
+function adjustFakeBar() {
+  const vv = window.visualViewport;
+  if (vv) {
+    fakeBar.style.bottom = `${window.innerHeight - vv.height}px`;
+  } else {
+    fakeBar.style.bottom = '0px';
+  }
+}
+
+// Update fake bar position on keyboard resize / orientation
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', adjustFakeBar);
+}
+window.addEventListener('orientationchange', adjustFakeBar);
+
+// --- Show keyboard button ---
+document.getElementById("showBtn").onclick = () => {
+  ta.focus(); // Focus textarea first
+
+  // Fullscreen trick for Android Chrome
+  document.documentElement.requestFullscreen()
+    .then(() => setTimeout(() => document.exitFullscreen(), 120))
+    .catch(e => log("Fullscreen request failed: " + e));
+
+  // Delay slightly to prevent race conditions
+  setTimeout(() => {
+    if (navigator.virtualKeyboard?.show) {
+      navigator.virtualKeyboard.show()
+        .then(() => log("Requested: show()"))
+        .catch(e => log("show() error: " + e));
+    } else {
+      log("❌ virtualKeyboard.show() not supported");
+    }
+
+    // Show the fake omnibox above keyboard
+    showFakeBar();
+  }, 50);
+};
+
+// --- Hide keyboard button ---
+document.getElementById("hideBtn").onclick = () => {
+  if (navigator.virtualKeyboard?.hide) {
+    navigator.virtualKeyboard.hide()
+      .then(() => log("Requested: hide()"))
+      .catch(e => log("hide() error: " + e));
+  } else {
+    log("❌ virtualKeyboard.hide() not supported");
+  }
+
+  hideFakeBar(); // hide fake omnibox as well
+};
+
+// --- Listen to geometry changes ---
+if ('virtualKeyboard' in navigator) {
+  navigator.virtualKeyboard.ongeometrychange = (ev) => {
+    log("geometrychange: keyboard height = " +
+        navigator.virtualKeyboard.boundingRect.height + "px");
+    adjustFakeBar(); // reposition fake bar
+  };
 }
 </script>
 
