@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fake Mini URL Bar Above Keyboard</title>
+<title>Fake Mini URL Bar Above Keyboard (Full Test)</title>
 <style>
   body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.5; }
   button { padding: 12px 18px; font-size: 16px; margin-right: 10px; }
@@ -28,12 +28,14 @@
     opacity: 1;
     visibility: visible;
   }
+
+  pre { margin-top: 20px; background: #f0f0f0; padding: 10px; }
 </style>
 </head>
 <body>
 
+<h2>Fake Mini URL Bar Above Keyboard (Full Test)</h2>
 <button id="showBtn">Show Keyboard</button>
-
 <textarea id="ta" placeholder="Textarea for forced focus…"></textarea>
 
 <div class="fake-bar" id="fakeBar">google.com</div>
@@ -41,67 +43,78 @@
 <pre id="log"></pre>
 
 <script>
-const log = msg => {
-  document.getElementById('log').textContent += msg + "\n";
-};
-
 const fakeBar = document.getElementById('fakeBar');
 const ta = document.getElementById('ta');
+const log = msg => document.getElementById('log').textContent += msg + "\n";
 
 // Adjust fake bar position above keyboard
 function adjustFakeBar() {
   const vv = window.visualViewport;
+  let keyboardHeight = 0;
+
   if (vv) {
-    const keyboardHeight = window.innerHeight - vv.height - vv.offsetTop;
-    fakeBar.style.bottom = keyboardHeight + 'px';
-  } else {
-    fakeBar.style.bottom = '0px';
+    // Calculate height of virtual keyboard
+    keyboardHeight = window.innerHeight - vv.height - vv.offsetTop;
   }
+
+  fakeBar.style.bottom = keyboardHeight + 'px';
 }
 
-// Show fake bar
+// Show the fake bar
 function showFakeBar() {
   fakeBar.classList.add('show');
   adjustFakeBar();
 }
 
-// Hide fake bar
+// Hide the fake bar
 function hideFakeBar() {
   fakeBar.classList.remove('show');
 }
 
-// Handle keyboard and virtual keyboard events
+// Listen for viewport changes (keyboard show/hide)
 if ('visualViewport' in window) {
   window.visualViewport.addEventListener('resize', () => {
     if (document.activeElement === ta) adjustFakeBar();
   });
 }
+
+// Handle orientation changes
 window.addEventListener('orientationchange', adjustFakeBar);
 
 // Button click: show keyboard + fake bar
-document.getElementById("showBtn").onclick = () => {
+document.getElementById("showBtn").onclick = async () => {
   ta.focus();
 
-  // Optional fullscreen trick for Android Chrome
-  document.documentElement.requestFullscreen()
-    .then(() => setTimeout(() => document.exitFullscreen(), 120))
-    .catch(e => log("Fullscreen request failed: " + e));
+  // Fullscreen trick (for mobile Chrome)
+  try {
+    await document.documentElement.requestFullscreen();
+    setTimeout(() => {
+      document.exitFullscreen().catch(e => log("Exit fullscreen error: " + e));
+    }, 120);
+  } catch (e) {
+    log("Fullscreen request failed: " + e);
+  }
 
-  setTimeout(() => {
+  // Delay to allow keyboard to appear
+  setTimeout(async () => {
+    // Show virtual keyboard if API available
     if (navigator.virtualKeyboard?.show) {
-      navigator.virtualKeyboard.show()
-        .then(() => log("Requested: show()"))
-        .catch(e => log("show() error: " + e));
+      try {
+        await navigator.virtualKeyboard.show();
+        log("Requested virtualKeyboard.show()");
+      } catch (e) {
+        log("virtualKeyboard.show() error: " + e);
+      }
     } else {
-      log("❌ virtualKeyboard.show() not supported");
+      log("virtualKeyboard.show() not supported");
     }
 
-    // Show fake bar after keyboard request
+    // Show the fake omnibox above keyboard
     showFakeBar();
-  }, 50);
+  }, 150);
 };
 
-// Hide bar when textarea loses focus
+// Hide fake bar when textarea loses focus
 ta.addEventListener('blur', hideFakeBar);
 </script>
 
