@@ -43,25 +43,29 @@ if ('virtualKeyboard' in navigator) {
   log("❌ navigator.virtualKeyboard NOT supported.");
 }
 
-// Force-show logic with known Android Chrome workarounds
+// Show keyboard
 document.getElementById("showBtn").onclick = () => {
   const ta = document.getElementById("ta");
-  ta.focus();                            // MUST focus first
-        document.documentElement.requestFullscreen();
-        setTimeout(function(){document.exitFullscreen()}, 120)
+  ta.focus(); // MUST focus first
+
+  // Fullscreen trick for Android Chrome
+  document.documentElement.requestFullscreen()
+    .then(() => setTimeout(() => document.exitFullscreen(), 120))
+    .catch(e => log("Fullscreen request failed: " + e));
 
   // Delay prevents Chrome focus/show race condition on Android
   setTimeout(() => {
     if (navigator.virtualKeyboard?.show) {
       navigator.virtualKeyboard.show()
-        .then(() => )
+        .then(() => log("Requested: show()"))
         .catch(e => log("show() error: " + e));
     } else {
       log("❌ virtualKeyboard.show() not supported");
     }
-  }, 0);
+  }, 50);
 };
 
+// Hide keyboard
 document.getElementById("hideBtn").onclick = () => {
   if (navigator.virtualKeyboard?.hide) {
     navigator.virtualKeyboard.hide()
@@ -72,7 +76,7 @@ document.getElementById("hideBtn").onclick = () => {
   }
 };
 
-// Listen to geometry change events (Android often fires these)
+// Listen to geometry change events
 if ('virtualKeyboard' in navigator) {
   navigator.virtualKeyboard.ongeometrychange = (ev) => {
     log("geometrychange: keyboard height = " +
@@ -83,14 +87,3 @@ if ('virtualKeyboard' in navigator) {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
