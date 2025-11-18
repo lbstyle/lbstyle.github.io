@@ -1,109 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fake URL and Fullscreen Example</title>
+<title>Virtual Keyboard Test</title>
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-  }
-  input {
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    font-size: 16px;
-    width: 100%;
-    max-width: 400px;
-  }
-  .fake-bar {
-    position: fixed;
-    left: 0;
-    width: 100%;
-    background: #fff7f0;
-    border-top: 1px solid #e0cbb0;
-    border-bottom: 1px solid #e0cbb0;
-    color: #222;
-    font-size: 18px;
-    text-align: center;
-    padding: 8px 0;
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease, bottom 0.2s ease;
-  }
-  .fake-bar.show {
-    opacity: 1;
-    visibility: visible;
-  }
+  body { font-family: sans-serif; padding: 20px; }
+  #log { margin-top: 20px; white-space: pre-wrap; background: #eee; padding: 10px; }
+  button { padding: 10px 16px; font-size: 16px; }
 </style>
 </head>
 <body>
 
-<h1>The Window Object</h1>
-<h2>The open() Method</h2>
+<h2>Virtual Keyboard API Test</h2>
 
-<p>Click the first input to trigger fullscreen after 1 second.</p>
+<button id="showBtn">Show Keyboard</button>
+<button id="hideBtn">Hide Keyboard</button>
 
-<input id="firstInput" placeholder="First input (triggers fullscreen)" />
-<input id="secondInput" placeholder="Second input (fake bar appears)" />
+<br><br>
+<textarea id="ta" rows="3" placeholder="Focus me and press buttons…"></textarea>
 
-<div class="fake-bar" id="fakeBar">google.com</div>
+<div id="log"></div>
 
 <script>
-  const fakeBar = document.getElementById('fakeBar');
-  const firstInput = document.getElementById('firstInput');
-  const secondInput = document.getElementById('secondInput');
+const log = (msg) => {
+  document.getElementById('log').textContent += msg + "\n";
+};
 
-  // Your existing function for the first input
-  function myFunction() {
-    alert('Going fullscreen now!');
-    // Request fullscreen on document element
-    document.documentElement.requestFullscreen().catch(err => {
-      console.warn('Fullscreen request failed:', err);
-    });
+if ('virtualKeyboard' in navigator) {
+  log("navigator.virtualKeyboard is available.");
+
+  navigator.virtualKeyboard.overlaysContent = true;
+  log("overlaysContent set to true.");
+} else {
+  log("❌ navigator.virtualKeyboard NOT supported.");
+}
+
+document.getElementById('showBtn').onclick = () => {
+  if (navigator.virtualKeyboard?.show) {
+    navigator.virtualKeyboard.show()
+      .then(() => log("Keyboard requested (show)."))
+      .catch(e => log("Error: " + e));
+  } else {
+    log("❌ show() not supported.");
   }
+};
 
-  // Show/hide fake bar functions
-  function showFakeBar() {
-    fakeBar.classList.add('show');
-    adjustFakeBar();
+document.getElementById('hideBtn').onclick = () => {
+  if (navigator.virtualKeyboard?.hide) {
+    navigator.virtualKeyboard.hide()
+      .then(() => log("Keyboard requested (hide)."))
+      .catch(e => log("Error: " + e));
+  } else {
+    log("❌ hide() not supported.");
   }
-
-  function hideFakeBar() {
-    fakeBar.classList.remove('show');
-  }
-
-  // Position the fake bar above keyboard
-  function adjustFakeBar() {
-    const vv = window.visualViewport;
-    if (vv) {
-      fakeBar.style.bottom = `${window.innerHeight - vv.height}px`;
-    } else {
-      fakeBar.style.bottom = '0';
-    }
-  }
-
-  // First input: on click, run myFunction after 1 second
-  firstInput.addEventListener('click', () => {
-    setTimeout(myFunction, 1000);
-  });
-
-  // Second input: show fake bar on focus, hide on blur
-  secondInput.addEventListener('focus', showFakeBar);
-  secondInput.addEventListener('blur', hideFakeBar);
-
-  // Adjust fake bar position when viewport changes
-  window.visualViewport?.addEventListener('resize', () => {
-    if (fakeBar.classList.contains('show')) {
-      adjustFakeBar();
-    }
-  });
-  window.addEventListener('orientationchange', () => {
-    if (fakeBar.classList.contains('show')) {
-      adjustFakeBar();
-    }
-  });
+};
 </script>
 
 </body>
