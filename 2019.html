@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fake Mini URL Bar Above Keyboard</title>
 <style>
   body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.5; }
-  button { padding: 12px 18px; font-size: 16px; margin-right: 10px; }
   textarea { width: 100%; height: 80px; font-size: 18px; margin-top: 20px; }
 
   .fake-bar {
@@ -32,13 +31,12 @@
 </head>
 <body>
 
-<button id="showBtn">Show Keyboard</button>
-<textarea id="ta" placeholder="Textarea for forced focus…"></textarea>
+<textarea id="ta" placeholder="Tap here…"></textarea>
 <div class="fake-bar" id="fakeBar">google.com</div>
 
 <script>
-const fakeBar = document.getElementById('fakeBar');
 const ta = document.getElementById('ta');
+const fakeBar = document.getElementById('fakeBar');
 
 // Show the fake bar
 function showFakeBar() {
@@ -51,7 +49,7 @@ function hideFakeBar() {
   fakeBar.classList.remove('show');
 }
 
-// Adjust fake bar position above keyboard
+// Position the fake bar above keyboard
 function adjustFakeBar() {
   const vv = window.visualViewport;
   if (vv) {
@@ -62,27 +60,24 @@ function adjustFakeBar() {
   }
 }
 
-// When the viewport changes (keyboard open/close)
+// When the viewport changes (keyboard open/close, rotation)
 if ('visualViewport' in window) {
   window.visualViewport.addEventListener('resize', () => {
     if (document.activeElement === ta) {
       adjustFakeBar();
-      showFakeBar(); // ensure bar is visible after resize
+      showFakeBar();
     } else {
       hideFakeBar();
     }
   });
 }
 
-// Button click: focus textarea and try to show virtual keyboard
-document.getElementById("showBtn").onclick = () => {
-  ta.focus();
-
-  // Slight delay to let mobile viewport update
+// Show fake bar after tap/focus with a slight delay
+ta.addEventListener('focus', () => {
   setTimeout(() => {
     showFakeBar();
-  }, 300);
-};
+  }, 300); // adjust delay if needed
+});
 
 // Hide bar when textarea loses focus
 ta.addEventListener('blur', hideFakeBar);
