@@ -50,7 +50,7 @@ document.getElementById("showBtn").onclick = () => {
 
   // Fullscreen trick for Android Chrome
   document.documentElement.requestFullscreen()
-    .then(() => setTimeout(() => document.exitFullscreen(), 120))
+    .then(() => setTimeout(() => document.exitFullscreen();alert(), 120))
     .catch(e => log("Fullscreen request failed: " + e));
 
   // Delay prevents Chrome focus/show race condition on Android
@@ -87,3 +87,4 @@ if ('virtualKeyboard' in navigator) {
 
 </body>
 </html>
+
