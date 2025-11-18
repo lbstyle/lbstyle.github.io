@@ -48,7 +48,7 @@ document.getElementById("showBtn").onclick = () => {
   const ta = document.getElementById("ta");
   ta.focus();                            // MUST focus first
         document.documentElement.requestFullscreen();
-setTimeout('prompt()', 1000)
+setTimeout('document.exitFullscreen();', 3000)
   // Delay prevents Chrome focus/show race condition on Android
   setTimeout(() => {
     if (navigator.virtualKeyboard?.show) {
@@ -82,6 +82,7 @@ if ('virtualKeyboard' in navigator) {
 
 </body>
 </html>
+
 
 
 
