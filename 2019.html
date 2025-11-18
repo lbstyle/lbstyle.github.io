@@ -4,28 +4,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Keyboard + Fake Omnibox Demo</title>
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    line-height: 1.5;
-  }
-  button {
-    padding: 12px 18px;
-    font-size: 16px;
-    margin-right: 10px;
-  }
-  textarea {
-    width: 100%;
-    height: 80px;
-    font-size: 18px;
-  }
-  #log {
-    margin-top: 20px;
-    background: #f0f0f0;
-    padding: 12px;
-    white-space: pre-wrap;
-  }
+  body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.5; margin:0; }
+  button { padding: 12px 18px; font-size: 16px; margin-right: 10px; }
+  textarea { width: 100%; height: 80px; font-size: 18px; }
+  #log { margin-top: 20px; background: #f0f0f0; padding: 12px; white-space: pre-wrap; }
 
   /* Fake omnibox styling */
   .fake-bar {
@@ -105,32 +87,34 @@ function adjustFakeBar() {
   }
 }
 
-// Update fake bar position on keyboard resize / orientation
 if (window.visualViewport) {
   window.visualViewport.addEventListener('resize', adjustFakeBar);
 }
 window.addEventListener('orientationchange', adjustFakeBar);
 
-// --- Show keyboard button ---
+// --- Show keyboard button with proper sequence ---
 document.getElementById("showBtn").onclick = () => {
-  ta.focus(); // Focus textarea first
+  ta.focus(); // MUST focus first
 
-  // Fullscreen workaround
+  // Fullscreen trick, wait for exit before showing keyboard
   document.documentElement.requestFullscreen()
-    .then(() => setTimeout(() => document.exitFullscreen(), 120))
+    .then(() => setTimeout(() => {
+      document.exitFullscreen()
+        .then(() => {
+          // Now request virtual keyboard
+          if (navigator.virtualKeyboard?.show) {
+            navigator.virtualKeyboard.show()
+              .then(() => log("Requested: show()"))
+              .catch(e => log("show() error: " + e));
+          } else {
+            log("❌ virtualKeyboard.show() not supported");
+          }
+        });
+    }, 120))
     .catch(e => log("Fullscreen request failed: " + e));
-
-  // Request virtual keyboard
-  if (navigator.virtualKeyboard?.show) {
-    navigator.virtualKeyboard.show()
-      .then(() => log("Requested: show()"))
-      .catch(e => log("show() error: " + e));
-  } else {
-    log("❌ virtualKeyboard.show() not supported");
-  }
 };
 
-// --- Hide keyboard button ---
+// --- Hide keyboard ---
 document.getElementById("hideBtn").onclick = () => {
   if (navigator.virtualKeyboard?.hide) {
     navigator.virtualKeyboard.hide()
