@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fake Mini URL Bar Above Keyboard (Full Test)</title>
+<title>Fake Mini URL Bar Above Keyboard</title>
 <style>
-  body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.5; }
   button { padding: 12px 18px; font-size: 16px; margin-right: 10px; }
   textarea { width: 100%; height: 80px; font-size: 18px; margin-top: 20px; }
 
@@ -14,8 +13,8 @@
     border-top: 1px solid #e0cbb0;
     border-bottom: 1px solid #e0cbb0;
     color: #222;
-    font-size: 18px;
-    padding: 8px 0;
+    font-size: 16px;
+    padding: 5px 0;
     position: fixed;
     width: 100%;
     z-index: 9999;
@@ -29,23 +28,18 @@
     visibility: visible;
   }
 
-  pre { margin-top: 20px; background: #f0f0f0; padding: 10px; }
 </style>
 </head>
 <body>
 
-<h2>Fake Mini URL Bar Above Keyboard (Full Test)</h2>
 <button id="showBtn">Show Keyboard</button>
 <textarea id="ta" placeholder="Textarea for forced focus…"></textarea>
 
 <div class="fake-bar" id="fakeBar">google.com</div>
 
-<pre id="log"></pre>
-
 <script>
 const fakeBar = document.getElementById('fakeBar');
 const ta = document.getElementById('ta');
-const log = msg => document.getElementById('log').textContent += msg + "\n";
 
 // Adjust fake bar position above keyboard
 function adjustFakeBar() {
@@ -89,10 +83,10 @@ document.getElementById("showBtn").onclick = async () => {
   try {
     await document.documentElement.requestFullscreen();
     setTimeout(() => {
-      document.exitFullscreen().catch(e => log("Exit fullscreen error: " + e));
+      document.exitFullscreen().catch(() => {});
     }, 120);
   } catch (e) {
-    log("Fullscreen request failed: " + e);
+    // ignore fullscreen errors
   }
 
   // Delay to allow keyboard to appear
@@ -101,12 +95,9 @@ document.getElementById("showBtn").onclick = async () => {
     if (navigator.virtualKeyboard?.show) {
       try {
         await navigator.virtualKeyboard.show();
-        log("Requested virtualKeyboard.show()");
       } catch (e) {
-        log("virtualKeyboard.show() error: " + e);
+        // ignore errors
       }
-    } else {
-      log("virtualKeyboard.show() not supported");
     }
 
     // Show the fake omnibox above keyboard
