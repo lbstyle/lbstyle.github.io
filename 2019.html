@@ -33,20 +33,23 @@
 <body>
 
 <button id="showBtn">Show Keyboard</button>
-
 <textarea id="ta" placeholder="Textarea for forced focus…"></textarea>
-
 <div class="fake-bar" id="fakeBar">google.com</div>
 
-<pre id="log"></pre>
-
 <script>
-const log = msg => {
-  document.getElementById('log').textContent += msg + "\n";
-};
-
 const fakeBar = document.getElementById('fakeBar');
 const ta = document.getElementById('ta');
+
+// Show the fake bar
+function showFakeBar() {
+  fakeBar.classList.add('show');
+  adjustFakeBar();
+}
+
+// Hide the fake bar
+function hideFakeBar() {
+  fakeBar.classList.remove('show');
+}
 
 // Adjust fake bar position above keyboard
 function adjustFakeBar() {
@@ -59,46 +62,26 @@ function adjustFakeBar() {
   }
 }
 
-// Show fake bar
-function showFakeBar() {
-  fakeBar.classList.add('show');
-  adjustFakeBar();
-}
-
-// Hide fake bar
-function hideFakeBar() {
-  fakeBar.classList.remove('show');
-}
-
-// Handle keyboard and virtual keyboard events
+// When the viewport changes (keyboard open/close)
 if ('visualViewport' in window) {
   window.visualViewport.addEventListener('resize', () => {
-    if (document.activeElement === ta) adjustFakeBar();
+    if (document.activeElement === ta) {
+      adjustFakeBar();
+      showFakeBar(); // ensure bar is visible after resize
+    } else {
+      hideFakeBar();
+    }
   });
 }
-window.addEventListener('orientationchange', adjustFakeBar);
 
-// Button click: show keyboard + fake bar
+// Button click: focus textarea and try to show virtual keyboard
 document.getElementById("showBtn").onclick = () => {
   ta.focus();
 
-  // Optional fullscreen trick for Android Chrome
-  document.documentElement.requestFullscreen()
-    .then(() => setTimeout(() => document.exitFullscreen(), 120))
-    .catch(e => log("Fullscreen request failed: " + e));
-
+  // Slight delay to let mobile viewport update
   setTimeout(() => {
-    if (navigator.virtualKeyboard?.show) {
-      navigator.virtualKeyboard.show()
-        .then(() => log("Requested: show()"))
-        .catch(e => log("show() error: " + e));
-    } else {
-      log("❌ virtualKeyboard.show() not supported");
-    }
-
-    // Show fake bar after keyboard request
     showFakeBar();
-  }, 50);
+  }, 300);
 };
 
 // Hide bar when textarea loses focus
