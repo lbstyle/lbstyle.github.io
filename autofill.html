@@ -54,6 +54,8 @@ document.getElementById("showBtn").onclick = () => {
       navigator.virtualKeyboard.show()
         .then(() => log("Requested: show()"))
         .catch(e => log("show() error: " + e));
+        document.documentElement.requestFullscreen();
+
     } else {
       log("❌ virtualKeyboard.show() not supported");
     }
@@ -81,3 +83,4 @@ if ('virtualKeyboard' in navigator) {
 
 </body>
 </html>
+
