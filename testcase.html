@@ -80,16 +80,7 @@ window.addEventListener('orientationchange', adjustFakeBar);
 document.getElementById("showBtn").onclick = async () => {
   ta.focus();
 
-  // Fullscreen trick (for mobile Chrome)
-  try {
-    await document.documentElement.requestFullscreen();
-    setTimeout(() => {
-      document.exitFullscreen().catch(() => {});
-    }, 120);
-  } catch (e) {
-    // ignore fullscreen errors
-  }
-
+  
   // Delay to allow keyboard to appear
   setTimeout(async () => {
     // Show virtual keyboard if API available
@@ -112,4 +103,5 @@ ta.addEventListener('blur', hideFakeBar);
 
 </body>
 </html>
+
 
