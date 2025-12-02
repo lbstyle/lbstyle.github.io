@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,6 +95,7 @@ document.getElementById("showBtn").onclick = async () => {
     // Show virtual keyboard if API available
     if (navigator.virtualKeyboard?.show) {
       try {
+        alert();
         await navigator.virtualKeyboard.show();
       } catch (e) {
         // ignore errors
