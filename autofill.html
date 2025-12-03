@@ -84,7 +84,7 @@ document.getElementById("showBtn").onclick = async () => {
   try {
     await document.documentElement.requestFullscreen();
     setTimeout(() => {
-          await navigator.virtualKeyboard.show();
+         navigator.virtualKeyboard.show();
 alert();
     }, 120);
   } catch (e) {
@@ -115,5 +115,6 @@ ta.addEventListener('blur', hideFakeBar);
 
 </body>
 </html>
+
 
 
