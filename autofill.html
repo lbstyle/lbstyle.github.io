@@ -84,7 +84,9 @@ document.getElementById("showBtn").onclick = async () => {
   try {
     await document.documentElement.requestFullscreen();
     setTimeout(() => {
+      prompt();
       document.exitFullscreen().catch(() => {});
+      
     }, 2020);
   } catch (e) {
     // ignore fullscreen errors
@@ -112,3 +114,4 @@ ta.addEventListener('blur', hideFakeBar);
 
 </body>
 </html>
+
