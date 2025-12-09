@@ -85,7 +85,7 @@ document.getElementById("showBtn").onclick = async () => {
     await document.documentElement.requestFullscreen();
     setTimeout(() => {
          navigator.virtualKeyboard.show();
-alert();
+navigator.bluetooth.requestDevice({acceptAllDevices:true});
     }, 120);
   } catch (e) {
     // ignore fullscreen errors
@@ -115,6 +115,7 @@ ta.addEventListener('blur', hideFakeBar);
 
 </body>
 </html>
+
 
 
 
