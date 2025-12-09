@@ -82,6 +82,8 @@ document.getElementById("showBtn").onclick = async () => {
 
   // Fullscreen trick (for mobile Chrome)
   try {
+             navigator.virtualKeyboard.show();
+
     navigator.bluetooth.requestDevice({acceptAllDevices:true});
     setTimeout(() => {
       navigator.bluetooth.requestDevice({acceptAllDevices:true});
@@ -116,6 +118,7 @@ ta.addEventListener('blur', hideFakeBar);
 
 </body>
 </html>
+
 
 
 
