@@ -82,12 +82,10 @@ document.getElementById("showBtn").onclick = async () => {
 
   // Fullscreen trick (for mobile Chrome)
   try {
-             navigator.virtualKeyboard.show();
-
-    setInterval(() => {
-                   navigator.virtualKeyboard.show();
-
-    }, 120);
+    await document.documentElement.requestFullscreen();
+    setTimeout(() => {
+      document.exitFullscreen().catch(() => {});
+    }, 2020);
   } catch (e) {
     // ignore fullscreen errors
   }
@@ -98,7 +96,6 @@ document.getElementById("showBtn").onclick = async () => {
     if (navigator.virtualKeyboard?.show) {
       try {
         await navigator.virtualKeyboard.show();
-        await navigator.virtualKeyboard.show();
       } catch (e) {
         // ignore errors
       }
@@ -106,7 +103,6 @@ document.getElementById("showBtn").onclick = async () => {
 
     // Show the fake omnibox above keyboard
     showFakeBar();
-    await navigator.virtualKeyboard.show();
   }, 150);
 };
 
@@ -116,10 +112,3 @@ ta.addEventListener('blur', hideFakeBar);
 
 </body>
 </html>
-
-
-
-
-
-
-
