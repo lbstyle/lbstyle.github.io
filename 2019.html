@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Scroll Down Example</title>
+<title>Fake Mini URL Bar Demo</title>
 <style>
-  body { font-family: sans-serif; }
+  body { font-family: sans-serif; margin: 0; padding: 20px; }
+  
   button { padding: 12px 18px; font-size: 16px; margin-right: 10px; }
-  textarea { width: 100%; font-size: 18px; padding: 10px; margin-top: 20px; }
+  textarea { width: 100%; font-size: 18px; padding: 10px; margin-top: 20px; box-sizing: border-box; }
+
   .fake-bar {
     text-align: center;
     background: #fff7f0;
@@ -22,10 +24,11 @@
     visibility: hidden;
     transition: opacity 0.3s ease, bottom 0.2s ease;
   }
+
   .fake-bar.show { opacity: 1; visibility: visible; }
 
-  .spacer { height: 800px; } /* space to push the middle textarea down */
-  .spacer-bottom { height: 1200px; } /* space to push the bottom text down */
+  .spacer { height: 800px; }        /* Space to push middle textarea down */
+  .spacer-bottom { height: 1200px; } /* Space to push bottom text far down */
 
   .bottom-text { font-size: 20px; text-align: center; margin: 20px; }
 </style>
@@ -74,14 +77,17 @@ function hideFakeBar() {
   fakeBar.classList.remove('show');
 }
 
+// Update fake bar position when viewport changes (keyboard show/hide)
 if ('visualViewport' in window) {
   window.visualViewport.addEventListener('resize', () => {
     if (document.activeElement === ta || document.activeElement === middleTa) adjustFakeBar();
   });
 }
 
+// Handle orientation changes
 window.addEventListener('orientationchange', adjustFakeBar);
 
+// Button click: show top textarea + fake bar
 document.getElementById("showBtn").onclick = async () => {
   ta.focus();
   try {
@@ -99,6 +105,10 @@ document.getElementById("showBtn").onclick = async () => {
     showFakeBar();
   }, 150);
 };
+
+// Show fake bar when either textarea is focused
+ta.addEventListener('focus', showFakeBar);
+middleTa.addEventListener('focus', showFakeBar);
 
 // Hide fake bar when either textarea loses focus
 ta.addEventListener('blur', hideFakeBar);
