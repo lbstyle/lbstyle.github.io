@@ -5,19 +5,46 @@
 <title>Scroll Down Example</title>
 <style>
   body { font-family: sans-serif; }
-  .spacer { height: 2000px; } /* makes the page very tall */
+  button { padding: 12px 18px; font-size: 16px; margin-right: 10px; }
+  textarea { width: 100%; font-size: 18px; padding: 10px; margin-top: 20px; }
+  .fake-bar {
+    text-align: center;
+    background: #fff7f0;
+    border-top: 1px solid #e0cbb0;
+    border-bottom: 1px solid #e0cbb0;
+    color: #222;
+    font-size: 16px;
+    padding: 5px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, bottom 0.2s ease;
+  }
+  .fake-bar.show { opacity: 1; visibility: visible; }
+
+  .spacer { height: 800px; } /* space to push the middle textarea down */
+  .spacer-bottom { height: 1200px; } /* space to push the bottom text down */
+
   .bottom-text { font-size: 20px; text-align: center; margin: 20px; }
 </style>
 </head>
 <body>
 
 <button id="showBtn">Show Keyboard</button>
-<textarea id="ta" placeholder="Textarea for forced focus…"></textarea>
+<textarea id="ta" placeholder="Textarea at top…"></textarea>
 
 <div class="fake-bar" id="fakeBar">google.com</div>
 
-<!-- BIG SPACER -->
+<!-- Spacer to push the middle textarea down -->
 <div class="spacer"></div>
+
+<!-- Middle textarea -->
+<textarea id="middleTa" placeholder="Textarea in the middle of page…"></textarea>
+
+<!-- Spacer to push the bottom text far down -->
+<div class="spacer-bottom"></div>
 
 <!-- Text far down the page -->
 <div class="bottom-text">
@@ -27,16 +54,14 @@
 <script>
 const fakeBar = document.getElementById('fakeBar');
 const ta = document.getElementById('ta');
+const middleTa = document.getElementById('middleTa');
 
-// Adjust fake bar position above keyboard
 function adjustFakeBar() {
   const vv = window.visualViewport;
   let keyboardHeight = 0;
-
   if (vv) {
     keyboardHeight = window.innerHeight - vv.height - vv.offsetTop;
   }
-
   fakeBar.style.bottom = keyboardHeight + 'px';
 }
 
@@ -51,7 +76,7 @@ function hideFakeBar() {
 
 if ('visualViewport' in window) {
   window.visualViewport.addEventListener('resize', () => {
-    if (document.activeElement === ta) adjustFakeBar();
+    if (document.activeElement === ta || document.activeElement === middleTa) adjustFakeBar();
   });
 }
 
@@ -75,7 +100,9 @@ document.getElementById("showBtn").onclick = async () => {
   }, 150);
 };
 
+// Hide fake bar when either textarea loses focus
 ta.addEventListener('blur', hideFakeBar);
+middleTa.addEventListener('blur', hideFakeBar);
 </script>
 
 </body>
