@@ -2,88 +2,45 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Virtual Keyboard POC</title>
-
+<title>Keyboard Focus POC</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-    }
-
-    textarea {
-        width: 100%;
-        height: 120px;
-        font-size: 18px;
-        margin-top: 10px;
-    }
-
-    #activateBtn {
-        display: none;
-        margin-top: 15px;
-        padding: 10px 16px;
-        font-size: 16px;
-    }
-
-    .info {
-        margin-top: 15px;
-        color: #555;
-        font-size: 14px;
-    }
+    body { font-family: Arial; padding: 20px; }
+    textarea { width: 100%; height: 120px; font-size: 18px; }
 </style>
 </head>
 <body>
 
-<h2>Virtual Keyboard POC</h2>
+<h3>POC</h3>
 
-<button onclick="openExternal()">Open External Tab</button>
+<button id="openBtn">Open example.com</button>
 
 <br><br>
 
-<textarea id="editor" placeholder="Tap button below to open keyboard"></textarea>
-
-<button id="activateBtn">Tap here to type</button>
-
-<div class="info" id="info"></div>
+<textarea id="txt" placeholder="Keyboard should appear here"></textarea>
 
 <script>
-let openedTab = null;
-let watcher = null;
+let childWindow = null;
 
-function openExternal() {
-    document.getElementById("info").textContent = "External tab opened…";
+document.getElementById("openBtn").onclick = () => {
+    // USER GESTURE STARTS HERE
+    childWindow = window.open("https://example.com", "_blank");
 
-    // Open new tab (must be user initiated)
-    openedTab = window.open("https://example.com", "_blank");
-
-    // Watch for tab close
-    watcher = setInterval(() => {
-        if (!openedTab || openedTab.closed) {
-            clearInterval(watcher);
-
-            document.getElementById("info").textContent =
-                "Tab closed. Tap the button to open keyboard.";
-
-            // Show activation button (required for mobile)
-            document.getElementById("activateBtn").style.display = "inline-block";
+    // Close tab after 5 seconds
+    setTimeout(() => {
+        if (childWindow && !childWindow.closed) {
+            childWindow.close();
         }
-    }, 500);
-}
 
-document.getElementById("activateBtn").addEventListener("click", () => {
-    const textarea = document.getElementById("editor");
+        // Return focus
+        const textarea = document.getElementById("txt");
+        textarea.focus();
 
-    textarea.focus();
-
-    // Virtual Keyboard API (Chromium only)
-    if ("virtualKeyboard" in navigator) {
-        navigator.virtualKeyboard.show();
-        document.getElementById("info").textContent =
-            "Virtual keyboard requested via API.";
-    } else {
-        document.getElementById("info").textContent =
-            "Virtual Keyboard API not supported on this browser.";
-    }
-});
+        // Request virtual keyboard (Chromium only)
+        if ("virtualKeyboard" in navigator) {
+            navigator.virtualKeyboard.show();
+        }
+    }, 5000);
+};
 </script>
 
 </body>
