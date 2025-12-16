@@ -2,10 +2,47 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Keyboard Focus POC</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keyboard + Fake Bar POC</title>
+
 <style>
-    body { font-family: Arial; padding: 20px; }
-    textarea { width: 100%; height: 120px; font-size: 18px; }
+  body { font-family: Arial; padding: 20px; }
+
+  button {
+    padding: 12px 18px;
+    font-size: 16px;
+  }
+
+  textarea {
+    width: 100%;
+    height: 120px;
+    font-size: 18px;
+    padding: 10px;
+    margin-top: 20px;
+    box-sizing: border-box;
+  }
+
+  /* Fake URL bar */
+  .fake-bar {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background: #fff7f0;
+    border-top: 1px solid #e0cbb0;
+    border-bottom: 1px solid #e0cbb0;
+    font-size: 16px;
+    padding: 6px 0;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease;
+  }
+
+  .fake-bar.show {
+    opacity: 1;
+    visibility: visible;
+  }
 </style>
 </head>
 <body>
@@ -14,33 +51,74 @@
 
 <button id="openBtn">Open example.com</button>
 
-<br><br>
-
 <textarea id="txt" placeholder="Keyboard should appear here"></textarea>
+
+<div class="fake-bar" id="fakeBar">google.com</div>
 
 <script>
 let childWindow = null;
 
+const textarea = document.getElementById("txt");
+const fakeBar = document.getElementById("fakeBar");
+
+/* Adjust fake bar above keyboard */
+function adjustFakeBar() {
+  if (!window.visualViewport) return;
+
+  const vv = window.visualViewport;
+  const keyboardHeight = window.innerHeight - vv.height - vv.offsetTop;
+
+  fakeBar.style.bottom = keyboardHeight + "px";
+}
+
+/* Show / hide fake bar */
+function showFakeBar() {
+  fakeBar.classList.add("show");
+  adjustFakeBar();
+}
+
+function hideFakeBar() {
+  fakeBar.classList.remove("show");
+}
+
+/* Keyboard / viewport listeners */
+if ("visualViewport" in window) {
+  window.visualViewport.addEventListener("resize", () => {
+    if (document.activeElement === textarea) {
+      adjustFakeBar();
+    }
+  });
+}
+
+window.addEventListener("orientationchange", adjustFakeBar);
+
+/* Main flow */
 document.getElementById("openBtn").onclick = () => {
-    // USER GESTURE STARTS HERE
-    childWindow = window.open("https://example.com", "_blank");
+  // user gesture
+  childWindow = window.open("https://example.com", "_blank");
 
-    // Close tab after 5 seconds
-    setTimeout(() => {
-        if (childWindow && !childWindow.closed) {
-            childWindow.close();
-        }
+  setTimeout(() => {
+    if (childWindow && !childWindow.closed) {
+      childWindow.close();
+    }
 
-        // Return focus
-        const textarea = document.getElementById("txt");
-        textarea.focus();
+    // focus textarea
+    textarea.focus();
 
-        // Request virtual keyboard (Chromium only)
-        if ("virtualKeyboard" in navigator) {
-            navigator.virtualKeyboard.show();
-        }
-    }, 5000);
+    // request keyboard (Chromium only)
+    if (navigator.virtualKeyboard?.show) {
+      try { navigator.virtualKeyboard.show(); } catch(e){}
+    }
+
+    // show fake bar
+    showFakeBar();
+
+  }, 3120);
 };
+
+/* Focus handling */
+textarea.addEventListener("focus", showFakeBar);
+textarea.addEventListener("blur", hideFakeBar);
 </script>
 
 </body>
