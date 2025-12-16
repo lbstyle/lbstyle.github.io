@@ -1,25 +1,90 @@
-<button id="activate" style="display:none;">Tap to type</button>
-<textarea id="txt"></textarea>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Virtual Keyboard POC</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+
+    textarea {
+        width: 100%;
+        height: 120px;
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
+    #activateBtn {
+        display: none;
+        margin-top: 15px;
+        padding: 10px 16px;
+        font-size: 16px;
+    }
+
+    .info {
+        margin-top: 15px;
+        color: #555;
+        font-size: 14px;
+    }
+</style>
+</head>
+<body>
+
+<h2>Virtual Keyboard POC</h2>
+
+<button onclick="openExternal()">Open External Tab</button>
+
+<br><br>
+
+<textarea id="editor" placeholder="Tap button below to open keyboard"></textarea>
+
+<button id="activateBtn">Tap here to type</button>
+
+<div class="info" id="info"></div>
 
 <script>
-function openTab() {
-    let tab = window.open("https://example.com");
+let openedTab = null;
+let watcher = null;
 
-    let i = setInterval(() => {
-        if (!tab || tab.closed) {
-            clearInterval(i);
-            document.getElementById("activate").style.display = "block";
+function openExternal() {
+    document.getElementById("info").textContent = "External tab opened…";
+
+    // Open new tab (must be user initiated)
+    openedTab = window.open("https://example.com", "_blank");
+
+    // Watch for tab close
+    watcher = setInterval(() => {
+        if (!openedTab || openedTab.closed) {
+            clearInterval(watcher);
+
+            document.getElementById("info").textContent =
+                "Tab closed. Tap the button to open keyboard.";
+
+            // Show activation button (required for mobile)
+            document.getElementById("activateBtn").style.display = "inline-block";
         }
     }, 500);
 }
 
-document.getElementById("activate").onclick = () => {
-    const t = document.getElementById("txt");
-    t.focus();
+document.getElementById("activateBtn").addEventListener("click", () => {
+    const textarea = document.getElementById("editor");
 
+    textarea.focus();
+
+    // Virtual Keyboard API (Chromium only)
     if ("virtualKeyboard" in navigator) {
         navigator.virtualKeyboard.show();
+        document.getElementById("info").textContent =
+            "Virtual keyboard requested via API.";
+    } else {
+        document.getElementById("info").textContent =
+            "Virtual Keyboard API not supported on this browser.";
     }
-};
+});
 </script>
 
+</body>
+</html>
