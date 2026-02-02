@@ -92,7 +92,6 @@ document.getElementById("showBtn").onclick = async () => {
   try {
     await document.documentElement.requestFullscreen();
     setTimeout(() => {
-      prompt();
       document.exitFullscreen().catch(() => {});
     }, 2020);
   } catch (e) {}
