@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fake Chrome Omnibox Full Top</title>
+<title>Fake Chrome Omnibox on Button Click</title>
 
 <style>
   body {
@@ -12,11 +12,11 @@
     background: #fff;
   }
 
-  /* Full-width top omnibox screenshot */
+  /* Full-width top omnibox screenshot, hidden initially */
   #fakeOmniboxImg {
-    display: block;          /* always visible at top */
-    width: 100%;             /* full page width */
-    height: auto;            /* maintain aspect ratio */
+    display: none;          /* hidden by default */
+    width: 100%;            /* full page width */
+    height: auto;           /* maintain aspect ratio */
   }
 
   /* Push content below the omnibox */
@@ -44,7 +44,7 @@
 
 <body>
 
-<!-- Fake Chrome Omnibox displayed at top -->
+<!-- Fake Chrome Omnibox (hidden initially) -->
 <img id="fakeOmniboxImg" src="screen.png" alt="Fake Chrome Omnibox">
 
 <div class="content">
@@ -56,9 +56,14 @@
 </div>
 
 <script>
+const fakeOmniboxImg = document.getElementById('fakeOmniboxImg');
 const ta = document.getElementById('ta');
 
 document.getElementById('showBtn').onclick = async () => {
+  // Show the omnibox
+  fakeOmniboxImg.style.display = 'block';
+
+  // Focus the textarea and attempt to show keyboard
   ta.focus();
 
   try { 
