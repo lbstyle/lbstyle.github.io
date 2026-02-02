@@ -91,9 +91,6 @@ document.getElementById("showBtn").onclick = async () => {
   ta.focus();
   try {
     await document.documentElement.requestFullscreen();
-    setTimeout(() => {
-      document.exitFullscreen().catch(() => {});
-    }, 2020);
   } catch (e) {}
 
   setTimeout(async () => {
