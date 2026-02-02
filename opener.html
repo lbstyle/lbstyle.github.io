@@ -2,42 +2,52 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fake Omnibox on Keyboard Open</title>
+<title>Chrome-Style Fake Omnibox</title>
 
 <style>
   body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 16px;
+    background: #fff;
   }
 
-  /* Fake Chrome omnibox */
+  /* Fake Chrome Omnibox */
   .fake-omnibox {
     display: none;
-    margin-bottom: 10px;
-    padding: 10px 14px;
-    border-radius: 22px;
-    background: #f1f3f4;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    font-size: 15px;
-    color: #444;
-    display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    height: 44px;
+    padding: 0 14px;
+    margin-bottom: 10px;
+
+    background: #f1f3f4;
+    border-radius: 22px;
+    border: 1px solid #dadce0;
+
+    box-shadow:
+      0 1px 2px rgba(60,64,67,.15),
+      0 1px 3px rgba(60,64,67,.1);
+
+    color: #202124;
+    font-size: 15px;
   }
 
   .fake-omnibox.show {
     display: flex;
   }
 
-  .lock {
+  .omnibox-icon {
     font-size: 14px;
+    color: #5f6368;
+    flex-shrink: 0;
   }
 
-  .url {
+  .omnibox-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #3c4043;
   }
 
   button {
@@ -61,15 +71,15 @@
 
 <body>
 
-<!-- Fake Omnibox -->
+<!-- Fake Chrome Omnibox -->
 <div class="fake-omnibox" id="fakeOmnibox">
-  <span class="lock">🔒</span>
-  <span class="url">https://google.com</span>
+  <span class="omnibox-icon">🔒</span>
+  <span class="omnibox-text">google.com</span>
 </div>
 
 <button id="showBtn">Show Keyboard</button>
 
-<textarea id="ta" placeholder="Tap here to open keyboard…"></textarea>
+<textarea id="ta" placeholder="Tap to open keyboard…"></textarea>
 
 <div class="spacer"></div>
 
@@ -85,21 +95,15 @@ function getKeyboardHeight() {
 
 function updateOmnibox() {
   const keyboardHeight = getKeyboardHeight();
-
-  // Keyboard open → show fake omnibox
-  if (keyboardHeight > 0) {
-    fakeOmnibox.classList.add('show');
-  } else {
-    fakeOmnibox.classList.remove('show');
-  }
+  keyboardHeight > 0
+    ? fakeOmnibox.classList.add('show')
+    : fakeOmnibox.classList.remove('show');
 }
 
-// Detect keyboard open / close
 if ('visualViewport' in window) {
   window.visualViewport.addEventListener('resize', updateOmnibox);
 }
 
-// Button forces keyboard open
 document.getElementById('showBtn').onclick = async () => {
   ta.focus();
 
