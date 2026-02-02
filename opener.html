@@ -2,52 +2,21 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chrome-Style Fake Omnibox</title>
+<title>Fake Chrome Omnibox Image</title>
 
 <style>
   body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-    margin: 0;
+    font-family: system-ui, sans-serif;
     padding: 16px;
     background: #fff;
   }
 
-  /* Fake Chrome Omnibox */
-  .fake-omnibox {
+  /* Image container for fake omnibox */
+  #fakeOmniboxImg {
     display: none;
-    align-items: center;
-    gap: 10px;
-    height: 44px;
-    padding: 0 14px;
+    width: 100%;
+    max-width: 500px; /* optional, scale to realistic size */
     margin-bottom: 10px;
-
-    background: #f1f3f4;
-    border-radius: 22px;
-    border: 1px solid #dadce0;
-
-    box-shadow:
-      0 1px 2px rgba(60,64,67,.15),
-      0 1px 3px rgba(60,64,67,.1);
-
-    color: #202124;
-    font-size: 15px;
-  }
-
-  .fake-omnibox.show {
-    display: flex;
-  }
-
-  .omnibox-icon {
-    font-size: 14px;
-    color: #5f6368;
-    flex-shrink: 0;
-  }
-
-  .omnibox-text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #3c4043;
   }
 
   button {
@@ -63,19 +32,14 @@
     box-sizing: border-box;
   }
 
-  .spacer {
-    height: 900px;
-  }
+  .spacer { height: 900px; }
 </style>
 </head>
 
 <body>
 
-<!-- Fake Chrome Omnibox -->
-<div class="fake-omnibox" id="fakeOmnibox">
-  <span class="omnibox-icon">🔒</span>
-  <span class="omnibox-text">google.com</span>
-</div>
+<!-- Fake omnibox image -->
+<img id="fakeOmniboxImg" src="screen.png" alt="Fake Chrome Omnibox">
 
 <button id="showBtn">Show Keyboard</button>
 
@@ -84,36 +48,41 @@
 <div class="spacer"></div>
 
 <script>
-const fakeOmnibox = document.getElementById('fakeOmnibox');
+const fakeOmniboxImg = document.getElementById('fakeOmniboxImg');
 const ta = document.getElementById('ta');
 
-function getKeyboardHeight() {
+function keyboardIsOpen() {
   const vv = window.visualViewport;
-  if (!vv) return 0;
-  return Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+  if (!vv) return false;
+  return (window.innerHeight - vv.height) > 100;
 }
 
 function updateOmnibox() {
-  const keyboardHeight = getKeyboardHeight();
-  keyboardHeight > 0
-    ? fakeOmnibox.classList.add('show')
-    : fakeOmnibox.classList.remove('show');
+  if (keyboardIsOpen() || document.activeElement === ta) {
+    fakeOmniboxImg.style.display = 'block';
+  } else {
+    fakeOmniboxImg.style.display = 'none';
+  }
 }
 
-if ('visualViewport' in window) {
+// Keyboard detection
+if (window.visualViewport) {
   window.visualViewport.addEventListener('resize', updateOmnibox);
 }
 
+// Focus fallback
+document.addEventListener('focusin', updateOmnibox);
+document.addEventListener('focusout', () => setTimeout(updateOmnibox, 50));
+
+// Show keyboard on button click
 document.getElementById('showBtn').onclick = async () => {
   ta.focus();
 
-  try {
-    await document.documentElement.requestFullscreen();
-  } catch (e) {}
+  try { await document.documentElement.requestFullscreen(); } catch(e) {}
 
   setTimeout(async () => {
     if (navigator.virtualKeyboard?.show) {
-      try { await navigator.virtualKeyboard.show(); } catch (e) {}
+      try { await navigator.virtualKeyboard.show(); } catch(e) {}
     }
     updateOmnibox();
   }, 150);
