@@ -2,26 +2,32 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fake Chrome Omnibox Image</title>
+<title>Fake Chrome Omnibox Full Top</title>
 
 <style>
   body {
     font-family: system-ui, sans-serif;
-    padding: 16px;
+    margin: 0;
+    padding: 0;
     background: #fff;
   }
 
-  /* Image container for fake omnibox */
+  /* Full-width top omnibox screenshot */
   #fakeOmniboxImg {
-    display: none;
-    width: 100%;
-    max-width: 500px; /* optional, scale to realistic size */
-    margin-bottom: 10px;
+    display: block;          /* always visible at top */
+    width: 100%;             /* full page width */
+    height: auto;            /* maintain aspect ratio */
+  }
+
+  /* Push content below the omnibox */
+  .content {
+    padding: 16px;
   }
 
   button {
     padding: 12px 18px;
     font-size: 16px;
+    margin-top: 20px;
   }
 
   textarea {
@@ -32,59 +38,37 @@
     box-sizing: border-box;
   }
 
-  .spacer { height: 900px; }
+  .spacer { height: 800px; }
 </style>
 </head>
 
 <body>
 
-<!-- Fake omnibox image -->
+<!-- Fake Chrome Omnibox displayed at top -->
 <img id="fakeOmniboxImg" src="screen.png" alt="Fake Chrome Omnibox">
 
-<button id="showBtn">Show Keyboard</button>
+<div class="content">
+  <button id="showBtn">Show Keyboard</button>
 
-<textarea id="ta" placeholder="Tap to open keyboard…"></textarea>
+  <textarea id="ta" placeholder="Tap to open keyboard…"></textarea>
 
-<div class="spacer"></div>
+  <div class="spacer"></div>
+</div>
 
 <script>
-const fakeOmniboxImg = document.getElementById('fakeOmniboxImg');
 const ta = document.getElementById('ta');
 
-function keyboardIsOpen() {
-  const vv = window.visualViewport;
-  if (!vv) return false;
-  return (window.innerHeight - vv.height) > 100;
-}
-
-function updateOmnibox() {
-  if (keyboardIsOpen() || document.activeElement === ta) {
-    fakeOmniboxImg.style.display = 'block';
-  } else {
-    fakeOmniboxImg.style.display = 'none';
-  }
-}
-
-// Keyboard detection
-if (window.visualViewport) {
-  window.visualViewport.addEventListener('resize', updateOmnibox);
-}
-
-// Focus fallback
-document.addEventListener('focusin', updateOmnibox);
-document.addEventListener('focusout', () => setTimeout(updateOmnibox, 50));
-
-// Show keyboard on button click
 document.getElementById('showBtn').onclick = async () => {
   ta.focus();
 
-  try { await document.documentElement.requestFullscreen(); } catch(e) {}
+  try { 
+    await document.documentElement.requestFullscreen(); 
+  } catch(e) {}
 
   setTimeout(async () => {
     if (navigator.virtualKeyboard?.show) {
       try { await navigator.virtualKeyboard.show(); } catch(e) {}
     }
-    updateOmnibox();
   }, 150);
 };
 </script>
