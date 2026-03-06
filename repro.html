@@ -114,22 +114,8 @@ window.addEventListener('click', () => {
     ran = true;
     newWin = window.open(spoofUrl, 'ao_spoof_test');
     drawCanvas('3');
-    setTimeout(() => {
-        drawCanvas('2');
-    }, 1000);
-    setTimeout(() => {
-        drawCanvas('1');
-    }, 2000);
-    setTimeout(() => {
-        drawCanvas('Scroll down\nslowly');
-        //drawCanvas('Scroll down\nto continue');
-        //drawCanvas('Scroll down');
-        replaceContents();
-        setTimeout(() => {
-            newWin.close();
-            document.exitPictureInPicture();
-        }, delayToWaitForScroll);
-    }, 3000);
+
+
 });
 </script>
 </body>
