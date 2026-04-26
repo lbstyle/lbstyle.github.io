@@ -1,9 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fullscreen + Keyboard UI Overlap Testcase</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #111;
+  color: #eee;
+  padding: 16px;
+}
+
+button {
+  padding: 12px 18px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+textarea {
+  width: 100%;
+  font-size: 18px;
+  padding: 10px;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+/* Fixed bottom bar (safe demo UI) */
+.demo-bar {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  background: #2a2a2a;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.25s;
+}
+
+.demo-bar.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Fullscreen fake "page content" */
+.fake-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  color: #000;
+  display: none;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.fake-page.show {
+  display: block;
+}
+
+.log {
+  margin-top: 15px;
+  font-size: 12px;
+  background: #000;
+  padding: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Fullscreen + Keyboard UI Overlap Test</h2>
+
+<button id="startBtn">Start Test (Fullscreen)</button>
+
+<textarea id="input1" placeholder="Focus to open keyboard..."></textarea>
+
+<div class="demo-bar" id="bar">
+  Demo Bottom UI Region (Non-browser UI)
+</div>
+
+<div class="fake-page" id="page">
+  <h1>Mock Page</h1>
+
+  <p>This is simulated content used to test fullscreen UI behavior.</p>
+
+  <img src="https://lbstyle.github.io/screen.png" style="width:100%;max-width:500px;">
+
+  <p>Observe how UI overlaps when keyboard appears.</p>
+</div>
+
+<div class="log" id="log"></div>
+
 <script>
-  function f() {
-    w = window.open("");
-    w.location = "https://permission.site";
-    setTimeout(function(){w.location.replace('https://www.google.com');}, 3000)
+const bar = document.getElementById('bar');
+const page = document.getElementById('page');
+const log = document.getElementById('log');
+const input1 = document.getElementById('input1');
+
+function logMsg(m) {
+  log.innerHTML += m + "<br>";
+}
+
+function updateBar() {
+  const vv = window.visualViewport;
+  let kb = 0;
+
+  if (vv) {
+    kb = window.innerHeight - vv.height - vv.offsetTop;
   }
+
+  bar.style.bottom = kb + "px";
+  logMsg("keyboard offset: " + kb);
+}
+
+function showUI() {
+  bar.classList.add("show");
+  updateBar();
+}
+
+document.getElementById('startBtn').onclick = async () => {
+  input1.focus();
+
+  try {
+    await document.documentElement.requestFullscreen();
+    logMsg("Fullscreen enabled");
+  } catch (e) {
+    logMsg("Fullscreen failed");
+  }
+
+  setTimeout(() => {
+    page.classList.add("show");
+    showUI();
+  }, 200);
+};
+
+input1.addEventListener('focus', showUI);
+
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', updateBar);
+}
 </script>
 
-<a href="#" onclick="f()">Click here</a>
+</body>
+</html>
