@@ -9,11 +9,18 @@
     textarea { width: 100%; font-size: 18px; padding: 10px; margin-top: 20px; box-sizing: border-box; }
 
     .demo-bar {
-      position: fixed; left: 0; width: 100%;
-      background: #2a2a2a; color: white;
-      text-align: center; padding: 10px;
-      font-size: 14px; z-index: 9999;
-      opacity: 0; visibility: hidden; transition: 0.25s;
+      position: fixed;
+      left: 0;
+      width: 100%;
+      background: #2a2a2a;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.25s;
     }
     .demo-bar.show { opacity: 1; visibility: visible; }
 
@@ -59,15 +66,25 @@
 
     function updateBar() {
       const vv = window.visualViewport;
-      let kb = 0;
-      if (vv) { kb = window.innerHeight - vv.height - vv.offsetTop; }
-      bar.style.bottom = kb + "px";
-      logMsg("keyboard offset: " + kb);
+      if (!vv) return;
+
+      const keyboardHeight = window.innerHeight - vv.height - vv.offsetTop;
+      const barHeight = bar.offsetHeight;
+
+      // Position bar just above the keyboard (or at bottom if no keyboard)
+      const bottomOffset = keyboardHeight > 0 ? keyboardHeight : 0;
+      bar.style.bottom = bottomOffset + "px";
+
+      logMsg("keyboard height: " + keyboardHeight);
     }
 
     function showUI() {
       bar.classList.add("show");
       updateBar();
+    }
+
+    function hideBar() {
+      bar.classList.remove("show");
     }
 
     document.getElementById('startBtn').onclick = async () => {
@@ -85,8 +102,11 @@
     };
 
     input1.addEventListener('focus', showUI);
+    input1.addEventListener('blur', hideBar);
+
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', updateBar);
+      window.visualViewport.addEventListener('scroll', updateBar);
     }
   </script>
 </body>
