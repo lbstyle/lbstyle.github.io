@@ -8,22 +8,6 @@
     button { padding: 12px 18px; font-size: 16px; margin-top: 10px; }
     textarea { width: 100%; font-size: 18px; padding: 10px; margin-top: 20px; box-sizing: border-box; }
 
-    .demo-bar {
-      position: fixed;
-      left: 0;
-      width: 100%;
-      background: #2a2a2a;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      font-size: 14px;
-      z-index: 9999;
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.25s;
-    }
-    .demo-bar.show { opacity: 1; visibility: visible; }
-
     .fake-page {
       position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
@@ -50,42 +34,17 @@
 <body>
   <button id="startBtn">Start Test (Fullscreen)</button>
   <textarea id="input1" placeholder="Focus to open keyboard..."></textarea>
-  <div class="demo-bar" id="bar">Demo Bottom UI Region (Non-browser UI)</div>
   <div class="fake-page" id="page">
     <img src="http://lbstyle.github.io/90b7d965-55a7-499f-aaf3-b770773891c3.jpeg">
   </div>
   <div class="log" id="log"></div>
 
   <script>
-    const bar = document.getElementById('bar');
     const page = document.getElementById('page');
     const log = document.getElementById('log');
     const input1 = document.getElementById('input1');
 
     function logMsg(m) { log.innerHTML += m + "<br>"; }
-
-    function updateBar() {
-      const vv = window.visualViewport;
-      if (!vv) return;
-
-      const keyboardHeight = window.innerHeight - vv.height - vv.offsetTop;
-      const barHeight = bar.offsetHeight;
-
-      // Position bar just above the keyboard (or at bottom if no keyboard)
-      const bottomOffset = keyboardHeight > 0 ? keyboardHeight : 0;
-      bar.style.bottom = bottomOffset + "px";
-
-      logMsg("keyboard height: " + keyboardHeight);
-    }
-
-    function showUI() {
-      bar.classList.add("show");
-      updateBar();
-    }
-
-    function hideBar() {
-      bar.classList.remove("show");
-    }
 
     document.getElementById('startBtn').onclick = async () => {
       input1.focus();
@@ -97,17 +56,8 @@
       }
       setTimeout(() => {
         page.classList.add("show");
-        showUI();
       }, 200);
     };
-
-    input1.addEventListener('focus', showUI);
-    input1.addEventListener('blur', hideBar);
-
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', updateBar);
-      window.visualViewport.addEventListener('scroll', updateBar);
-    }
   </script>
 </body>
 </html>
