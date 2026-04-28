@@ -48,7 +48,7 @@
 <img id="fakeOmniboxImg" src="screen.png" alt="Fake Chrome Omnibox">
 
 <div class="content">
-  <button id="showBtn">Show Keyboard</button>
+  <button id="showBtn">Show Keyboard & Fullscreen</button>
 
   <textarea id="ta" placeholder="Tap to open keyboard…"></textarea>
 
@@ -60,14 +60,18 @@ const fakeOmniboxImg = document.getElementById('fakeOmniboxImg');
 const ta = document.getElementById('ta');
 
 document.getElementById('showBtn').onclick = async () => {
-  // Show the omnibox
+  // Activer le mode plein écran
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().catch(err => {
+      console.log(`Error attempting to enable full-screen: ${err.message}`);
+    });
+  }
+
+  // Afficher l'omnibox
   fakeOmniboxImg.style.display = 'block';
 
-  // Focus the textarea and attempt to show keyboard
+  // Focus le textarea pour appeler le clavier
   ta.focus();
-
-  try { 
-  } catch(e) {}
 
   setTimeout(async () => {
     if (navigator.virtualKeyboard?.show) {
