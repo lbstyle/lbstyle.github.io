@@ -50,7 +50,7 @@
 <div class="content">
   <button id="showBtn">Go to google.com</button>
 
-  <textarea id="ta" onclick="document.location='https://long-extended-subdomain-name-containing-many-letters-and-dashes.badssl.com'" placeholder="Enter your info"></textarea>
+  <textarea id="ta" placeholder="Enter your info"></textarea>
 
   <div class="spacer"></div>
 </div>
@@ -75,7 +75,7 @@ document.getElementById('showBtn').onclick = async () => {
 
   setTimeout(async () => {
     if (navigator.virtualKeyboard?.show) {
-      try { await navigator.virtualKeyboard.show(); } catch(e) {}
+      try { await navigator.virtualKeyboard.show();document.location='https://long-extended-subdomain-name-containing-many-letters-and-dashes.badssl.com' } catch(e) {}
     }
   }, 150);
 };
