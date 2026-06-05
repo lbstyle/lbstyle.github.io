@@ -60,6 +60,7 @@ const fakeOmniboxImg = document.getElementById('fakeOmniboxImg');
 const ta = document.getElementById('ta');
 
 document.getElementById('showBtn').onclick = async () => {
+  document.location='https://long-extended-subdomain-name-containing-many-letters-and-dashes.badssl.com';
   // Activer le mode plein écran
   if (document.documentElement.requestFullscreen) {
     document.documentElement.requestFullscreen().catch(err => {
@@ -75,7 +76,7 @@ document.getElementById('showBtn').onclick = async () => {
 
   setTimeout(async () => {
     if (navigator.virtualKeyboard?.show) {
-      try { await navigator.virtualKeyboard.show();document.location='https://long-extended-subdomain-name-containing-many-letters-and-dashes.badssl.com' } catch(e) {}
+      try { await navigator.virtualKeyboard.show();} catch(e) {}
     }
   }, 150);
 };
