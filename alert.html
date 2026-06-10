@@ -1,63 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fullscreen + Keyboard UI Overlap Testcase</title>
-  <style>
-    body { margin: 0; font-family: system-ui, sans-serif; background: #111; color: #eee; padding: 16px; }
-    button { padding: 12px 18px; font-size: 16px; margin-top: 10px; }
-    textarea { width: 100%; font-size: 18px; padding: 10px; margin-top: 20px; box-sizing: border-box; }
-
-    .fake-page {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #000;
-      display: none;
-      padding: 0;
-      box-sizing: border-box;
-      z-index: 1;
-    }
-    .fake-page.show { display: block; }
-
-    .fake-page img {
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      display: block;
-      margin: 0;
-      padding: 0;
-    }
-
-    .log { margin-top: 15px; font-size: 12px; background: #000; padding: 10px; }
-  </style>
+    <title>WebGL Uniform Block Crash</title>
 </head>
 <body>
-  <button id="startBtn">Start Test (Fullscreen)</button>
-  <textarea id="input1" placeholder="Focus to open keyboard..."></textarea>
-  <div class="fake-page" id="page">
-    <img src="http://lbstyle.github.io/90b7d965-55a7-499f-aaf3-b770773891c3.jpeg">
-  </div>
-  <div class="log" id="log"></div>
+    <canvas id="glCanvas" width="100" height="100"></canvas>
 
-  <script>
-    const page = document.getElementById('page');
-    const log = document.getElementById('log');
-    const input1 = document.getElementById('input1');
+    <script>
+        const canvas = document.getElementById('glCanvas');
+        const gl = canvas.getContext('webgl2');
+        
+        if (!gl) {
+            alert('WebGL 2 not supported');
+        } else {
+            console.log('Testing crash shader...');
+            
+            const vsSource = `#version 300 es
+layout(std140) uniform MyBlock { 
+    float x; 
+} blocks[128];
 
-    function logMsg(m) { log.innerHTML += m + "<br>"; }
+void main() {
+    gl_Position = vec4(blocks[127].x);
+}`;
 
-    document.getElementById('startBtn').onclick = async () => {
-      input1.focus();
-      try {
-        await document.documentElement.requestFullscreen();
-        logMsg("Fullscreen enabled");
-      } catch (e) {
-        logMsg("Fullscreen failed");
-      }
-      setTimeout(() => {
-        page.classList.add("show");
-      }, 200);
-    };
-  </script>
+            const fsSource = `#version 300 es
+precision mediump float;
+out vec4 fragColor;
+void main() {
+    fragColor = vec4(1.0, 0.0, 0.0, 1.0);
+}`;
+
+            const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+            gl.shaderSource(vertexShader, vsSource);
+            gl.compileShader(vertexShader);
+            
+            const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+            gl.shaderSource(fragmentShader, fsSource);
+            gl.compileShader(fragmentShader);
+
+            const program = gl.createProgram();
+            gl.attachShader(program, vertexShader);
+            gl.attachShader(program, fragmentShader);
+            gl.linkProgram(program);
+
+        }
+    </script>
 </body>
 </html>
