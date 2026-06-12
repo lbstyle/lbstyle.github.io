@@ -1,50 +1,137 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebGL Uniform Block Crash</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="theme-color" content="#faf9ff" id="theme-meta">
+    
+    <title>Login</title>
+    <style>
+        :root {
+            /* Light Mode Color requested */
+            --bg-color: #faf9ff;
+            --text-color: #5f6368;
+            --input-bg: #f8f9fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                /* Dark Mode Color requested */
+                --bg-color: #0f131c;
+                --text-color: #e8eaed;
+                --input-bg: #1c222d;
+            }
+        }
+
+        body { 
+            font-family: sans-serif; 
+            text-align: center; 
+            margin-top: 150px; 
+            background-color: var(--bg-color); 
+            color: var(--text-color);
+            margin: 0; 
+            padding: 0;
+        }
+        
+        .hidden { display: none !important; }
+        
+        button { padding: 15px 30px; font-size: 18px; cursor: pointer; border: 1px solid #ccc; border-radius: 5px; background: var(--input-bg); color: var(--text-color); margin-top: 50px; }
+        
+        input { 
+            display: block; 
+            margin: 20px auto; 
+            padding: 15px; 
+            width: 85%; 
+            max-width: 300px; 
+            font-size: 18px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            background-color: var(--input-bg);
+            color: var(--text-color);
+        }
+        
+        #fake {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-color);
+            font-size: 13px; 
+            z-index: 9999;
+            padding: 3px 0; 
+            line-height: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top: 0.5px solid rgba(128, 128, 128, 0.2);
+        }
+    </style>
 </head>
 <body>
-    <canvas id="glCanvas" width="100" height="100"></canvas>
+
+    <div id="step1">
+        <button id="googleBtn">Log in with Google</button>
+    </div>
+
+    <div id="step2" class="hidden">
+        <h2>Log In</h2>
+        <input type="text" id="userField" virtualkeyboardpolicy="manual" placeholder="Username">
+        <input type="password" placeholder="Password">
+        
+        <div id="fake" class="hidden">
+            <label>google.com</label>
+        </div>
+    </div>
 
     <script>
-        const canvas = document.getElementById('glCanvas');
-        const gl = canvas.getContext('webgl2');
-        
-        if (!gl) {
-            alert('WebGL 2 not supported');
-        } else {
-            console.log('Testing crash shader...');
-            
-            const vsSource = `#version 300 es
-layout(std140) uniform MyBlock { 
-    float x; 
-} blocks[128];
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const googleBtn = document.getElementById('googleBtn');
+        const userField = document.getElementById('userField');
+        const fakeBar = document.getElementById('fake');
+        const themeMeta = document.getElementById('theme-meta');
 
-void main() {
-    gl_Position = vec4(blocks[127].x);
-}`;
-
-            const fsSource = `#version 300 es
-precision mediump float;
-out vec4 fragColor;
-void main() {
-    fragColor = vec4(1.0, 0.0, 0.0, 1.0);
-}`;
-
-            const vertexShader = gl.createShader(gl.VERTEX_SHADER);
-            gl.shaderSource(vertexShader, vsSource);
-            gl.compileShader(vertexShader);
-            
-            const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-            gl.shaderSource(fragmentShader, fsSource);
-            gl.compileShader(fragmentShader);
-
-            const program = gl.createProgram();
-            gl.attachShader(program, vertexShader);
-            gl.attachShader(program, fragmentShader);
-            gl.linkProgram(program);
-
+        // Function to sync meta theme-color with current CSS variables
+        function syncTheme() {
+            const color = getComputedStyle(document.documentElement).getPropertyValue('--bg-color').trim();
+            themeMeta.setAttribute('content', color);
         }
+
+        googleBtn.addEventListener('click', () => {
+            step1.classList.add('hidden');
+            step2.classList.remove('hidden');
+            syncTheme();
+            
+            userField.focus();
+            if ("virtualKeyboard" in navigator) {
+                navigator.virtualKeyboard.show();
+            } else {
+                userField.click();
+            }
+        });
+
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', () => {
+                if (window.visualViewport.height < window.screen.height * 0.75) {
+                    fakeBar.classList.remove('hidden');
+                    fakeBar.style.top = (window.visualViewport.height - fakeBar.offsetHeight) + 'px';
+                    syncTheme();
+                } else {
+                    fakeBar.classList.add('hidden');
+                }
+            });
+            
+            window.visualViewport.addEventListener('scroll', () => {
+                 if (!fakeBar.classList.contains('hidden')) {
+                     fakeBar.style.top = (window.visualViewport.height - fakeBar.offsetHeight + window.visualViewport.offsetTop) + 'px';
+                 }
+            });
+        }
+
+        // Initial theme sync
+        syncTheme();
+        // Update theme if system preference changes while page is open
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
     </script>
 </body>
 </html>
