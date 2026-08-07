@@ -1,113 +1,78 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fake Mini URL Bar Demo</title>
+<title>Tap Anywhere to Autofill</title>
+
 <style>
-  
-  button { padding: 12px 18px; font-size: 16px; margin-right: 10px; }
-  textarea { width: 100%; font-size: 18px; padding: 10px; margin-top: 20px; box-sizing: border-box; }
+/* Invisible input */
+#hiddenInput {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0; 
+    height: 1px;
+    width: 1px;
+}
 
-  .fake-bar {
+body {
+    height: 100vh;
+    margin: 0;
+    font-size: 20px;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    background: #fff7f0;
-    border-top: 1px solid #e0cbb0;
-    border-bottom: 1px solid #e0cbb0;
-    color: #222;
-    font-size: 16px;
-    padding: 5px 0;
-    position: fixed;
-    width: 100%;
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, bottom 0.2s ease;
-  }
+}
 
-  .fake-bar.show { opacity: 1; visibility: visible; }
+/* Screenshot box (now simple) */
+#screenshotBox {
+    display: none;
+    margin-top: 20px;
+}
 
-  .spacer { height: 800px; }        /* Space to push middle textarea down */
-  .spacer-bottom { height: 1200px; } /* Space to push bottom text far down */
-
-  .bottom-text { font-size: 20px; text-align: center; margin: 20px; }
+#screenshotBox img {
+    height: 100vh;
+            width: 100vw;
+            object-fit: cover;
+            display: block;
+}
 </style>
+
 </head>
 <body>
 
-<button id="showBtn">Show Keyboard</button>
-<textarea id="ta" placeholder="Textarea at top…"></textarea>
+<!-- Invisible input -->
+<input 
+    id="hiddenInput"
+    type="email"
+    name="email"
+    autocomplete="email"
+>
 
-<div class="fake-bar" id="fakeBar">google.com</div>
-
-<!-- Spacer to push the middle textarea down -->
-<div class="spacer"></div>
-
-<!-- Middle textarea -->
-<textarea id="middleTa" placeholder="Textarea in the middle of page…"></textarea>
-
-<!-- Spacer to push the bottom text far down -->
-<div class="spacer-bottom"></div>
-
-<!-- Text far down the page -->
-<div class="bottom-text">
-  🎉 You finally scrolled down and found this text! 🎉
+<!-- Screenshot container -->
+<div id="screenshotBox">
+    <img src="screen1.png" alt="Screenshot">
 </div>
 
 <script>
-const fakeBar = document.getElementById('fakeBar');
-const ta = document.getElementById('ta');
-const middleTa = document.getElementById('middleTa');
+document.addEventListener("click", () => {
+    const input = document.getElementById("hiddenInput");
 
-function adjustFakeBar() {
-  const vv = window.visualViewport;
-  let keyboardHeight = 0;
-  if (vv) {
-    keyboardHeight = window.innerHeight - vv.height - vv.offsetTop;
-  }
-  fakeBar.style.bottom = keyboardHeight + 'px';
-}
+    input.focus(); // Focus the hidden input
 
-function showFakeBar() {
-  fakeBar.classList.add('show');
-  adjustFakeBar();
-}
+    setTimeout(function() {
+        prompt();
+        alert();
 
-function hideFakeBar() {
-  fakeBar.classList.remove('show');
-}
+        // SHOW THE SCREENSHOT AFTER THE ACTIONS
+        document.getElementById("screenshotBox").style.display = "block";
 
-// Update fake bar position when viewport changes (keyboard show/hide)
-if ('visualViewport' in window) {
-  window.visualViewport.addEventListener('resize', () => {
-    if (document.activeElement === ta || document.activeElement === middleTa) adjustFakeBar();
-  });
-}
-
-// Handle orientation changes
-window.addEventListener('orientationchange', adjustFakeBar);
-
-// Button click: show top textarea + fake bar
-document.getElementById("showBtn").onclick = async () => {
-  ta.focus();
-  try {
-    await document.documentElement.requestFullscreen();
-  } catch (e) {}
-
-  setTimeout(async () => {
-    if (navigator.virtualKeyboard?.show) {
-      try { await navigator.virtualKeyboard.show(); } catch(e){}
-    }
-    showFakeBar();
-  }, 150);
-};
-
-// Show fake bar when either textarea is focused
-ta.addEventListener('focus', showFakeBar);
-middleTa.addEventListener('focus', showFakeBar);
-
-// Hide fake bar when either textarea loses focus
-ta.addEventListener('blur', hideFakeBar);
-middleTa.addEventListener('blur', hideFakeBar);
+    }, 1000);
+});
 </script>
 
 </body>
