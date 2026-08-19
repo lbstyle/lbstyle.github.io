@@ -1,1 +1,27 @@
-<iframe src="https://lbstyle.github.io/off.html?creditcard" style="border: 1px solid black; opacity: 5%;">
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The Window Object</h1>
+<h2>The open() Method</h2>
+
+<p>Click the button to open a new browser window.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<script>
+function myFunction() {
+ var x = window.open("https://www.google.com/csi");
+
+   setTimeout(function(){x.alert()}, 1850)
+
+
+   setTimeout(function(){x.document.write(`
+        <input />
+    `);}, 2400)
+}
+</script>
+
+</body>
+</html>
