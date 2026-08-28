@@ -1,21 +1,84 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Android Autofill FillUi out-of-bounds anchor</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+  /* The autofill target field is positioned ABOVE the viewport top.
+     element.BoundsInWidget() will return a negative y, which propagates
+     unclamped to AutofillManager.notifyViewEntered(). The Android system
+     FillUi (credential picker) will anchor to a screen rect that lies
+     above the WebView's top edge, overlapping the embedding app's native
+     toolbar / Chrome's Omnibox. Adjust `top` to target a specific
+     embedder-UI region. */
+  #u {
+    position: fixed;
+    top: -120px;      /* negative -> anchor lands above the WebView */
+    left: 0;
+    width: 300px;
+    height: 40px;
+    font-size: 16px;
+  }
+  #p {
+    position: fixed;
+    top: -200px;
+    left: 0;
+    width: 300px;
+    height: 40px;
+  }
+  #tap {
+    position: fixed;
+    top: 40px;
+    left: 20px;
+    right: 20px;
+    padding: 18px;
+    background: #1a73e8;
+    color: #fff;
+    font: 18px sans-serif;
+    text-align: center;
+    border-radius: 6px;
+  }
+  #log {
+    position: fixed;
+    top: 120px;
+    left: 20px;
+    right: 20px;
+    font: 12px monospace;
+    white-space: pre-wrap;
+  }
+</style>
+</head>
 <body>
+<form action="/login" method="post" id="f">
+  <input id="u" name="username" type="text"  autocomplete="username">
+  <input id="p" name="password" type="password" autocomplete="current-password">
+</form>
 
-<h1>The Window Object</h1>
-<h2>The open() Method</h2>
+<!-- User-activation surface inside the visible viewport. -->
+<label id="tap" for="u">Tap to sign in</label>
 
-<p>Click the button to open a new browser window.</p>
-
-<button onclick="myFunction()">Try it</button>
+<pre id="log"></pre>
 
 <script>
-function myFunction() {
- var x = window.open("https://g.cn");
-   setTimeout(function(){x.location="cam2.html"}, 1150)
+const log = m => document.getElementById('log').textContent += m + '\n';
 
-}
+document.getElementById('tap').addEventListener('click', () => {
+  // Focus the off-viewport field. The renderer sends
+  // autofill.mojom.AutofillDriver.AskForValuesToFill with
+  // FormFieldData::bounds.y < 0 (set in form_autofill_util.cc from
+  // element.BoundsInWidget()).
+  const u = document.getElementById('u');
+  u.focus({preventScroll: true});
+  const r = u.getBoundingClientRect();
+  log('focused #u, viewport bounds y=' + r.top + ' h=' + r.height);
+  log('expected: Android FillUi anchored above WebView top edge');
+});
+
+// Variant: place the field BELOW the WebView (overlap native UI under
+// the WebView, e.g. an embedder bottom bar). Uncomment to test.
+// document.getElementById('u').style.top =
+//     (window.innerHeight + 80) + 'px';
 </script>
-
 </body>
 </html>
