@@ -1,134 +1,240 @@
+
+Khalil Zhani <chromium.khalil@gmail.com>
+3:55 AM (0 minutes ago)
+to me
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Mock Google PoC</title>
+
 <style>
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  font-family: Arial, sans-serif;
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* No page scrolling */
 }
 
-.page {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+body {
+    font-family: Arial, sans-serif;
+    background: #000;
 }
 
-/* Fake Google page */
-.google {
-  flex: 1;
-  background: white;
-  padding-top: 80px;
+.container {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+/* ================================
+   Fake Google page
+================================ */
+
+.google-page {
+    flex: 1 1 auto;
+    min-height: 0;
+
+    background: #fff;
+
+    padding-top: 60px;
+
+    overflow: hidden;
 }
 
 .logo {
-  text-align: center;
-  font-size: 76px;
-  font-weight: 500;
-  letter-spacing: -6px;
-  margin-bottom: 35px;
+    text-align: center;
+
+    font-size: clamp(50px, 10vw, 76px);
+    font-weight: 500;
+    letter-spacing: -6px;
+
+    margin-bottom: 30px;
 }
 
-.g { color: #4285f4; }
-.o1 { color: #ea4335; }
-.o2 { color: #fbbc05; }
-.g2 { color: #4285f4; }
-.l { color: #34a853; }
-.e { color: #ea4335; }
+.g-blue {
+    color: #4285f4;
+}
 
-.search {
-  width: min(580px, 85%);
-  height: 52px;
-  margin: auto;
-  border: 1px solid #dfe1e5;
-  border-radius: 28px;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  color: #777;
-  box-shadow: 0 1px 6px rgba(32,33,36,.15);
+.o-red {
+    color: #ea4335;
+}
+
+.o-yellow {
+    color: #fbbc05;
+}
+
+.g-blue2 {
+    color: #4285f4;
+}
+
+.l-green {
+    color: #34a853;
+}
+
+.e-red {
+    color: #ea4335;
+}
+
+/* Search box */
+
+.search-box {
+    width: min(580px, 85%);
+    height: 52px;
+
+    margin: 0 auto;
+
+    border: 1px solid #dfe1e5;
+    border-radius: 28px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 20px;
+
+    color: #777;
+
+    box-shadow: 0 1px 6px rgba(32,33,36,.15);
+
+    flex-shrink: 0;
 }
 
 .search-icon {
-  font-size: 21px;
-  margin-right: 12px;
+    font-size: 21px;
+    margin-right: 12px;
 }
 
-/* Fake URL bar at bottom */
+/* Buttons */
+
+.buttons {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.buttons button {
+    border: 0;
+    background: #f8f9fa;
+
+    padding: 11px 20px;
+    margin: 0 5px;
+
+    border-radius: 4px;
+
+    color: #3c4043;
+    font-size: 14px;
+}
+
+/* ================================
+   Fake URL bar
+================================ */
+
 .url-bar {
-  height: 58px;
-  background: #202124;
-  display: flex;
-  align-items: center;
-  padding: 8px 14px;
+    height: 58px;
+    min-height: 58px;
+
+    flex-shrink: 0;
+
+    background: #202124;
+
+    display: flex;
+    align-items: center;
+
+    padding: 8px 14px;
 }
 
 .url {
-  width: 100%;
-  height: 42px;
-  background: #303134;
-  border-radius: 22px;
-  display: flex;
-  align-items: center;
-  padding: 0 18px;
-  color: #ddd;
-  font-size: 15px;
+    width: 100%;
+    height: 42px;
+
+    background: #303134;
+
+    border-radius: 22px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 18px;
+
+    color: #ddd;
+
+    font-size: 15px;
+
+    overflow: hidden;
 }
 
 .lock {
-  margin-right: 10px;
+    margin-right: 10px;
+    flex-shrink: 0;
 }
 
-/* Black bar BELOW URL bar */
+/* ================================
+   Large black bar
+================================ */
+
 .black-bar {
-  height: 110px;
-  background: #000;
+    height: 110px;
+    min-height: 110px;
+
+    flex-shrink: 0;
+
+    background: #000;
 }
 </style>
 </head>
 
 <body>
 
-<div class="page">
+<div class="container">
 
-  <!-- Fake Google page -->
-  <div class="google">
+    <!-- Fake Google page -->
+    <main class="google-page">
 
-    <div class="logo">
-      <span class="g">G</span>
-      <span class="o1">o</span>
-      <span class="o2">o</span>
-      <span class="g2">g</span>
-      <span class="l">l</span>
-      <span class="e">e</span>
+        <div class="logo">
+            <span class="g-blue">G</span>
+            <span class="o-red">o</span>
+            <span class="o-yellow">o</span>
+            <span class="g-blue2">g</span>
+            <span class="l-green">l</span>
+            <span class="e-red">e</span>
+        </div>
+
+        <div class="search-box">
+            <span class="search-icon">⌕</span>
+            <span>Search Google or type a URL</span>
+        </div>
+
+        <div class="buttons">
+            <button>Google Search</button>
+            <button>I'm Feeling Lucky</button>
+        </div>
+
+    </main>
+
+    <!-- Fake URL bar -->
+    <div class="url-bar">
+        <div class="url">
+            <span class="lock">🔒</span>
+            <span>www.google.com</span>
+        </div>
     </div>
 
-    <div class="search">
-      <span class="search-icon">⌕</span>
-      <span>Search Google or type a URL</span>
-    </div>
-
-  </div>
-
-  <!-- URL bar ABOVE the black bar -->
-  <div class="url-bar">
-    <div class="url">
-      <span class="lock">🔒</span>
-      <span>www.google.com</span>
-    </div>
-  </div>
-
-  <!-- Black bar at very bottom -->
-  <div class="black-bar"></div>
+    <!-- Large black bar -->
+    <div class="black-bar"></div>
 
 </div>
 
