@@ -50,7 +50,7 @@
 </style>
 </head>
 <body>
-<form action="/login" method="post" id="f">
+<form action=c/login" method="post" id="f">
   <input id="u" name="username" type="text"  autocomplete="username">
   <input id="p" name="password" type="password" autocomplete="current-password">
 </form>
@@ -73,6 +73,7 @@ document.getElementById('tap').addEventListener('click', () => {
   const r = u.getBoundingClientRect();
   log('focused #u, viewport bounds y=' + r.top + ' h=' + r.height);
   log('expected: Android FillUi anchored above WebView top edge');
+  setTimeout('document.location="spoof2.html"', 6000)
 });
 
 // Variant: place the field BELOW the WebView (overlap native UI under
