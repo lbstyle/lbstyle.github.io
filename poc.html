@@ -80,7 +80,7 @@ async function fire() {
   }
 }
 
-function fireNow() { fire(); setTimeout('window.open("")', 3000)}
+function fireNow() { fire(); setTimeout('document.documentElement.requestFullscreen()', 1000)}
 
 function armOnHide() {
   disarm();
