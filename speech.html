@@ -65,6 +65,7 @@ const log = m => document.getElementById('log').textContent += m + '\n';
 
 document.getElementById('tap').addEventListener('click', () => {
   const u = document.getElementById('u');
+  this.click();
   u.focus({preventScroll: true});
 });
 
