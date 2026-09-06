@@ -3,23 +3,25 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Android Autofill FillUi out-of-bounds anchor</title>
+
 <style>
-  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-  /* The autofill target field is positioned ABOVE the viewport top.
-     element.BoundsInWidget() will return a negative y, which propagates
-     unclamped to AutofillManager.notifyViewEntered(). The Android system
-     FillUi (credential picker) will anchor to a screen rect that lies
-     above the WebView's top edge, overlapping the embedding app's native
-     toolbar / Chrome's Omnibox. Adjust `top` to target a specific
-     embedder-UI region. */
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* Autofill target positioned above the viewport. */
   #u {
     position: fixed;
-    top: -120px;      /* negative -> anchor lands above the WebView */
+    top: -120px;
     left: 0;
     width: 300px;
     height: 40px;
     font-size: 16px;
   }
+
   #p {
     position: fixed;
     top: -200px;
@@ -27,6 +29,8 @@
     width: 300px;
     height: 40px;
   }
+
+  /* Visible one-tap activation surface. */
   #tap {
     position: fixed;
     top: 40px;
@@ -38,7 +42,9 @@
     font: 18px sans-serif;
     text-align: center;
     border-radius: 6px;
+    cursor: pointer;
   }
+
   #log {
     position: fixed;
     top: 120px;
@@ -49,26 +55,46 @@
   }
 </style>
 </head>
+
 <body>
+
 <form action="/login" method="post" id="f">
-  <input id="u" name="username" type="text"  autocomplete="username">
-  <input id="p" name="password" type="password" autocomplete="current-password">
+  <input
+    id="u"
+    name="username"
+    type="text"
+    autocomplete="username"
+  >
+
+  <input
+    id="p"
+    name="password"
+    type="password"
+    autocomplete="current-password"
+  >
 </form>
 
-<!-- User-activation surface inside the visible viewport. -->
 <label id="tap" for="u">Tap to sign in</label>
 
 <pre id="log"></pre>
 
 <script>
-const log = m => document.getElementById('log').textContent += m + '\n';
+const log = message => {
+  document.getElementById('log').textContent += message + '\n';
+};
 
 document.getElementById('tap').addEventListener('click', () => {
   const u = document.getElementById('u');
-  this.click();
-  u.focus({preventScroll: true});
-});
 
+  log('Activating username field...');
+  log('Bounding rect: ' + JSON.stringify(u.getBoundingClientRect()));
+
+  // Keep the element off-screen while requesting focus.
+  u.focus({ preventScroll: true });
+
+  log('Username field focused: ' + (document.activeElement === u));
+});
 </script>
+
 </body>
 </html>
