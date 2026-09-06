@@ -64,21 +64,10 @@
 const log = m => document.getElementById('log').textContent += m + '\n';
 
 document.getElementById('tap').addEventListener('click', () => {
-  // Focus the off-viewport field. The renderer sends
-  // autofill.mojom.AutofillDriver.AskForValuesToFill with
-  // FormFieldData::bounds.y < 0 (set in form_autofill_util.cc from
-  // element.BoundsInWidget()).
   const u = document.getElementById('u');
   u.focus({preventScroll: true});
-  const r = u.getBoundingClientRect();
-  log('focused #u, viewport bounds y=' + r.top + ' h=' + r.height);
-  log('expected: Android FillUi anchored above WebView top edge');
 });
 
-// Variant: place the field BELOW the WebView (overlap native UI under
-// the WebView, e.g. an embedder bottom bar). Uncomment to test.
-// document.getElementById('u').style.top =
-//     (window.innerHeight + 80) + 'px';
 </script>
 </body>
 </html>
