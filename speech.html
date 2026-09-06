@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Android Autofill FillUi out-of-bounds anchor</title>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<title>Off-screen focused input positioning test</title>
 
 <style>
   html, body {
@@ -12,8 +14,8 @@
     overflow: hidden;
   }
 
-  /* Autofill target positioned above the viewport. */
-  #u {
+  /* Test target positioned above the viewport. */
+  #test {
     position: fixed;
     top: -120px;
     left: 0;
@@ -22,15 +24,7 @@
     font-size: 16px;
   }
 
-  #p {
-    position: fixed;
-    top: -200px;
-    left: 0;
-    width: 300px;
-    height: 40px;
-  }
-
-  /* Visible one-tap activation surface. */
+  /* Visible activation surface. */
   #tap {
     position: fixed;
     top: 40px;
@@ -58,23 +52,16 @@
 
 <body>
 
-<form action="/login" method="post" id="f">
-  <input
-    id="u"
-    name="username"
-    type="text"
-    autocomplete="username"
-  >
-
 <input
-  id="u"
-  name="username"
+  id="test"
   type="text"
   autocomplete="off"
+  aria-label="Test field"
 >
-</form>
 
-<label id="tap" for="u">Tap to sign in</label>
+<div id="tap" role="button" tabindex="0">
+  Tap to test
+</div>
 
 <pre id="log"></pre>
 
@@ -83,17 +70,20 @@ const log = message => {
   document.getElementById('log').textContent += message + '\n';
 };
 
-document.getElementById('tap').addEventListener('click', () => {
-  const u = document.getElementById('u');
+function activate() {
+  const input = document.getElementById('test');
 
-  log('Activating username field...');
-  log('Bounding rect: ' + JSON.stringify(u.getBoundingClientRect()));
+  log('Activating test field...');
+  log('Bounding rect: ' +
+      JSON.stringify(input.getBoundingClientRect()));
 
-  // Keep the element off-screen while requesting focus.
-  u.focus({ preventScroll: true });
+  input.focus({ preventScroll: true });
 
-  log('Username field focused: ' + (document.activeElement === u));
-});
+  log('Focused: ' +
+      (document.activeElement === input));
+}
+
+document.getElementById('tap').addEventListener('click', activate);
 </script>
 
 </body>
