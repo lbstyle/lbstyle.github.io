@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<style>
+html { font-family: sans-serif; }
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<script>
+var searchParams = new URLSearchParams(window.location.search);
+var mode = searchParams.get('mode');
+var debug = searchParams.get('debug') == '1';
+
+const clickAgainInstructions = '<meta name="viewport" content="width=device-width, initial-scale=1"><style>html { font-family: sans-serif; }</style><h1>Click anywhere again</h1>';
+
+window.addEventListener('click', () => {
+    var newWin = window.open('about:blank');
+    setTimeout(() => {
+        switch (mode) {
+            case 'notification':
+                newWin.Notification.requestPermission();
+                break;
+            case 'location':
+                newWin.navigator.geolocation.getCurrentPosition(() => {}, () => {});
+                break;
+            case 'bluetooth':
+                newWin.addEventListener('click', () => {
+                    newWin.navigator.bluetooth.requestDevice({acceptAllDevices: true});
+                });
+                newWin.document.body.innerHTML = clickAgainInstructions;
+                break;
+            case 'usb':
+                newWin.addEventListener('click', () => {
+                    newWin.navigator.usb.requestDevice({filters:[]});
+                });
+                newWin.document.body.innerHTML = clickAgainInstructions;
+                break;
+            case 'clipboard':
+                newWin.addEventListener('click', async () => {
+                    await newWin.navigator.clipboard.read();
+                });
+                newWin.document.body.innerHTML = clickAgainInstructions;
+                break;
+            case 'contacts':
+                newWin.addEventListener('click', async () => {
+                    const contactsProps = ['name', 'email', 'tel', 'address', 'icon'];
+                    const contactsOpts = { multiple: true };
+                    await newWin.navigator.contacts.select(contactsProps, contactsOpts);
+                });
+                newWin.document.body.innerHTML = clickAgainInstructions;
+                break;
+            case 'microphone':
+                newWin.navigator.mediaDevices.getUserMedia({audio: true});
+                break;
+            case 'camera':
+            default:
+                newWin.navigator.mediaDevices.getUserMedia({video: true});
+                break;
+        }
+    }, 100);
+});
+</script>
+</body>
+</html>

